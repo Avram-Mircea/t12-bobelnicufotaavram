@@ -1,0 +1,36 @@
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.EntityFrameworkCore;
+
+namespace ClinicaMedicala.Models;
+
+[Index(nameof(CNP), IsUnique = true)]
+public class Pacient : Utilizator
+{
+    [Required]
+    [StringLength(13, MinimumLength = 13)]
+    public string CNP { get; set; } = null!;
+
+    [Required]
+    public DateTime DataNastere { get; set; }
+
+    public bool AsiguratCNAS { get; set; }
+
+    [Required]
+    public GrupaSanguina GrupaSanguina { get; set; }
+
+    [MaxLength(500)]
+    public string? AlergiiCunoscute { get; set; }
+
+    [Required]
+    [MaxLength(150)]
+    public string ContactUrgentaNume { get; set; } = null!;
+
+    [Required]
+    [MaxLength(15)]
+    public string ContactUrgentaTelefon { get; set; } = null!;
+
+    public FisaMedicala? FisaMedicala { get; set; }
+    public ICollection<Programare> Programari { get; set; } = new List<Programare>();
+    public ICollection<DocumentMedical> DocumenteMedicale { get; set; } = new List<DocumentMedical>();
+}

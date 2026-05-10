@@ -1,0 +1,33 @@
+﻿namespace ClinicaMedicala.Models;
+
+public enum Rol
+{
+    Pacient,
+    Medic,
+    Asistent,
+    Admin
+}
+
+public enum GradProfesional
+{
+    Specialist,
+    Primar
+}
+
+public enum Tura
+{
+    Dimineata,
+    Noapte
+}
+
+public enum GrupaSanguina
+{
+    O_Pozitiv,
+    O_Negativ,
+    A_Pozitiv,
+    A_Negativ,
+    B_Pozitiv,
+    B_Negativ,
+    AB_Pozitiv,
+    AB_Negativ
+}

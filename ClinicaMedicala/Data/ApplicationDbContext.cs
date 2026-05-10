@@ -1,0 +1,70 @@
+using ClinicaMedicala.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace ClinicaMedicala.Data;
+
+public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
+
+    public DbSet<Utilizator> Utilizatori { get; set; } = null!;
+    public DbSet<Medic> Medici { get; set; } = null!;
+    public DbSet<Asistent> Asistenti { get; set; } = null!;
+    public DbSet<Pacient> Pacienti { get; set; } = null!;
+    public DbSet<Resursa> Resurse { get; set; } = null!;
+    public DbSet<Programare> Programari { get; set; } = null!;
+    public DbSet<FisaMedicala> FiseMedicale { get; set; } = null!;
+    public DbSet<Consultatie> Consultatii { get; set; } = null!;
+    public DbSet<DocumentMedical> DocumenteMedicale { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // Index unic pe CodParafa pentru Medici
+        modelBuilder.Entity<Medic>()
+            .HasIndex(m => m.CodParafa)
+            .IsUnique();
+
+        // Index unic pe NumarInventar pentru Resurse
+        modelBuilder.Entity<Resursa>()
+            .HasIndex(r => r.NumarInventar)
+            .IsUnique();
+
+        // Tip de coloană decimal(18,2) pentru CostConsultatie
+        modelBuilder.Entity<Medic>()
+            .Property(m => m.CostConsultatie)
+            .HasColumnType("decimal(18,2)");
+
+        // Prevenim ștergerea în cascadă a consultațiilor la ștergerea unui Medic
+        modelBuilder.Entity<Consultatie>()
+            .HasOne(c => c.Medic)
+            .WithMany(m => m.Consultatii)
+            .HasForeignKey(c => c.MedicId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // One-to-One Strict Pacient -> FisaMedicala
+        modelBuilder.Entity<FisaMedicala>()
+            .HasOne(f => f.Pacient)
+            .WithOne(p => p.FisaMedicala)
+            .HasForeignKey<FisaMedicala>(f => f.PacientId)
+            .OnDelete(DeleteBehavior.Cascade); // Dacă e șters pacientul, ștergem și fișa
+
+        // One-to-Many Pacient -> Programari
+        modelBuilder.Entity<Programare>()
+            .HasOne(p => p.Pacient)
+            .WithMany(p => p.Programari)
+            .HasForeignKey(p => p.PacientId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // One-to-Many Medic -> Programari
+        modelBuilder.Entity<Programare>()
+            .HasOne(p => p.Medic)
+            .WithMany(m => m.Programari)
+            .HasForeignKey(p => p.MedicId)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
+}

@@ -1,0 +1,20 @@
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ClinicaMedicala.Models;
+
+public class Medic : Utilizator
+{
+    [Required]
+    [MaxLength(100)]
+    public string Specializare { get; set; } = null!;
+
+    [Required]
+    [MaxLength(6)]
+    public string CodParafa { get; set; } = null!;
+
+    [Required]
+    public GradProfesional GradProfesional { get; set; }
+
+    [Required]
+    public decimal CostConsultatie { get; set; }
+}

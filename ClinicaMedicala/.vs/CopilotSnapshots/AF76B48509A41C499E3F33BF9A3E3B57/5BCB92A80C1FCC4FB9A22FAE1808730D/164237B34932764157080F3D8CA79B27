@@ -1,0 +1,25 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ClinicaMedicala.Models;
+
+public class FisaMedicala
+{
+    [Key]
+    public int Id { get; set; }
+
+    [MaxLength(1000)]
+    public string? IstoricBoliCronice { get; set; }
+
+    [MaxLength(1000)]
+    public string? AntecedenteFamiliale { get; set; }
+
+    [MaxLength(100)]
+    public string? GrupaDeRisc { get; set; }
+
+    [Required]
+    public int PacientId { get; set; }
+
+    [ForeignKey(nameof(PacientId))]
+    public Pacient Pacient { get; set; } = null!;
+}

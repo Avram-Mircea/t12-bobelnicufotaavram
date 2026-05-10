@@ -1,10 +1,70 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Mircea\\source\\repos\\ClinicaMedicala\\",
+  "WorkspaceRootPath": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6FCC3478-2529-4BBE-829E-45DCBF416681}|ClinicaMedicala.csproj|c:\\users\\mircea\\source\\repos\\clinicamedicala\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6FCC3478-2529-4BBE-829E-45DCBF416681}|ClinicaMedicala.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\programare.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\programare.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\medic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\medic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\utilizator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\utilizator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\asistent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\asistent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\pacient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\pacient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\resursa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\resursa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\fisamedicala.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\fisamedicala.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\consultatie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\consultatie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\documentmedical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\documentmedical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\igenericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\genericrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\valfo\\onedrive\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\migrations\\20260510152919_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:migrations\\20260510152919_initialcreate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,24 +74,200 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 7,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{56df62a4-05a3-4e5b-aa1a-99371ccfb997}"
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "GenericRepository.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\GenericRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\GenericRepository.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\GenericRepository.cs",
+              "RelativeToolTip": "Repositories\\GenericRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:36:58.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "IGenericRepository.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\IGenericRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\IGenericRepository.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\IGenericRepository.cs",
+              "RelativeToolTip": "Repositories\\IGenericRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:36:53.921Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "20260510152919_InitialCreate.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Migrations\\20260510152919_InitialCreate.cs",
+              "RelativeDocumentMoniker": "Migrations\\20260510152919_InitialCreate.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Migrations\\20260510152919_InitialCreate.cs",
+              "RelativeToolTip": "Migrations\\20260510152919_InitialCreate.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:29:19.191Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAkAAAAAAAAAAIBJwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-05-10T15:28:15.702Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAABBwEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:26:49.409Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Consultatie.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Consultatie.cs",
+              "RelativeDocumentMoniker": "Models\\Consultatie.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Consultatie.cs",
+              "RelativeToolTip": "Models\\Consultatie.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:13:35.504Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "FisaMedicala.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\FisaMedicala.cs",
+              "RelativeDocumentMoniker": "Models\\FisaMedicala.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\FisaMedicala.cs",
+              "RelativeToolTip": "Models\\FisaMedicala.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAIBQwBsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:13:31.132Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\source\\repos\\ClinicaMedicala\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Mircea\\source\\repos\\ClinicaMedicala\\Program.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAABAAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-09T19:57:05.345Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DocumentMedical.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\DocumentMedical.cs",
+              "RelativeDocumentMoniker": "Models\\DocumentMedical.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\DocumentMedical.cs",
+              "RelativeToolTip": "Models\\DocumentMedical.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:13:39.271Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Programare.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Programare.cs",
+              "RelativeDocumentMoniker": "Models\\Programare.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Programare.cs",
+              "RelativeToolTip": "Models\\Programare.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:13:27.012Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Resursa.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Resursa.cs",
+              "RelativeDocumentMoniker": "Models\\Resursa.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Resursa.cs",
+              "RelativeToolTip": "Models\\Resursa.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAIBQwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:13:22.847Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Pacient.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Pacient.cs",
+              "RelativeDocumentMoniker": "Models\\Pacient.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Pacient.cs",
+              "RelativeToolTip": "Models\\Pacient.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAIBIwCQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:09:20.539Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Asistent.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Asistent.cs",
+              "RelativeDocumentMoniker": "Models\\Asistent.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Asistent.cs",
+              "RelativeToolTip": "Models\\Asistent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:09:15.84Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Medic.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Medic.cs",
+              "RelativeDocumentMoniker": "Models\\Medic.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Medic.cs",
+              "RelativeToolTip": "Models\\Medic.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAIBIwBcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:09:12.389Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Utilizator.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Utilizator.cs",
+              "RelativeDocumentMoniker": "Models\\Utilizator.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Utilizator.cs",
+              "RelativeToolTip": "Models\\Utilizator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:09:09.153Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Enums.cs",
+              "DocumentMoniker": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Enums.cs",
+              "RelativeDocumentMoniker": "Models\\Enums.cs",
+              "ToolTip": "C:\\Users\\valfo\\OneDrive\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Enums.cs",
+              "RelativeToolTip": "Models\\Enums.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAABRwEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-10T15:09:04.698Z"
             }
           ]
         }
