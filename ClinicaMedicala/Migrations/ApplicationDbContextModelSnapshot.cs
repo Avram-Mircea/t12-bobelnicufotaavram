@@ -22,6 +22,38 @@ namespace ClinicaMedicala.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ClinicaMedicala.Models.Autentificare", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("AdresaIp")
+                        .HasMaxLength(45)
+                        .HasColumnType("nvarchar(45)");
+
+                    b.Property<DateTime>("DataOra")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Succes")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserAgent")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("UtilizatorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UtilizatorId");
+
+                    b.ToTable("Autentificari");
+                });
+
             modelBuilder.Entity("ClinicaMedicala.Models.Consultatie", b =>
                 {
                     b.Property<int>("Id")
@@ -47,6 +79,9 @@ namespace ClinicaMedicala.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<int?>("ProgramareId")
+                        .HasColumnType("int");
+
                     b.Property<string>("SimptomePrezentate")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
@@ -60,6 +95,10 @@ namespace ClinicaMedicala.Migrations
                     b.HasIndex("FisaMedicalaId");
 
                     b.HasIndex("MedicId");
+
+                    b.HasIndex("ProgramareId")
+                        .IsUnique()
+                        .HasFilter("[ProgramareId] IS NOT NULL");
 
                     b.ToTable("Consultatii");
                 });
@@ -80,6 +119,9 @@ namespace ClinicaMedicala.Migrations
                     b.Property<DateTime>("DataIncarcare")
                         .HasColumnType("datetime2");
 
+                    b.Property<int?>("MedicId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Observatii")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
@@ -91,6 +133,8 @@ namespace ClinicaMedicala.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("MedicId");
 
                     b.HasIndex("PacientId");
 
@@ -109,13 +153,16 @@ namespace ClinicaMedicala.Migrations
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
 
+                    b.Property<DateTime>("DataCreare")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("GrupaDeRisc")
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("IstoricBoliCronice")
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasMaxLength(2000)
+                        .HasColumnType("nvarchar(2000)");
 
                     b.Property<int>("PacientId")
                         .HasColumnType("int");
@@ -136,6 +183,15 @@ namespace ClinicaMedicala.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("AsistentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CanalNotificare")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DataCreare")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("DataEnd")
                         .HasColumnType("datetime2");
 
@@ -145,10 +201,17 @@ namespace ClinicaMedicala.Migrations
                     b.Property<int>("MedicId")
                         .HasColumnType("int");
 
+                    b.Property<string>("MotivAnulare")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<string>("MotivVizita")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("NotificareTrimisa")
+                        .HasColumnType("bit");
 
                     b.Property<int>("PacientId")
                         .HasColumnType("int");
@@ -164,6 +227,8 @@ namespace ClinicaMedicala.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AsistentId");
+
                     b.HasIndex("MedicId");
 
                     b.HasIndex("PacientId");
@@ -171,6 +236,46 @@ namespace ClinicaMedicala.Migrations
                     b.HasIndex("ResursaId");
 
                     b.ToTable("Programari");
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Rating", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comentariu")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MedicId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Moderat")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("PacientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Scor")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Vizibil")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MedicId");
+
+                    b.HasIndex("PacientId", "MedicId")
+                        .IsUnique();
+
+                    b.ToTable("Ratinguri");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Resursa", b =>
@@ -195,10 +300,18 @@ namespace ClinicaMedicala.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<string>("Locatie")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("NumarInventar")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("SpecializarePermisa")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<int>("Stare")
                         .HasColumnType("int");
@@ -231,11 +344,6 @@ namespace ClinicaMedicala.Migrations
 
                     b.Property<DateTime>("DataCreareCont")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -274,9 +382,44 @@ namespace ClinicaMedicala.Migrations
 
                     b.ToTable("Utilizatori");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Utilizator");
+                    b.UseTptMappingStrategy();
+                });
 
-                    b.UseTphMappingStrategy();
+            modelBuilder.Entity("MedicAsistenti", b =>
+                {
+                    b.Property<int>("AsistentiId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MediciId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AsistentiId", "MediciId");
+
+                    b.HasIndex("MediciId");
+
+                    b.ToTable("MedicAsistenti");
+                });
+
+            modelBuilder.Entity("MedicPacienti", b =>
+                {
+                    b.Property<int>("MediciId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PacientiId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MediciId", "PacientiId");
+
+                    b.HasIndex("PacientiId");
+
+                    b.ToTable("MedicPacienti");
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Administrator", b =>
+                {
+                    b.HasBaseType("ClinicaMedicala.Models.Utilizator");
+
+                    b.ToTable("Administratori");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Asistent", b =>
@@ -291,7 +434,7 @@ namespace ClinicaMedicala.Migrations
                     b.Property<int>("Tura")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Asistent");
+                    b.ToTable("Asistenti");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Medic", b =>
@@ -309,6 +452,10 @@ namespace ClinicaMedicala.Migrations
                     b.Property<int>("GradProfesional")
                         .HasColumnType("int");
 
+                    b.Property<string>("NumarContractCAS")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
                     b.Property<string>("Specializare")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -318,7 +465,7 @@ namespace ClinicaMedicala.Migrations
                         .IsUnique()
                         .HasFilter("[CodParafa] IS NOT NULL");
 
-                    b.HasDiscriminator().HasValue("Medic");
+                    b.ToTable("Medici");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Pacient", b =>
@@ -357,7 +504,18 @@ namespace ClinicaMedicala.Migrations
                         .IsUnique()
                         .HasFilter("[CNP] IS NOT NULL");
 
-                    b.HasDiscriminator().HasValue("Pacient");
+                    b.ToTable("Pacienti");
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Autentificare", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Utilizator", "Utilizator")
+                        .WithMany()
+                        .HasForeignKey("UtilizatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Utilizator");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Consultatie", b =>
@@ -374,18 +532,32 @@ namespace ClinicaMedicala.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("ClinicaMedicala.Models.Programare", "Programare")
+                        .WithOne("Consultatie")
+                        .HasForeignKey("ClinicaMedicala.Models.Consultatie", "ProgramareId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.Navigation("FisaMedicala");
 
                     b.Navigation("Medic");
+
+                    b.Navigation("Programare");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.DocumentMedical", b =>
                 {
+                    b.HasOne("ClinicaMedicala.Models.Medic", "Medic")
+                        .WithMany("DocumenteIncarcate")
+                        .HasForeignKey("MedicId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("ClinicaMedicala.Models.Pacient", "Pacient")
                         .WithMany("DocumenteMedicale")
                         .HasForeignKey("PacientId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Medic");
 
                     b.Navigation("Pacient");
                 });
@@ -403,6 +575,11 @@ namespace ClinicaMedicala.Migrations
 
             modelBuilder.Entity("ClinicaMedicala.Models.Programare", b =>
                 {
+                    b.HasOne("ClinicaMedicala.Models.Asistent", "Asistent")
+                        .WithMany("ProgramariGestionate")
+                        .HasForeignKey("AsistentId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("ClinicaMedicala.Models.Medic", "Medic")
                         .WithMany("Programari")
                         .HasForeignKey("MedicId")
@@ -417,7 +594,10 @@ namespace ClinicaMedicala.Migrations
 
                     b.HasOne("ClinicaMedicala.Models.Resursa", "Resursa")
                         .WithMany("Programari")
-                        .HasForeignKey("ResursaId");
+                        .HasForeignKey("ResursaId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Asistent");
 
                     b.Navigation("Medic");
 
@@ -426,15 +606,100 @@ namespace ClinicaMedicala.Migrations
                     b.Navigation("Resursa");
                 });
 
+            modelBuilder.Entity("ClinicaMedicala.Models.Rating", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Medic", "Medic")
+                        .WithMany("Ratinguri")
+                        .HasForeignKey("MedicId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ClinicaMedicala.Models.Pacient", "Pacient")
+                        .WithMany("Ratinguri")
+                        .HasForeignKey("PacientId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Medic");
+
+                    b.Navigation("Pacient");
+                });
+
             modelBuilder.Entity("ClinicaMedicala.Models.Resursa", b =>
                 {
-                    b.HasOne("ClinicaMedicala.Models.Utilizator", "Administrator")
-                        .WithMany()
+                    b.HasOne("ClinicaMedicala.Models.Administrator", "Administrator")
+                        .WithMany("ResurseAdministrate")
                         .HasForeignKey("AdministratorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Administrator");
+                });
+
+            modelBuilder.Entity("MedicAsistenti", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Asistent", null)
+                        .WithMany()
+                        .HasForeignKey("AsistentiId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ClinicaMedicala.Models.Medic", null)
+                        .WithMany()
+                        .HasForeignKey("MediciId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MedicPacienti", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Medic", null)
+                        .WithMany()
+                        .HasForeignKey("MediciId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ClinicaMedicala.Models.Pacient", null)
+                        .WithMany()
+                        .HasForeignKey("PacientiId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Administrator", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Utilizator", null)
+                        .WithOne()
+                        .HasForeignKey("ClinicaMedicala.Models.Administrator", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Asistent", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Utilizator", null)
+                        .WithOne()
+                        .HasForeignKey("ClinicaMedicala.Models.Asistent", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Medic", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Utilizator", null)
+                        .WithOne()
+                        .HasForeignKey("ClinicaMedicala.Models.Medic", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Pacient", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Utilizator", null)
+                        .WithOne()
+                        .HasForeignKey("ClinicaMedicala.Models.Pacient", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.FisaMedicala", b =>
@@ -442,16 +707,35 @@ namespace ClinicaMedicala.Migrations
                     b.Navigation("Consultatii");
                 });
 
+            modelBuilder.Entity("ClinicaMedicala.Models.Programare", b =>
+                {
+                    b.Navigation("Consultatie");
+                });
+
             modelBuilder.Entity("ClinicaMedicala.Models.Resursa", b =>
                 {
                     b.Navigation("Programari");
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Administrator", b =>
+                {
+                    b.Navigation("ResurseAdministrate");
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Asistent", b =>
+                {
+                    b.Navigation("ProgramariGestionate");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Medic", b =>
                 {
                     b.Navigation("Consultatii");
 
+                    b.Navigation("DocumenteIncarcate");
+
                     b.Navigation("Programari");
+
+                    b.Navigation("Ratinguri");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Pacient", b =>
@@ -461,6 +745,8 @@ namespace ClinicaMedicala.Migrations
                     b.Navigation("FisaMedicala");
 
                     b.Navigation("Programari");
+
+                    b.Navigation("Ratinguri");
                 });
 #pragma warning restore 612, 618
         }
