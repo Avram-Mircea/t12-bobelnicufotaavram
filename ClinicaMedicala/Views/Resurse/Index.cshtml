@@ -66,6 +66,7 @@
             <th>Specializări permise</th>
             <th>Stare</th>
             <th>Scadență revizie</th>
+            <th class="text-end">Acțiuni</th>
         </tr>
     </thead>
     <tbody>
@@ -112,6 +113,9 @@
                     @r.DataScadentaRevizie.ToLocalTime().ToString("dd.MM.yyyy")
                     @if (scadent) { <text>⚠</text> }
                 </small>
+            </td>
+            <td class="text-end">
+                <a asp-action="Edit" asp-route-id="@r.Id" class="btn btn-sm btn-outline-primary">Editează</a>
             </td>
         </tr>
     }

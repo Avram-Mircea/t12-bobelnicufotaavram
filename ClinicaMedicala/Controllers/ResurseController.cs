@@ -91,6 +91,75 @@ public class ResurseController : Controller
         }
     }
 
+    // ── EDITARE (REQ-10) ──────────────────────────────────────────────────────
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var resursa = await _ctx.Resurse
+            .Include(r => r.Specializari)
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+        if (resursa == null) return NotFound();
+
+        var model = new EditeazaResursaViewModel
+        {
+            Id = resursa.Id,
+            Denumire = resursa.Denumire,
+            Tip = resursa.Tip,
+            NumarInventar = resursa.NumarInventar,
+            Locatie = resursa.Locatie,
+            Stare = resursa.Stare,
+            DataUltimaRevizie = resursa.DataUltimaRevizie,
+            DataScadentaRevizie = resursa.DataScadentaRevizie,
+            SpecializareIds = resursa.Specializari.Select(s => s.Id).ToList(),
+            SpecializariDisponibile = await SpecializariActiveAsync()
+        };
+
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(EditeazaResursaViewModel model)
+    {
+        if (!ModelState.IsValid)
+        {
+            model.SpecializariDisponibile = await SpecializariActiveAsync();
+            return View(model);
+        }
+
+        if (model.DataScadentaRevizie < model.DataUltimaRevizie)
+        {
+            ModelState.AddModelError(nameof(model.DataScadentaRevizie),
+                "Scadența reviziei trebuie să fie după ultima revizie.");
+            model.SpecializariDisponibile = await SpecializariActiveAsync();
+            return View(model);
+        }
+
+        try
+        {
+            await _resurse.ActualizeazaAsync(
+                model.Id,
+                model.Denumire,
+                model.Tip,
+                model.NumarInventar,
+                model.Locatie,
+                model.Stare,
+                model.DataUltimaRevizie,
+                model.DataScadentaRevizie,
+                model.SpecializareIds);
+
+            TempData["Succes"] = $"Resursa „{model.Denumire}” a fost actualizată.";
+            return RedirectToAction(nameof(Index));
+        }
+        catch (InvalidOperationException ex)
+        {
+            ModelState.AddModelError(string.Empty, ex.Message);
+            model.SpecializariDisponibile = await SpecializariActiveAsync();
+            return View(model);
+        }
+    }
+
     // ── Helpers ───────────────────────────────────────────────────────────────
     private Task<List<Specializare>> SpecializariActiveAsync() =>
         _ctx.Specializari.Where(s => s.Activ).OrderBy(s => s.Nume).ToListAsync();

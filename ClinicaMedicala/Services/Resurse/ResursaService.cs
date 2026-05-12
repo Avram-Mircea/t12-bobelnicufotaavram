@@ -53,4 +53,55 @@ public class ResursaService : IResursaService
         await _repo.SaveChangesAsync();
         return resursa;
     }
+
+    public async Task ActualizeazaAsync(int id,
+                                         string denumire,
+                                         TipResursa tip,
+                                         string numarInventar,
+                                         string? locatie,
+                                         StareResursa stare,
+                                         DateTime dataUltimaRevizie,
+                                         DateTime dataScadentaRevizie,
+                                         IEnumerable<int> specializareIds)
+    {
+        // Încărcăm cu navigarea Specializari ca să o putem manipula prin tracking
+        var resursa = await _ctx.Resurse
+            .Include(r => r.Specializari)
+            .FirstOrDefaultAsync(r => r.Id == id);
+
+        if (resursa == null)
+            throw new InvalidOperationException("Resursa nu mai există.");
+
+        denumire = denumire.Trim();
+        numarInventar = numarInventar.Trim();
+
+        if (await _repo.DenumireExistaAsync(denumire, idIgnorat: id))
+            throw new InvalidOperationException($"Există deja o altă resursă cu denumirea „{denumire}”.");
+
+        if (await _repo.NumarInventarExistaAsync(numarInventar, idIgnorat: id))
+            throw new InvalidOperationException($"Există deja o altă resursă cu numărul de inventar „{numarInventar}”.");
+
+        resursa.Denumire = denumire;
+        resursa.Tip = tip;
+        resursa.NumarInventar = numarInventar;
+        resursa.Locatie = locatie;
+        resursa.Stare = stare;
+        resursa.DataUltimaRevizie = dataUltimaRevizie;
+        resursa.DataScadentaRevizie = dataScadentaRevizie;
+
+        // Înlocuim lista de specializări: golim → adăugăm cele noi
+        resursa.Specializari.Clear();
+
+        var ids = specializareIds?.Distinct().ToList() ?? new List<int>();
+        if (ids.Count > 0)
+        {
+            var specs = await _ctx.Specializari
+                .Where(s => ids.Contains(s.Id) && s.Activ)
+                .ToListAsync();
+            foreach (var s in specs)
+                resursa.Specializari.Add(s);
+        }
+
+        await _ctx.SaveChangesAsync();
+    }
 }
