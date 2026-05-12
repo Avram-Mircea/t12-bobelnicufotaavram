@@ -4,7 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClinicaMedicala.Models;
 
+// REQ-09: Denumirea trebuie să fie unică în sistem (alături de NumarInventar)
 [Index(nameof(NumarInventar), IsUnique = true)]
+[Index(nameof(Denumire), IsUnique = true)]
 public class Resursa
 {
     [Key]

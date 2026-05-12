@@ -3,6 +3,7 @@ using ClinicaMedicala.Models;
 using ClinicaMedicala.Repositories;
 using ClinicaMedicala.Services;
 using ClinicaMedicala.Services.Auth;
+using ClinicaMedicala.Services.Resurse;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IUtilizatorRepository, UtilizatorRepository>();
 builder.Services.AddScoped<IAutentificareRepository, AutentificareRepository>();
+builder.Services.AddScoped<IResursaRepository, ResursaRepository>();
 
 // ── Servicii ──────────────────────────────────────────────────────────────────
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
@@ -27,6 +29,7 @@ builder.Services.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUtilizatorService, UtilizatorService>();
 builder.Services.AddScoped<IPasswordResetService, PasswordResetService>();
+builder.Services.AddScoped<IResursaService, ResursaService>();
 
 // ── Authentication: Cookie-based ──────────────────────────────────────────────
 // REQ-01, REQ-03: rol stocat în claim, un singur rol principal per utilizator

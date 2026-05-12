@@ -1,0 +1,112 @@
+@model IEnumerable<ClinicaMedicala.Models.Resursa>
+@{
+    ViewData["Title"] = "Management resurse";
+    var filtruTip = ViewBag.FiltruTip as ClinicaMedicala.Models.TipResursa?;
+    var filtruStare = ViewBag.FiltruStare as ClinicaMedicala.Models.StareResursa?;
+    var search = ViewBag.Search as string;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Management resurse</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Adaugă resursă</a>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+<form method="get" class="mb-3">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label mb-1">Tip</label>
+            <select name="tip" class="form-select" onchange="this.form.submit()">
+                <option value="">— toate —</option>
+                @foreach (var t in Enum.GetValues<ClinicaMedicala.Models.TipResursa>())
+                {
+                    <option value="@t" selected="@(filtruTip == t)">@t.ToString().Replace('_', ' ')</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label mb-1">Stare</label>
+            <select name="stare" class="form-select" onchange="this.form.submit()">
+                <option value="">— toate —</option>
+                @foreach (var s in Enum.GetValues<ClinicaMedicala.Models.StareResursa>())
+                {
+                    <option value="@s" selected="@(filtruStare == s)">@s.ToString().Replace('_', ' ')</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label class="form-label mb-1">Caută</label>
+            <input type="text" name="search" value="@search" class="form-control"
+                   placeholder="denumire / nr. inventar / locație" />
+        </div>
+        <div class="col-md-1">
+            <button type="submit" class="btn btn-secondary w-100">Caută</button>
+        </div>
+        <div class="col-md-1">
+            <a asp-action="Index" class="btn btn-outline-secondary w-100">Reset</a>
+        </div>
+    </div>
+</form>
+
+<table class="table table-hover align-middle">
+    <thead class="table-light">
+        <tr>
+            <th>Denumire</th>
+            <th>Tip</th>
+            <th>Nr. inventar</th>
+            <th>Locație</th>
+            <th>Specializare</th>
+            <th>Stare</th>
+            <th>Scadență revizie</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var r in Model)
+    {
+        var scadent = r.DataScadentaRevizie < DateTime.UtcNow;
+        <tr>
+            <td><strong>@r.Denumire</strong></td>
+            <td><small>@r.Tip.ToString().Replace('_', ' ')</small></td>
+            <td><code>@r.NumarInventar</code></td>
+            <td><small>@(r.Locatie ?? "—")</small></td>
+            <td><small>@(r.SpecializarePermisa ?? "—")</small></td>
+            <td>
+                @switch (r.Stare)
+                {
+                    case ClinicaMedicala.Models.StareResursa.Functional:
+                        <span class="badge bg-success">Funcțional</span>
+                        break;
+                    case ClinicaMedicala.Models.StareResursa.In_Mentenanta:
+                        <span class="badge bg-warning text-dark">În mentenanță</span>
+                        break;
+                    case ClinicaMedicala.Models.StareResursa.Defect:
+                        <span class="badge bg-danger">Defect</span>
+                        break;
+                    case ClinicaMedicala.Models.StareResursa.Rezervat:
+                        <span class="badge bg-info text-dark">Rezervat</span>
+                        break;
+                }
+            </td>
+            <td>
+                <small class="@(scadent ? "text-danger fw-bold" : "")">
+                    @r.DataScadentaRevizie.ToLocalTime().ToString("dd.MM.yyyy")
+                    @if (scadent) { <text>⚠</text> }
+                </small>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Nicio resursă nu corespunde filtrelor. Apasă „+ Adaugă resursă” ca să creezi prima.</div>
+}
