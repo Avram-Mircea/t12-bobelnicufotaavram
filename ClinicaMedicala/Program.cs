@@ -1,8 +1,8 @@
 using ClinicaMedicala.Data;
-using Microsoft.EntityFrameworkCore;
-
 using ClinicaMedicala.Repositories;
 using ClinicaMedicala.Services;
+using ClinicaMedicala.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +14,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Register Generic Repository & Service
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+
+builder.Services.AddScoped<IProgramareRepository, ProgramareRepository>();
+builder.Services.AddScoped<IProgramareService, ProgramareService>();
 
 var app = builder.Build();
 
@@ -35,7 +37,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=medic}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

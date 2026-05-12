@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ClinicaMedicala.Repositories;
+using ClinicaMedicala.Services.Implementations;
 
-namespace ClinicaMedicala.Services;
+namespace ClinicaMedicala.Services.Implementations;
 
 public class GenericService<T> : IGenericService<T> where T : class
 {
