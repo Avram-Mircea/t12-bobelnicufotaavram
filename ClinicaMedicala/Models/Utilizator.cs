@@ -41,4 +41,11 @@ public abstract class Utilizator
 
     [Required]
     public DateTime DataCreareCont { get; set; } = DateTime.UtcNow;
+
+    // Token securizat pentru resetare parolă (REQ-06)
+    // Generat la cererea utilizatorului, șters după folosire sau expirare
+    [MaxLength(128)]
+    public string? ResetToken { get; set; }
+
+    public DateTime? ResetTokenExpires { get; set; }
 }
