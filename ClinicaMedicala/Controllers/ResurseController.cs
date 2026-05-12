@@ -26,14 +26,38 @@ public class ResurseController : Controller
 
     // ── LISTĂ + FILTRE ────────────────────────────────────────────────────────
     [HttpGet]
-    public async Task<IActionResult> Index(TipResursa? tip = null, StareResursa? stare = null, string? search = null)
+    public async Task<IActionResult> Index(TipResursa? tip = null, StareResursa? stare = null, string? search = null, bool? doarActive = null)
     {
-        var lista = await _resurse.CautaAsync(tip, stare, search);
+        var lista = await _resurse.CautaAsync(tip, stare, search, doarActive);
 
         ViewBag.FiltruTip = tip;
         ViewBag.FiltruStare = stare;
         ViewBag.Search = search;
+        ViewBag.DoarActive = doarActive;
         return View(lista);
+    }
+
+    // ── ACTIVARE/DEZACTIVARE (REQ-11, REQ-12) ─────────────────────────────────
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Dezactiveaza(int id)
+    {
+        var ok = await _resurse.DezactiveazaAsync(id);
+        TempData[ok ? "Succes" : "Eroare"] = ok
+            ? "Resursa a fost dezactivată. Nu va mai apărea în calendar pentru programări noi."
+            : "Resursa nu a putut fi dezactivată (poate e deja inactivă).";
+        return RedirectToAction(nameof(Index));
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Activeaza(int id)
+    {
+        var ok = await _resurse.ActiveazaAsync(id);
+        TempData[ok ? "Succes" : "Eroare"] = ok
+            ? "Resursa a fost reactivată și este disponibilă pentru programări noi."
+            : "Resursa nu a putut fi activată.";
+        return RedirectToAction(nameof(Index));
     }
 
     // ── CREARE (REQ-09 + REQ-13) ──────────────────────────────────────────────
@@ -57,24 +81,16 @@ public class ResurseController : Controller
             return View(model);
         }
 
-        if (model.DataScadentaRevizie < model.DataUltimaRevizie)
-        {
-            ModelState.AddModelError(nameof(model.DataScadentaRevizie),
-                "Scadența reviziei trebuie să fie după ultima revizie.");
-            model.SpecializariDisponibile = await SpecializariActiveAsync();
-            return View(model);
-        }
-
         try
         {
+            // Datele de revizie: defaults aplicate de service (azi + 1 an).
+            // Adminul gestionează mentenanța ulterior din pagina dedicată.
             var resursa = new Resursa
             {
                 Denumire = model.Denumire,
                 Tip = model.Tip,
                 NumarInventar = model.NumarInventar,
                 Locatie = model.Locatie,
-                DataUltimaRevizie = model.DataUltimaRevizie,
-                DataScadentaRevizie = model.DataScadentaRevizie,
                 AdministratorId = IdAdminCurent()
             };
 
@@ -158,6 +174,45 @@ public class ResurseController : Controller
             model.SpecializariDisponibile = await SpecializariActiveAsync();
             return View(model);
         }
+    }
+
+    // ── PERIOADE MENTENANTA (REQ-14) ──────────────────────────────────────────
+    [HttpGet]
+    public async Task<IActionResult> Mentenanta(int id)
+    {
+        var resursa = await _resurse.GetByIdAsync(id);
+        if (resursa == null) return NotFound();
+
+        ViewBag.Resursa = resursa;
+        var perioade = await _resurse.GetPerioadeAsync(id);
+        return View(perioade);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AdaugaPerioada(int resursaId, DateTime inceput, DateTime sfarsit, string? descriere)
+    {
+        try
+        {
+            await _resurse.AdaugaPerioadaAsync(resursaId, inceput, sfarsit, descriere);
+            TempData["Succes"] = $"Perioadă de mentenanță adăugată ({inceput:dd.MM.yyyy} - {sfarsit:dd.MM.yyyy}).";
+        }
+        catch (InvalidOperationException ex)
+        {
+            TempData["Eroare"] = ex.Message;
+        }
+        return RedirectToAction(nameof(Mentenanta), new { id = resursaId });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> StergePerioada(int perioadaId, int resursaId)
+    {
+        var ok = await _resurse.StergePerioadaAsync(perioadaId);
+        TempData[ok ? "Succes" : "Eroare"] = ok
+            ? "Perioada de mentenanță a fost ștearsă."
+            : "Perioada nu a putut fi ștearsă.";
+        return RedirectToAction(nameof(Mentenanta), new { id = resursaId });
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────

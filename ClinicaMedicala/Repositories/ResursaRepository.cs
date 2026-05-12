@@ -28,7 +28,7 @@ public class ResursaRepository : GenericRepository<Resursa>, IResursaRepository
             (idIgnorat == null || r.Id != idIgnorat));
     }
 
-    public async Task<IEnumerable<Resursa>> CautaAsync(TipResursa? tip = null, StareResursa? stare = null, string? search = null)
+    public async Task<IEnumerable<Resursa>> CautaAsync(TipResursa? tip = null, StareResursa? stare = null, string? search = null, bool? doarActive = null)
     {
         IQueryable<Resursa> q = _dbSet
             .Include(r => r.Administrator)
@@ -36,6 +36,7 @@ public class ResursaRepository : GenericRepository<Resursa>, IResursaRepository
 
         if (tip.HasValue) q = q.Where(r => r.Tip == tip.Value);
         if (stare.HasValue) q = q.Where(r => r.Stare == stare.Value);
+        if (doarActive.HasValue) q = q.Where(r => r.Activ == doarActive.Value);
 
         if (!string.IsNullOrWhiteSpace(search))
         {
@@ -47,5 +48,26 @@ public class ResursaRepository : GenericRepository<Resursa>, IResursaRepository
         }
 
         return await q.OrderBy(r => r.Tip).ThenBy(r => r.Denumire).ToListAsync();
+    }
+
+    public async Task<IEnumerable<Resursa>> GetDisponibileAsync(DateTime? laData = null)
+    {
+        var data = (laData ?? DateTime.UtcNow).Date;
+
+        return await _dbSet
+            .Include(r => r.Specializari)
+            .Where(r => r.Activ
+                     && (r.Stare == StareResursa.Functional || r.Stare == StareResursa.Rezervat)
+                     && r.DataScadentaRevizie >= data
+                     && !r.PerioadeMentenanta.Any(p => p.Inceput <= data && p.Sfarsit >= data))
+            .OrderBy(r => r.Tip)
+            .ThenBy(r => r.Denumire)
+            .ToListAsync();
+    }
+
+    public async Task<int> NumarCuRevizieRestantaAsync()
+    {
+        var azi = DateTime.UtcNow.Date;
+        return await _dbSet.CountAsync(r => r.Activ && r.DataScadentaRevizie < azi);
     }
 }

@@ -22,6 +22,12 @@ public class Resursa
     [Required]
     public StareResursa Stare { get; set; }
 
+    // REQ-11, REQ-12: status administrativ separat de starea tehnică.
+    // Activ=false → resursa nu apare în calendar pentru programări noi.
+    // Distinct de Stare (Funcțional / Defect / Mentenanță) care reflectă condiția tehnică.
+    [Required]
+    public bool Activ { get; set; } = true;
+
     // Număr de inventar — obligatoriu în unitățile medicale din România (Ord. 2861/2009)
     [Required]
     [MaxLength(50)]
@@ -49,4 +55,7 @@ public class Resursa
     public Administrator Administrator { get; set; } = null!;
 
     public ICollection<Programare> Programari { get; set; } = new List<Programare>();
+
+    // REQ-14: perioade programate de mentenanță (istoric + viitor)
+    public ICollection<PerioadaMentenanta> PerioadeMentenanta { get; set; } = new List<PerioadaMentenanta>();
 }

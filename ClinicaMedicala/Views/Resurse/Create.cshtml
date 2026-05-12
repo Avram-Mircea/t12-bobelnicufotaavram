@@ -68,22 +68,6 @@
                 }
             </div>
 
-            <hr />
-            <h6 class="text-muted">Mentenanță</h6>
-
-            <div class="row">
-                <div class="col-md-6 mb-3">
-                    <label asp-for="DataUltimaRevizie" class="form-label"></label>
-                    <input asp-for="DataUltimaRevizie" class="form-control" type="date" />
-                    <span asp-validation-for="DataUltimaRevizie" class="text-danger"></span>
-                </div>
-                <div class="col-md-6 mb-3">
-                    <label asp-for="DataScadentaRevizie" class="form-label"></label>
-                    <input asp-for="DataScadentaRevizie" class="form-control" type="date" />
-                    <span asp-validation-for="DataScadentaRevizie" class="text-danger"></span>
-                </div>
-            </div>
-
             <button type="submit" class="btn btn-primary">Salvează resursa</button>
             <a asp-action="Index" class="btn btn-secondary">Anulează</a>
         </form>

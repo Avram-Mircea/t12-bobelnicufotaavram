@@ -24,6 +24,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<DocumentMedical> DocumenteMedicale { get; set; } = null!;
     public DbSet<Rating> Ratinguri { get; set; } = null!;
     public DbSet<Specializare> Specializari { get; set; } = null!;
+    public DbSet<PerioadaMentenanta> PerioadeMentenanta { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -172,6 +173,13 @@ public class ApplicationDbContext : DbContext
             .HasMany(r => r.Specializari)
             .WithMany(s => s.Resurse)
             .UsingEntity(j => j.ToTable("ResursaSpecializare"));
+
+        // ── RESURSA → PERIOADE MENTENANTA (REQ-14) ────────────────────────────
+        modelBuilder.Entity<PerioadaMentenanta>()
+            .HasOne(p => p.Resursa)
+            .WithMany(r => r.PerioadeMentenanta)
+            .HasForeignKey(p => p.ResursaId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         // ── Seed specializări medicale uzuale (Ord. MS 1509/2008) ─────────────
         modelBuilder.Entity<Specializare>().HasData(

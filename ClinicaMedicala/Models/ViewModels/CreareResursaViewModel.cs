@@ -28,14 +28,4 @@ public class CreareResursaViewModel
 
     // Populat de controller pentru dropdown (toate specializările active)
     public List<Specializare> SpecializariDisponibile { get; set; } = new();
-
-    [Required]
-    [DataType(DataType.Date)]
-    [Display(Name = "Data ultimei revizii")]
-    public DateTime DataUltimaRevizie { get; set; } = DateTime.UtcNow.Date;
-
-    [Required]
-    [DataType(DataType.Date)]
-    [Display(Name = "Data scadenței următoarei revizii")]
-    public DateTime DataScadentaRevizie { get; set; } = DateTime.UtcNow.Date.AddYears(1);
 }

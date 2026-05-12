@@ -4,8 +4,24 @@ namespace ClinicaMedicala.Services.Resurse;
 
 public interface IResursaService
 {
-    Task<IEnumerable<Resursa>> CautaAsync(TipResursa? tip = null, StareResursa? stare = null, string? search = null);
+    Task<IEnumerable<Resursa>> CautaAsync(TipResursa? tip = null, StareResursa? stare = null, string? search = null, bool? doarActive = null);
     Task<Resursa?> GetByIdAsync(int id);
+
+    // REQ-11: activează/dezactivează administrativ.
+    // REQ-12: o resursă dezactivată nu va fi disponibilă în calendar.
+    Task<bool> DezactiveazaAsync(int id);
+    Task<bool> ActiveazaAsync(int id);
+
+    // Resurse cu adevărat disponibile pentru programări — folosit de Management Programări.
+    // Combină Activ + Stare + Revizie + Perioade Mentenanță.
+    Task<IEnumerable<Resursa>> GetDisponibileAsync(DateTime? laData = null);
+
+    Task<int> NumarCuRevizieRestantaAsync();
+
+    // ── Perioade mentenanță (REQ-14) ─────────────────────────────────────────
+    Task<List<PerioadaMentenanta>> GetPerioadeAsync(int resursaId);
+    Task<PerioadaMentenanta> AdaugaPerioadaAsync(int resursaId, DateTime inceput, DateTime sfarsit, string? descriere);
+    Task<bool> StergePerioadaAsync(int perioadaId);
 
     // Creează o resursă nouă; validează unicitatea înainte de save.
     // SpecializareIds = lista ID-urilor specializărilor care pot folosi resursa.
