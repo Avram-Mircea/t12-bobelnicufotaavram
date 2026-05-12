@@ -25,5 +25,33 @@ namespace ClinicaMedicala.Controllers
             await _service.Add(model);
             return RedirectToAction("Index", new { pacientId = model.PacientId });
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var doc = await _service.GetById(id);
+
+            if (doc == null)
+                return NotFound();
+
+            return View(doc);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(DocumentMedical model)
+        {
+            await _service.Update(model);
+
+            return RedirectToAction("Index",
+                new { pacientId = model.PacientId });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int id, int pacientId)
+        {
+            await _service.Delete(id);
+
+            return RedirectToAction("Index",
+                new { pacientId });
+        }
     }
 }

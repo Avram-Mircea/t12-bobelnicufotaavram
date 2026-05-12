@@ -20,6 +20,9 @@ namespace ClinicaMedicala.Services.Implementations
 
             if (existing == null)
             {
+                fisa.DataCreare = DateTime.UtcNow;
+                fisa.LastUpdated = DateTime.UtcNow;
+
                 await _repo.Add(fisa);
             }
             else
@@ -27,6 +30,8 @@ namespace ClinicaMedicala.Services.Implementations
                 existing.IstoricBoliCronice = fisa.IstoricBoliCronice;
                 existing.AntecedenteFamiliale = fisa.AntecedenteFamiliale;
                 existing.GrupaDeRisc = fisa.GrupaDeRisc;
+
+                existing.LastUpdated = DateTime.UtcNow;
 
                 await _repo.Update(existing);
             }

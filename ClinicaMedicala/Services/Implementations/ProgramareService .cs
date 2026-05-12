@@ -14,4 +14,13 @@ public class ProgramareService : IProgramareService
     {
         return await _repository.GetProgramariByMedicId(medicId);
     }
+
+    public async Task<bool> HasCompletedConsultation(int pacientId, int medicId)
+    {
+        var programari = await _repository.GetProgramariByMedicId(medicId);
+
+        return programari.Any(p =>
+            p.PacientId == pacientId &&
+            p.DataEnd < DateTime.UtcNow);
+    }
 }

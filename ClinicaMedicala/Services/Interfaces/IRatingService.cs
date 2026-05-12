@@ -7,5 +7,6 @@ namespace ClinicaMedicala.Services.Interfaces
         Task<List<Rating>> GetForMedic(int medicId);
         Task Add(Rating rating);
         Task<List<Rating>> GetByMedicId(int medicId);
+        Task<double> GetAverageRatingForMedic(int medicId);
     }
 }

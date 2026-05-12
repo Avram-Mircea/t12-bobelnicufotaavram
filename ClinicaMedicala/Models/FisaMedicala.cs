@@ -31,4 +31,5 @@ public class FisaMedicala
     public Pacient Pacient { get; set; } = null!;
 
     public ICollection<Consultatie> Consultatii { get; set; } = new List<Consultatie>();
+    public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
 }

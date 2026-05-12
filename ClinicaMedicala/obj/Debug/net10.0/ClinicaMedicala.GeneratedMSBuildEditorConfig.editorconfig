@@ -38,6 +38,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlzYU1lZGljYWxhXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Mircea/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/FisaMedicala/Raport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlzYU1lZGljYWxhXFJhcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Mircea/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -52,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Mircea/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/Rating/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF0aW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Mircea/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/Rating/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF0aW5nXExpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Mircea/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/Shared/Error.cshtml]

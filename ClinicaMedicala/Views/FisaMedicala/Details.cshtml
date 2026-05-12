@@ -2,6 +2,9 @@
 
 <h2>Fișă Medicală</h2>
 
+<p>Ultima actualizare: @(Model.LastUpdated == default ? "N/A" : Model.LastUpdated.ToString())</p>
+<p>Creat la: @Model.DataCreare</p>
+
 <form asp-action="Save" method="post">
     <input type="hidden" asp-for="PacientId" />
 

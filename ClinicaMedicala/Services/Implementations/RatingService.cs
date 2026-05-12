@@ -23,5 +23,8 @@ namespace ClinicaMedicala.Services.Implementations
         {
             return await _repo.GetByMedicId(medicId);
         }
+
+        public Task<double> GetAverageRatingForMedic(int medicId)
+            => _repo.GetAverageRatingForMedic(medicId);
     }
 }

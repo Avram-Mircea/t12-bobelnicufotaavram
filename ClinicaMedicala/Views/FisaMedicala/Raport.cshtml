@@ -1,0 +1,33 @@
+﻿@model ClinicaMedicala.Models.FisaMedicala
+
+<h2>Raport evoluție pacient</h2>
+
+<h3>Date generale</h3>
+<p>Creat la: @Model.DataCreare</p>
+<p>Ultima actualizare: @(Model.LastUpdated == default ? "N/A" : Model.LastUpdated.ToString("dd.MM.yyyy"))</p>
+<h3>Istoric boli cronice</h3>
+<p>@Model.IstoricBoliCronice</p>
+
+<h3>Antecedente familiale</h3>
+<p>@Model.AntecedenteFamiliale</p>
+
+<h3>Grup de risc</h3>
+<p>@Model.GrupaDeRisc</p>
+
+<h3>Număr consultații</h3>
+<p>@Model.Consultatii.Count()</p>
+
+<h3>Evoluție</h3>
+
+<ul>
+    @foreach (var c in Model.Consultatii.OrderBy(c => c.Data))
+    {
+        <li>
+            <strong>@c.Data.ToString("dd.MM.yyyy")</strong><br />
+
+            <b>Diagnostic:</b> @c.DiagnosticICD10 ?? "N/A" <br />
+            <b>Simptome:</b> @c.SimptomePrezentate ?? "N/A" <br />
+            <b>Tratament:</b> @c.TratamentRecomandat ?? "N/A"
+        </li>
+    }
+</ul>

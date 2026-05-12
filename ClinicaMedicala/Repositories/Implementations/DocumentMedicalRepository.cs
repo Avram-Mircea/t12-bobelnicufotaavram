@@ -27,5 +27,27 @@ namespace ClinicaMedicala.Repositories.Implementations
             _context.DocumenteMedicale.Add(doc);
             await _context.SaveChangesAsync();
         }
+        public async Task<DocumentMedical?> GetById(int id)
+        {
+            return await _context.DocumenteMedicale
+                .FirstOrDefaultAsync(d => d.Id == id);
+        }
+
+        public async Task Update(DocumentMedical doc)
+        {
+            _context.DocumenteMedicale.Update(doc);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var doc = await _context.DocumenteMedicale.FindAsync(id);
+
+            if (doc != null)
+            {
+                _context.DocumenteMedicale.Remove(doc);
+                await _context.SaveChangesAsync();
+            }
+        }
     }
 }

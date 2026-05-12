@@ -27,5 +27,17 @@ namespace ClinicaMedicala.Repositories.Implementations
             _context.Ratinguri.Add(rating);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<double> GetAverageRatingForMedic(int medicId)
+        {
+            var ratings = await _context.Ratinguri
+                .Where(r => r.MedicId == medicId && r.Vizibil)
+                .ToListAsync();
+
+            if (!ratings.Any())
+                return 0;
+
+            return ratings.Average(r => r.Scor);
+        }
     }
 }

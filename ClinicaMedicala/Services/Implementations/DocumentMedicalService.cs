@@ -20,5 +20,14 @@ namespace ClinicaMedicala.Services.Implementations
         {
             await _repo.Add(document);
         }
+
+        public Task<DocumentMedical?> GetById(int id)
+    => _repo.GetById(id);
+
+        public Task Update(DocumentMedical doc)
+            => _repo.Update(doc);
+
+        public Task Delete(int id)
+            => _repo.Delete(id);
     }
 }

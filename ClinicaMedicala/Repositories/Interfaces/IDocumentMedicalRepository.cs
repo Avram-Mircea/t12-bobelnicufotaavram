@@ -6,5 +6,8 @@ namespace ClinicaMedicala.Repositories.Interfaces
     {
         Task<List<DocumentMedical>> GetByPacientId(int pacientId);
         Task Add(DocumentMedical doc);
+        Task<DocumentMedical?> GetById(int id);
+        Task Update(DocumentMedical doc);
+        Task Delete(int id);
     }
 }

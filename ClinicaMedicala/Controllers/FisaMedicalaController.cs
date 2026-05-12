@@ -22,4 +22,14 @@ public class FisaMedicalaController : Controller
         await _service.CreateOrUpdate(model);
         return RedirectToAction("Details", new { pacientId = model.PacientId });
     }
+
+    public async Task<IActionResult> Raport(int pacientId)
+    {
+        var fisa = await _service.GetByPacientId(pacientId);
+
+        if (fisa == null)
+            return NotFound();
+
+        return View(fisa);
+    }
 }

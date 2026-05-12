@@ -3,64 +3,63 @@
   "WorkspaceRootPath": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\views\\fisamedicala\\raport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\fisamedicala\\raport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\views\\fisamedicala\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\fisamedicala\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\consultatie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\consultatie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\controllers\\fisamedicalacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:controllers\\fisamedicalacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\controllers\\mediccontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:controllers\\mediccontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.FiseMedicale.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\implementations\\documentmedicalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\implementations\\documentmedicalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\interfaces\\idocumentmedicalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\interfaces\\idocumentmedicalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\controllers\\documentmedicalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:controllers\\documentmedicalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\interfaces\\iratingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\interfaces\\iratingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\implementations\\documentmedicalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\implementations\\documentmedicalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\interfaces\\idocumentmedicalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\interfaces\\idocumentmedicalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\fisamedicala.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\fisamedicala.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\implementations\\fisamedicalaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\implementations\\fisamedicalaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\interfaces\\ifisamedicalaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\interfaces\\ifisamedicalaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\implementations\\fisamedicalarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\implementations\\fisamedicalarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\interfaces\\ifisamedicalarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\interfaces\\ifisamedicalarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\controllers\\ratingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:controllers\\ratingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\views\\rating\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\rating\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\views\\medic\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\medic\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\implementations\\programareservice .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\implementations\\programareservice .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\controllers\\ratingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:controllers\\ratingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\interfaces\\iprogramareservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\interfaces\\iprogramareservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\controllers\\documentmedicalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:controllers\\documentmedicalcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\views\\rating\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\rating\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\implementations\\ratingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\implementations\\ratingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\interfaces\\iratingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\interfaces\\iratingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\implementations\\ratingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -71,8 +70,48 @@
       "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\interfaces\\iratingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\implementations\\ratingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\implementations\\ratingservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\implementations\\documentmedicalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\implementations\\documentmedicalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\interfaces\\idocumentmedicalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\interfaces\\idocumentmedicalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\implementations\\documentmedicalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\implementations\\documentmedicalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\interfaces\\idocumentmedicalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\interfaces\\idocumentmedicalrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\implementations\\fisamedicalarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\implementations\\fisamedicalarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\medic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\medic.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\models\\documentmedical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\documentmedical.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\controllers\\mediccontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:controllers\\mediccontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\services\\interfaces\\ifisamedicalaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:services\\interfaces\\ifisamedicalaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\repositories\\interfaces\\ifisamedicalarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:repositories\\interfaces\\ifisamedicalarepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\views\\medic\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\medic\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -81,10 +120,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\views\\documentmedical\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\documentmedical\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mircea\\documents\\t12-bobelnicufotaavram\\clinicamedicala\\views\\fisamedicala\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\fisamedicala\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -97,202 +132,199 @@
           "SelectedChildIndex": 1,
           "Children": [
             {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Consultatie.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Consultatie.cs",
+              "RelativeDocumentMoniker": "Models\\Consultatie.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Consultatie.cs",
+              "RelativeToolTip": "Models\\Consultatie.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAUwA4AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T19:53:03.037Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Raport.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\FisaMedicala\\Raport.cshtml",
+              "RelativeDocumentMoniker": "Views\\FisaMedicala\\Raport.cshtml",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\FisaMedicala\\Raport.cshtml",
+              "RelativeToolTip": "Views\\FisaMedicala\\Raport.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-12T19:51:59.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "dbo.FiseMedicale [Data]",
+              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.FiseMedicale.sql",
+              "ToolTip": "dbo.FiseMedicale [Data]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-05-12T19:41:34.579Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "FisaMedicala.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\FisaMedicala.cs",
+              "RelativeDocumentMoniker": "Models\\FisaMedicala.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\FisaMedicala.cs",
+              "RelativeToolTip": "Models\\FisaMedicala.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAowCEAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T19:41:17.468Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "IProgramareService.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IProgramareService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\IProgramareService.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IProgramareService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\IProgramareService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T19:26:22.459Z",
+              "EditorCaption": ""
+            },
+            {
               "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 9,
+              "Title": "ProgramareService .cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\ProgramareService .cs",
+              "RelativeDocumentMoniker": "Services\\Implementations\\ProgramareService .cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\ProgramareService .cs",
+              "RelativeToolTip": "Services\\Implementations\\ProgramareService .cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAADgvxcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T18:27:53.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "FisaMedicalaController.cs",
               "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\FisaMedicalaController.cs",
               "RelativeDocumentMoniker": "Controllers\\FisaMedicalaController.cs",
               "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\FisaMedicalaController.cs",
               "RelativeToolTip": "Controllers\\FisaMedicalaController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAiwCEAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-12T09:41:49.64Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "DocumentMedicalRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Implementations\\DocumentMedicalRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\Implementations\\DocumentMedicalRepository.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Implementations\\DocumentMedicalRepository.cs",
-              "RelativeToolTip": "Repositories\\Implementations\\DocumentMedicalRepository.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAMAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:46:50.415Z",
+              "DocumentIndex": 1,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\FisaMedicala\\Details.cshtml",
+              "RelativeDocumentMoniker": "Views\\FisaMedicala\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\FisaMedicala\\Details.cshtml",
+              "RelativeToolTip": "Views\\FisaMedicala\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAABhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-12T10:19:07.811Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "IDocumentMedicalService.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IDocumentMedicalService.cs",
-              "RelativeDocumentMoniker": "Services\\Interfaces\\IDocumentMedicalService.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IDocumentMedicalService.cs",
-              "RelativeToolTip": "Services\\Interfaces\\IDocumentMedicalService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:47:55.659Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "DocumentMedicalService.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\DocumentMedicalService.cs",
-              "RelativeDocumentMoniker": "Services\\Implementations\\DocumentMedicalService.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\DocumentMedicalService.cs",
-              "RelativeToolTip": "Services\\Implementations\\DocumentMedicalService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAYAAAAqAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:48:38.272Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 11,
               "Title": "DocumentMedicalController.cs",
               "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\DocumentMedicalController.cs",
               "RelativeDocumentMoniker": "Controllers\\DocumentMedicalController.cs",
               "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\DocumentMedicalController.cs",
               "RelativeToolTip": "Controllers\\DocumentMedicalController.cs",
-              "ViewState": "AgIAAAIAAAAAAAAAAAAjwBgAAAAeAAAAAAAAAA==",
+              "ViewState": "AgIAABwAAAAAAAAAAAA2wDkAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-12T09:49:42.237Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IRatingService.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IRatingService.cs",
-              "RelativeDocumentMoniker": "Services\\Interfaces\\IRatingService.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IRatingService.cs",
-              "RelativeToolTip": "Services\\Interfaces\\IRatingService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:59:53.134Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MedicController .cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\MedicController .cs",
-              "RelativeDocumentMoniker": "Controllers\\MedicController .cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\MedicController .cs",
-              "RelativeToolTip": "Controllers\\MedicController .cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T10:54:11.925Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "IDocumentMedicalRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Interfaces\\IDocumentMedicalRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IDocumentMedicalRepository.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Interfaces\\IDocumentMedicalRepository.cs",
-              "RelativeToolTip": "Repositories\\Interfaces\\IDocumentMedicalRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAmAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:46:15.436Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 6,
               "Title": "FisaMedicalaService.cs",
               "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\FisaMedicalaService.cs",
               "RelativeDocumentMoniker": "Services\\Implementations\\FisaMedicalaService.cs",
               "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\FisaMedicalaService.cs",
               "RelativeToolTip": "Services\\Implementations\\FisaMedicalaService.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAASwCQAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAA2wCUAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-12T09:43:32.853Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "IFisaMedicalaService.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IFisaMedicalaService.cs",
-              "RelativeDocumentMoniker": "Services\\Interfaces\\IFisaMedicalaService.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IFisaMedicalaService.cs",
-              "RelativeToolTip": "Services\\Interfaces\\IFisaMedicalaService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:42:58.072Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "FisaMedicalaRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Implementations\\FisaMedicalaRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\Implementations\\FisaMedicalaRepository.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Implementations\\FisaMedicalaRepository.cs",
-              "RelativeToolTip": "Repositories\\Implementations\\FisaMedicalaRepository.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAA1wAIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:39:12.606Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "IFisaMedicalaRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Interfaces\\IFisaMedicalaRepository.cs",
-              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IFisaMedicalaRepository.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Interfaces\\IFisaMedicalaRepository.cs",
-              "RelativeToolTip": "Repositories\\Interfaces\\IFisaMedicalaRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T09:38:38.404Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 12,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\Rating\\List.cshtml",
+              "RelativeDocumentMoniker": "Views\\Rating\\List.cshtml",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\Rating\\List.cshtml",
+              "RelativeToolTip": "Views\\Rating\\List.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-12T19:17:52.864Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "RatingService.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\RatingService.cs",
+              "RelativeDocumentMoniker": "Services\\Implementations\\RatingService.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\RatingService.cs",
+              "RelativeToolTip": "Services\\Implementations\\RatingService.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABsAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T10:00:25.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "RatingController.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\RatingController.cs",
+              "RelativeDocumentMoniker": "Controllers\\RatingController.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\RatingController.cs",
+              "RelativeToolTip": "Controllers\\RatingController.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAQwD0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T10:01:10.995Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\Rating\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Rating\\Index.cshtml",
               "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\Rating\\Index.cshtml",
               "RelativeToolTip": "Views\\Rating\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAHAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-05-12T10:24:21.102Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\Medic\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Medic\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\Medic\\Index.cshtml",
-              "RelativeToolTip": "Views\\Medic\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-12T10:19:42.567Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 14,
-              "Title": "RatingController.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\RatingController.cs",
-              "RelativeDocumentMoniker": "Controllers\\RatingController.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\RatingController.cs",
-              "RelativeToolTip": "Controllers\\RatingController.cs",
-              "ViewState": "AgIAAAsAAAAAAAAAAAASwBEAAAApAAAAAAAAAA==",
+              "Title": "IRatingService.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IRatingService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\IRatingService.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IRatingService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\IRatingService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T10:01:10.995Z",
+              "WhenOpened": "2026-05-12T09:59:53.134Z",
               "EditorCaption": ""
             },
             {
@@ -303,7 +335,7 @@
               "RelativeDocumentMoniker": "Repositories\\Implementations\\RatingRepository.cs",
               "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Implementations\\RatingRepository.cs",
               "RelativeToolTip": "Repositories\\Implementations\\RatingRepository.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAMAAAAkAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAiwCgAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-12T09:51:27.442Z",
               "EditorCaption": ""
@@ -316,7 +348,7 @@
               "RelativeDocumentMoniker": "Repositories\\Interfaces\\IRatingRepository.cs",
               "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Interfaces\\IRatingRepository.cs",
               "RelativeToolTip": "Repositories\\Interfaces\\IRatingRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAgAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-12T09:50:34.278Z",
               "EditorCaption": ""
@@ -324,32 +356,146 @@
             {
               "$type": "Document",
               "DocumentIndex": 17,
-              "Title": "RatingService.cs",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\RatingService.cs",
-              "RelativeDocumentMoniker": "Services\\Implementations\\RatingService.cs",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\RatingService.cs",
-              "RelativeToolTip": "Services\\Implementations\\RatingService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAeAAAAAAAAAA==",
+              "Title": "DocumentMedicalService.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\DocumentMedicalService.cs",
+              "RelativeDocumentMoniker": "Services\\Implementations\\DocumentMedicalService.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Implementations\\DocumentMedicalService.cs",
+              "RelativeToolTip": "Services\\Implementations\\DocumentMedicalService.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAADwvx4AAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T10:00:25.704Z",
+              "WhenOpened": "2026-05-12T09:48:38.272Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\FisaMedicala\\Details.cshtml",
-              "RelativeDocumentMoniker": "Views\\FisaMedicala\\Details.cshtml",
-              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\FisaMedicala\\Details.cshtml",
-              "RelativeToolTip": "Views\\FisaMedicala\\Details.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAHAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-12T10:19:07.811Z",
+              "DocumentIndex": 18,
+              "Title": "IDocumentMedicalService.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IDocumentMedicalService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\IDocumentMedicalService.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IDocumentMedicalService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\IDocumentMedicalService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T09:47:55.659Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 19,
+              "Title": "DocumentMedicalRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Implementations\\DocumentMedicalRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Implementations\\DocumentMedicalRepository.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Implementations\\DocumentMedicalRepository.cs",
+              "RelativeToolTip": "Repositories\\Implementations\\DocumentMedicalRepository.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAAADIAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T09:46:50.415Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "IDocumentMedicalRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Interfaces\\IDocumentMedicalRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IDocumentMedicalRepository.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Interfaces\\IDocumentMedicalRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IDocumentMedicalRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T09:46:15.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "FisaMedicalaRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Implementations\\FisaMedicalaRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Implementations\\FisaMedicalaRepository.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Implementations\\FisaMedicalaRepository.cs",
+              "RelativeToolTip": "Repositories\\Implementations\\FisaMedicalaRepository.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAADwvyMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T09:39:12.606Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "Medic.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Medic.cs",
+              "RelativeDocumentMoniker": "Models\\Medic.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\Medic.cs",
+              "RelativeToolTip": "Models\\Medic.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAuwCgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T18:48:44.536Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "DocumentMedical.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\DocumentMedical.cs",
+              "RelativeDocumentMoniker": "Models\\DocumentMedical.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Models\\DocumentMedical.cs",
+              "RelativeToolTip": "Models\\DocumentMedical.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAzwBsAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T18:48:08.039Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "MedicController .cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\MedicController .cs",
+              "RelativeDocumentMoniker": "Controllers\\MedicController .cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Controllers\\MedicController .cs",
+              "RelativeToolTip": "Controllers\\MedicController .cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T10:54:11.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "IFisaMedicalaService.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IFisaMedicalaService.cs",
+              "RelativeDocumentMoniker": "Services\\Interfaces\\IFisaMedicalaService.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Services\\Interfaces\\IFisaMedicalaService.cs",
+              "RelativeToolTip": "Services\\Interfaces\\IFisaMedicalaService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T09:42:58.072Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "IFisaMedicalaRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Interfaces\\IFisaMedicalaRepository.cs",
+              "RelativeDocumentMoniker": "Repositories\\Interfaces\\IFisaMedicalaRepository.cs",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Repositories\\Interfaces\\IFisaMedicalaRepository.cs",
+              "RelativeToolTip": "Repositories\\Interfaces\\IFisaMedicalaRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-12T09:38:38.404Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\Medic\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Medic\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\Medic\\Index.cshtml",
+              "RelativeToolTip": "Views\\Medic\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-05-12T10:19:42.567Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Views\\DocumentMedical\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\DocumentMedical\\Index.cshtml",
@@ -357,12 +503,11 @@
               "RelativeToolTip": "Views\\DocumentMedical\\Index.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-12T10:22:05.255Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-12T10:22:05.255Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 28,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Mircea\\Documents\\t12-bobelnicufotaavram\\ClinicaMedicala\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -370,8 +515,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T10:35:45.915Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-12T10:35:45.915Z"
             }
           ]
         }
