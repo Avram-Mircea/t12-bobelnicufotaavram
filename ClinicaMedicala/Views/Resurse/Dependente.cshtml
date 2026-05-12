@@ -1,0 +1,111 @@
+@model List<ClinicaMedicala.Models.DependentaResursa>
+@{
+    var r = ViewBag.Resursa as ClinicaMedicala.Models.Resursa;
+    var disponibile = ViewBag.ResurseDisponibile as List<ClinicaMedicala.Models.Resursa>
+                      ?? new List<ClinicaMedicala.Models.Resursa>();
+    ViewData["Title"] = $"Dependențe — {r?.Denumire}";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="mb-0">Dependențe ale resursei</h2>
+        <p class="text-muted mb-0">@r?.Denumire — <code>@r?.NumarInventar</code></p>
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">Înapoi la lista resurselor</a>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+<div class="alert alert-info">
+    <strong>Cum funcționează:</strong> dacă această resursă <strong>are nevoie</strong> de alta pentru a fi folosită
+    (ex: „Aparat CT" → necesită „Sala CT"), o adaugi mai jos. La crearea unei programări care folosește această resursă,
+    sistemul va impune automat și prezența resurselor cerute.
+</div>
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>+ Adaugă dependență nouă</h5>
+        @if (!disponibile.Any())
+        {
+            <div class="alert alert-warning mb-0">
+                Nu există alte resurse active în sistem.
+                <a asp-action="Create">Adaugă una</a> înainte de a putea defini dependențe.
+            </div>
+        }
+        else
+        {
+            <form asp-action="AdaugaDependenta" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="principalaId" value="@r?.Id" />
+
+                <div class="row">
+                    <div class="col-md-5 mb-3">
+                        <label class="form-label">Resursa cerută</label>
+                        <select name="cerutaId" class="form-select" required>
+                            <option value="">— alege o resursă —</option>
+                            @foreach (var alta in disponibile)
+                            {
+                                <option value="@alta.Id">
+                                    @alta.Denumire (@alta.Tip.ToString().Replace('_', ' '))
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-5 mb-3">
+                        <label class="form-label">Descriere (opțional)</label>
+                        <input type="text" name="descriere" class="form-control" maxlength="500"
+                               placeholder='ex: „Aparatul folosește energie 3-fazică din această sală"' />
+                    </div>
+                    <div class="col-md-2 mb-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">Adaugă</button>
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+
+<h5>Dependențe existente</h5>
+<table class="table table-sm table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Resursa cerută</th>
+            <th>Tip</th>
+            <th>Locație</th>
+            <th>Descriere</th>
+            <th class="text-end">Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var d in Model)
+    {
+        <tr>
+            <td><strong>@d.ResursaCeruta.Denumire</strong></td>
+            <td><small>@d.ResursaCeruta.Tip.ToString().Replace('_', ' ')</small></td>
+            <td><small>@(d.ResursaCeruta.Locatie ?? "—")</small></td>
+            <td><small>@(d.Descriere ?? "—")</small></td>
+            <td class="text-end">
+                <form asp-action="StergeDependenta" method="post" class="d-inline"
+                      onsubmit="return confirm('Sigur ștergi această dependență?');">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="dependentaId" value="@d.Id" />
+                    <input type="hidden" name="resursaId" value="@r?.Id" />
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Șterge</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-light border">Această resursă nu are dependențe înregistrate. Folosește formularul de mai sus pentru a adăuga.</div>
+}

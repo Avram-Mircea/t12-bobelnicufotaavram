@@ -96,6 +96,80 @@ public class ResursaService : IResursaService
         return true;
     }
 
+    // ── Dependențe între resurse (REQ-19) ────────────────────────────────────
+    public Task<List<DependentaResursa>> GetDependenteAsync(int resursaId) =>
+        _ctx.DependenteResurse
+            .Include(d => d.ResursaCeruta)
+            .Where(d => d.ResursaPrincipalaId == resursaId)
+            .OrderBy(d => d.ResursaCeruta.Denumire)
+            .ToListAsync();
+
+    public async Task<DependentaResursa> AdaugaDependentaAsync(int principalaId, int cerutaId, string? descriere)
+    {
+        if (principalaId == cerutaId)
+            throw new InvalidOperationException("O resursă nu poate depinde de ea însăși.");
+
+        var existaAmbele = await _ctx.Resurse.CountAsync(r => r.Id == principalaId || r.Id == cerutaId);
+        if (existaAmbele != 2)
+            throw new InvalidOperationException("Una sau ambele resurse nu există.");
+
+        // Anti-ciclu: dacă cerutaId depinde (direct sau indirect) de principalaId, refuzăm
+        if (await ExistaCicluAsync(principalaId, cerutaId))
+            throw new InvalidOperationException(
+                "Dependența ar crea un ciclu (resursa cerută depinde deja, direct sau indirect, de resursa principală).");
+
+        var exista = await _ctx.DependenteResurse.AnyAsync(d =>
+            d.ResursaPrincipalaId == principalaId && d.ResursaCerutaId == cerutaId);
+        if (exista)
+            throw new InvalidOperationException("Această dependență este deja înregistrată.");
+
+        var dep = new DependentaResursa
+        {
+            ResursaPrincipalaId = principalaId,
+            ResursaCerutaId = cerutaId,
+            Descriere = descriere?.Trim()
+        };
+
+        _ctx.DependenteResurse.Add(dep);
+        await _ctx.SaveChangesAsync();
+        return dep;
+    }
+
+    public async Task<bool> StergeDependentaAsync(int dependentaId)
+    {
+        var d = await _ctx.DependenteResurse.FindAsync(dependentaId);
+        if (d == null) return false;
+
+        _ctx.DependenteResurse.Remove(d);
+        await _ctx.SaveChangesAsync();
+        return true;
+    }
+
+    // Detectează cicluri prin BFS prin graful de dependențe
+    private async Task<bool> ExistaCicluAsync(int principalaId, int cerutaId)
+    {
+        var vizitate = new HashSet<int> { cerutaId };
+        var coada = new Queue<int>();
+        coada.Enqueue(cerutaId);
+
+        while (coada.Count > 0)
+        {
+            var nodCurent = coada.Dequeue();
+
+            var copii = await _ctx.DependenteResurse
+                .Where(d => d.ResursaPrincipalaId == nodCurent)
+                .Select(d => d.ResursaCerutaId)
+                .ToListAsync();
+
+            foreach (var copil in copii)
+            {
+                if (copil == principalaId) return true; // ciclu detectat
+                if (vizitate.Add(copil)) coada.Enqueue(copil);
+            }
+        }
+        return false;
+    }
+
     public async Task<Resursa> CreeazaAsync(Resursa resursa, IEnumerable<int> specializareIds)
     {
         if (resursa == null) throw new ArgumentNullException(nameof(resursa));

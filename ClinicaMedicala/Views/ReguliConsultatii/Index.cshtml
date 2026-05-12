@@ -1,0 +1,57 @@
+@model ClinicaMedicala.Models.ViewModels.ReguliConsultatieViewModel
+@{
+    ViewData["Title"] = "Reguli consultații";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="mb-0">Reguli per tip de consultație</h2>
+        <p class="text-muted mb-0">Bifează când e necesară prezența unui asistent. Regulile sunt verificate automat la crearea programărilor.</p>
+    </div>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+
+<form method="post" asp-action="Index">
+    @Html.AntiForgeryToken()
+
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th style="width: 25%;">Tip consultație</th>
+                <th style="width: 15%;" class="text-center">Necesită asistent</th>
+                <th>Descriere</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for (var i = 0; i < Model.Reguli.Count; i++)
+        {
+            <tr>
+                <td>
+                    <strong>@Model.Reguli[i].TipProgramare.ToString().Replace('_', ' ')</strong>
+                    <input type="hidden" asp-for="Reguli[i].Id" />
+                    <input type="hidden" asp-for="Reguli[i].TipProgramare" />
+                </td>
+                <td class="text-center">
+                    <div class="form-check d-inline-block">
+                        <input type="checkbox" asp-for="Reguli[i].NecesitaAsistent" class="form-check-input" />
+                    </div>
+                </td>
+                <td>
+                    <input asp-for="Reguli[i].Descriere" class="form-control form-control-sm"
+                           placeholder="Notă explicativă pentru această regulă (opțional)" />
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-primary">Salvează modificările</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

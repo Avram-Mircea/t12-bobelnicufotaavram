@@ -25,6 +25,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<Rating> Ratinguri { get; set; } = null!;
     public DbSet<Specializare> Specializari { get; set; } = null!;
     public DbSet<PerioadaMentenanta> PerioadeMentenanta { get; set; } = null!;
+    public DbSet<ReguliConsultatie> ReguliConsultatii { get; set; } = null!;
+    public DbSet<DependentaResursa> DependenteResurse { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -180,6 +182,31 @@ public class ApplicationDbContext : DbContext
             .WithMany(r => r.PerioadeMentenanta)
             .HasForeignKey(p => p.ResursaId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // ── DEPENDENȚE ÎNTRE RESURSE (REQ-19) ─────────────────────────────────
+        // Two FKs către aceeași tabelă (Resurse) — SQL Server cere Restrict pe
+        // ambele ca să evite multiple cascade paths.
+        modelBuilder.Entity<DependentaResursa>()
+            .HasOne(d => d.ResursaPrincipala)
+            .WithMany(r => r.DependenteIesite)
+            .HasForeignKey(d => d.ResursaPrincipalaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        modelBuilder.Entity<DependentaResursa>()
+            .HasOne(d => d.ResursaCeruta)
+            .WithMany(r => r.DependenteIntrate)
+            .HasForeignKey(d => d.ResursaCerutaId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        // ── Seed reguli per tip de consultație (REQ-16) ───────────────────────
+        // O regulă pentru fiecare TipProgramare; adminul ajustează ulterior.
+        modelBuilder.Entity<ReguliConsultatie>().HasData(
+            new ReguliConsultatie { Id = 1, TipProgramare = TipProgramare.Consult_Initial, NecesitaAsistent = false, Descriere = "Consultație simplă — fără cerințe speciale." },
+            new ReguliConsultatie { Id = 2, TipProgramare = TipProgramare.Control,         NecesitaAsistent = false, Descriere = "Re-evaluare pacient — de obicei fără asistent." },
+            new ReguliConsultatie { Id = 3, TipProgramare = TipProgramare.Procedura,       NecesitaAsistent = true,  Descriere = "Intervenție clinică — asistent obligatoriu." },
+            new ReguliConsultatie { Id = 4, TipProgramare = TipProgramare.Urgenta,         NecesitaAsistent = true,  Descriere = "Stabilizare pacient — asistent obligatoriu." },
+            new ReguliConsultatie { Id = 5, TipProgramare = TipProgramare.Teleconsult,     NecesitaAsistent = false, Descriere = "Consultație remote — fără asistent fizic." }
+        );
 
         // ── Seed specializări medicale uzuale (Ord. MS 1509/2008) ─────────────
         modelBuilder.Entity<Specializare>().HasData(

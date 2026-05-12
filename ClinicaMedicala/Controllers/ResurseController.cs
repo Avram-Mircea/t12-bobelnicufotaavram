@@ -215,6 +215,53 @@ public class ResurseController : Controller
         return RedirectToAction(nameof(Mentenanta), new { id = resursaId });
     }
 
+    // ── DEPENDENȚE ÎNTRE RESURSE (REQ-19) ─────────────────────────────────────
+    [HttpGet]
+    public async Task<IActionResult> Dependente(int id)
+    {
+        var resursa = await _resurse.GetByIdAsync(id);
+        if (resursa == null) return NotFound();
+
+        var dependente = await _resurse.GetDependenteAsync(id);
+
+        // Toate celelalte resurse active — pentru dropdown la adăugare
+        var altele = await _ctx.Resurse
+            .Where(r => r.Activ && r.Id != id)
+            .OrderBy(r => r.Tip).ThenBy(r => r.Denumire)
+            .ToListAsync();
+
+        ViewBag.Resursa = resursa;
+        ViewBag.ResurseDisponibile = altele;
+        return View(dependente);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> AdaugaDependenta(int principalaId, int cerutaId, string? descriere)
+    {
+        try
+        {
+            await _resurse.AdaugaDependentaAsync(principalaId, cerutaId, descriere);
+            TempData["Succes"] = "Dependența a fost adăugată.";
+        }
+        catch (InvalidOperationException ex)
+        {
+            TempData["Eroare"] = ex.Message;
+        }
+        return RedirectToAction(nameof(Dependente), new { id = principalaId });
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> StergeDependenta(int dependentaId, int resursaId)
+    {
+        var ok = await _resurse.StergeDependentaAsync(dependentaId);
+        TempData[ok ? "Succes" : "Eroare"] = ok
+            ? "Dependența a fost ștearsă."
+            : "Dependența nu a putut fi ștearsă.";
+        return RedirectToAction(nameof(Dependente), new { id = resursaId });
+    }
+
     // ── Helpers ───────────────────────────────────────────────────────────────
     private Task<List<Specializare>> SpecializariActiveAsync() =>
         _ctx.Specializari.Where(s => s.Activ).OrderBy(s => s.Nume).ToListAsync();

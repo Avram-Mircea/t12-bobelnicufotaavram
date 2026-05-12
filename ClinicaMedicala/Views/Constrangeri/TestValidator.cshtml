@@ -1,0 +1,138 @@
+@model ClinicaMedicala.Models.ViewModels.TestValidatorViewModel
+@{
+    ViewData["Title"] = "Test validator constrângeri";
+    var rezultat = ViewBag.Rezultat as ClinicaMedicala.Services.Validare.RezultatValidare;
+}
+
+<h2>Test validator constrângeri</h2>
+<p class="text-muted">
+    Simulează crearea unei programări și vezi ce erori detectează validatorul de constrângeri.
+    Acesta e același serviciu pe care îl va apela Management Programări înainte de a salva o programare reală.
+</p>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5>Parametri programare</h5>
+                <form asp-action="TestValidator" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label asp-for="MedicId" class="form-label"></label>
+                        <select asp-for="MedicId" class="form-select">
+                            <option value="">— alege medic —</option>
+                            @foreach (var m in Model.Medici)
+                            {
+                                <option value="@m.Id">@m.Prenume @m.Nume — @m.Specializare</option>
+                            }
+                        </select>
+                        <span asp-validation-for="MedicId" class="text-danger"></span>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="TipProgramare" class="form-label"></label>
+                        <select asp-for="TipProgramare" class="form-select"
+                                asp-items="@Html.GetEnumSelectList<ClinicaMedicala.Models.TipProgramare>()"></select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="AsistentId" class="form-label"></label>
+                        <select asp-for="AsistentId" class="form-select">
+                            <option value="">— fără asistent —</option>
+                            @foreach (var a in Model.Asistenti)
+                            {
+                                <option value="@a.Id">@a.Prenume @a.Nume — @a.Departament</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Resurse (bifează una sau mai multe)</label>
+                        @if (!Model.Resurse.Any())
+                        {
+                            <div class="alert alert-warning mb-0">Nu există resurse înregistrate.</div>
+                        }
+                        else
+                        {
+                            <div class="border rounded p-2" style="max-height: 200px; overflow-y: auto;">
+                                @foreach (var r in Model.Resurse)
+                                {
+                                    var bifat = Model.ResursaIds.Contains(r.Id);
+                                    var specs = r.Specializari.Any()
+                                        ? string.Join(", ", r.Specializari.Select(s => s.Nume))
+                                        : "oricare";
+                                    <div class="form-check">
+                                        <input type="checkbox" name="ResursaIds" value="@r.Id"
+                                               class="form-check-input" id="res_@r.Id" checked="@bifat" />
+                                        <label class="form-check-label" for="res_@r.Id">
+                                            <strong>@r.Denumire</strong>
+                                            <small class="text-muted">— @r.Tip.ToString().Replace('_', ' ') · @specs</small>
+                                        </label>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="DataStart" class="form-label"></label>
+                            <input asp-for="DataStart" class="form-control" type="datetime-local" />
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="DataEnd" class="form-label"></label>
+                            <input asp-for="DataEnd" class="form-control" type="datetime-local" />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Validează</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <h5>Rezultat</h5>
+        @if (rezultat == null)
+        {
+            <div class="alert alert-secondary">
+                Completează form-ul din stânga și apasă „Validează” ca să vezi rezultatul.
+            </div>
+        }
+        else if (rezultat.EValida)
+        {
+            <div class="alert alert-success">
+                <h5>✅ Programarea trece toate constrângerile</h5>
+                <p class="mb-0">Această combinație de medic + tip + asistent + resurse + interval e validă conform regulilor curente.</p>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <h5>❌ Programarea NU trece constrângerile (@rezultat.Erori.Count erori)</h5>
+                <ul class="mb-0">
+                    @foreach (var eroare in rezultat.Erori)
+                    {
+                        <li>@eroare</li>
+                    }
+                </ul>
+            </div>
+        }
+
+        <hr />
+        <h6 class="text-muted">Constrângeri verificate</h6>
+        <ul class="small text-muted">
+            <li><strong>REQ-15</strong> — specializarea medicului trebuie să fie permisă de resursă</li>
+            <li><strong>REQ-16</strong> — tipuri ca „Procedură" sau „Urgență" cer asistent</li>
+            <li><strong>REQ-19</strong> — toate resursele cerute (dependențe) trebuie incluse</li>
+            <li>Resursa activă, stare bună, revizia validă, fără mentenanță în interval</li>
+            <li>Medic/Asistent activ și existent</li>
+            <li>Interval temporal valid (sfârșit > început)</li>
+        </ul>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -4,6 +4,7 @@ using ClinicaMedicala.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicaMedicala.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260512205957_AddReguliConsultatie")]
+    partial class AddReguliConsultatie
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,37 +104,6 @@ namespace ClinicaMedicala.Migrations
                         .HasFilter("[ProgramareId] IS NOT NULL");
 
                     b.ToTable("Consultatii");
-                });
-
-            modelBuilder.Entity("ClinicaMedicala.Models.DependentaResursa", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Descriere")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<int>("ResursaCerutaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResursaPrincipalaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResursaCerutaId");
-
-                    b.HasIndex("ResursaPrincipalaId", "ResursaCerutaId")
-                        .IsUnique();
-
-                    b.ToTable("DependenteResurse");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.DocumentMedical", b =>
@@ -813,25 +785,6 @@ namespace ClinicaMedicala.Migrations
                     b.Navigation("Programare");
                 });
 
-            modelBuilder.Entity("ClinicaMedicala.Models.DependentaResursa", b =>
-                {
-                    b.HasOne("ClinicaMedicala.Models.Resursa", "ResursaCeruta")
-                        .WithMany("DependenteIntrate")
-                        .HasForeignKey("ResursaCerutaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("ClinicaMedicala.Models.Resursa", "ResursaPrincipala")
-                        .WithMany("DependenteIesite")
-                        .HasForeignKey("ResursaPrincipalaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("ResursaCeruta");
-
-                    b.Navigation("ResursaPrincipala");
-                });
-
             modelBuilder.Entity("ClinicaMedicala.Models.DocumentMedical", b =>
                 {
                     b.HasOne("ClinicaMedicala.Models.Medic", "Medic")
@@ -1028,10 +981,6 @@ namespace ClinicaMedicala.Migrations
 
             modelBuilder.Entity("ClinicaMedicala.Models.Resursa", b =>
                 {
-                    b.Navigation("DependenteIesite");
-
-                    b.Navigation("DependenteIntrate");
-
                     b.Navigation("PerioadeMentenanta");
 
                     b.Navigation("Programari");

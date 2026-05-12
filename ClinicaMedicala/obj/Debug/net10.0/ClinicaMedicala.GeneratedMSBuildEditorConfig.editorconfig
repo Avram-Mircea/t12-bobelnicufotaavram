@@ -50,6 +50,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Constrangeri/TestValidator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3RyYW5nZXJpXFRlc3RWYWxpZGF0b3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,8 +62,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/ReguliConsultatii/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVndWxpQ29uc3VsdGF0aWlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Resurse/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdXJzZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Resurse/Dependente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdXJzZVxEZXBlbmRlbnRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Resurse/Edit.cshtml]

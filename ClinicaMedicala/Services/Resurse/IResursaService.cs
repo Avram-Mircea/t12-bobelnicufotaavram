@@ -23,6 +23,11 @@ public interface IResursaService
     Task<PerioadaMentenanta> AdaugaPerioadaAsync(int resursaId, DateTime inceput, DateTime sfarsit, string? descriere);
     Task<bool> StergePerioadaAsync(int perioadaId);
 
+    // ── Dependențe între resurse (REQ-19) ────────────────────────────────────
+    Task<List<DependentaResursa>> GetDependenteAsync(int resursaId);
+    Task<DependentaResursa> AdaugaDependentaAsync(int principalaId, int cerutaId, string? descriere);
+    Task<bool> StergeDependentaAsync(int dependentaId);
+
     // Creează o resursă nouă; validează unicitatea înainte de save.
     // SpecializareIds = lista ID-urilor specializărilor care pot folosi resursa.
     Task<Resursa> CreeazaAsync(Resursa resursa, IEnumerable<int> specializareIds);

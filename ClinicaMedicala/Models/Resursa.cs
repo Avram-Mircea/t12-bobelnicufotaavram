@@ -58,4 +58,10 @@ public class Resursa
 
     // REQ-14: perioade programate de mentenanță (istoric + viitor)
     public ICollection<PerioadaMentenanta> PerioadeMentenanta { get; set; } = new List<PerioadaMentenanta>();
+
+    // REQ-19: resursele de care DEPINDE această resursă (ex: aparatul depinde de sala specifică)
+    public ICollection<DependentaResursa> DependenteIesite { get; set; } = new List<DependentaResursa>();
+
+    // REQ-19: alte resurse care depind de aceasta (oglindă, util pentru raportare)
+    public ICollection<DependentaResursa> DependenteIntrate { get; set; } = new List<DependentaResursa>();
 }
