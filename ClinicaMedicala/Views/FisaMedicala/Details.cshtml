@@ -1,0 +1,13 @@
+﻿@model ClinicaMedicala.Models.FisaMedicala
+
+<h2>Fișă Medicală</h2>
+
+<form asp-action="Save" method="post">
+    <input type="hidden" asp-for="PacientId" />
+
+    <textarea asp-for="IstoricBoliCronice"></textarea>
+    <textarea asp-for="AntecedenteFamiliale"></textarea>
+    <input asp-for="GrupaDeRisc" />
+
+    <button type="submit">Salvează</button>
+</form>

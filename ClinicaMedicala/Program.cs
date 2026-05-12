@@ -1,6 +1,9 @@
 using ClinicaMedicala.Data;
 using ClinicaMedicala.Repositories;
+using ClinicaMedicala.Repositories.Implementations;
+using ClinicaMedicala.Repositories.Interfaces;
 using ClinicaMedicala.Services;
+using ClinicaMedicala.Services.Implementations;
 using ClinicaMedicala.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +17,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Register Generic Repository & Service
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
 
 builder.Services.AddScoped<IProgramareRepository, ProgramareRepository>();
 builder.Services.AddScoped<IProgramareService, ProgramareService>();
+
+builder.Services.AddScoped<IFisaMedicalaService, FisaMedicalaService>();
+builder.Services.AddScoped<IFisaMedicalaRepository, FisaMedicalaRepository>();
+
+builder.Services.AddScoped<IDocumentMedicalService, DocumentMedicalService>();
+builder.Services.AddScoped<IDocumentMedicalRepository, DocumentMedicalRepository>();
+
+builder.Services.AddScoped<IRatingService, RatingService>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 
 var app = builder.Build();
 
