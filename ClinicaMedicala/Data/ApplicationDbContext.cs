@@ -23,6 +23,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Consultatie> Consultatii { get; set; } = null!;
     public DbSet<DocumentMedical> DocumenteMedicale { get; set; } = null!;
     public DbSet<Rating> Ratinguri { get; set; } = null!;
+    public DbSet<Specializare> Specializari { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -165,5 +166,30 @@ public class ApplicationDbContext : DbContext
                 j => j.HasOne(typeof(Medic)).WithMany()
                       .HasForeignKey("MediciId").OnDelete(DeleteBehavior.Restrict)
             );
+
+        // ── RESURSA ↔ SPECIALIZARE: many-to-many (REQ-13) ─────────────────────
+        modelBuilder.Entity<Resursa>()
+            .HasMany(r => r.Specializari)
+            .WithMany(s => s.Resurse)
+            .UsingEntity(j => j.ToTable("ResursaSpecializare"));
+
+        // ── Seed specializări medicale uzuale (Ord. MS 1509/2008) ─────────────
+        modelBuilder.Entity<Specializare>().HasData(
+            new Specializare { Id = 1,  Nume = "Medicină de familie",     Activ = true },
+            new Specializare { Id = 2,  Nume = "Medicină internă",         Activ = true },
+            new Specializare { Id = 3,  Nume = "Cardiologie",              Activ = true },
+            new Specializare { Id = 4,  Nume = "Pediatrie",                Activ = true },
+            new Specializare { Id = 5,  Nume = "Chirurgie generală",       Activ = true },
+            new Specializare { Id = 6,  Nume = "Ortopedie și traumatologie", Activ = true },
+            new Specializare { Id = 7,  Nume = "Obstetrică-Ginecologie",   Activ = true },
+            new Specializare { Id = 8,  Nume = "Neurologie",               Activ = true },
+            new Specializare { Id = 9,  Nume = "Dermatologie",             Activ = true },
+            new Specializare { Id = 10, Nume = "Oftalmologie",             Activ = true },
+            new Specializare { Id = 11, Nume = "ORL",                       Activ = true },
+            new Specializare { Id = 12, Nume = "Stomatologie",             Activ = true },
+            new Specializare { Id = 13, Nume = "Endocrinologie",           Activ = true },
+            new Specializare { Id = 14, Nume = "Psihiatrie",               Activ = true },
+            new Specializare { Id = 15, Nume = "Radiologie imagistică",    Activ = true }
+        );
     }
 }

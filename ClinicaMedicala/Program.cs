@@ -22,6 +22,7 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped<IUtilizatorRepository, UtilizatorRepository>();
 builder.Services.AddScoped<IAutentificareRepository, AutentificareRepository>();
 builder.Services.AddScoped<IResursaRepository, ResursaRepository>();
+builder.Services.AddScoped<ISpecializareRepository, SpecializareRepository>();
 
 // ── Servicii ──────────────────────────────────────────────────────────────────
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUtilizatorService, UtilizatorService>();
 builder.Services.AddScoped<IPasswordResetService, PasswordResetService>();
 builder.Services.AddScoped<IResursaService, ResursaService>();
+builder.Services.AddScoped<ISpecializareService, SpecializareService>();
 
 // ── Authentication: Cookie-based ──────────────────────────────────────────────
 // REQ-01, REQ-03: rol stocat în claim, un singur rol principal per utilizator

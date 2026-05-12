@@ -8,7 +8,6 @@ public interface IResursaService
     Task<Resursa?> GetByIdAsync(int id);
 
     // Creează o resursă nouă; validează unicitatea înainte de save.
-    // Aruncă InvalidOperationException cu mesaj prietenos dacă denumirea sau
-    // numărul de inventar există deja.
-    Task<Resursa> CreeazaAsync(Resursa resursa);
+    // SpecializareIds = lista ID-urilor specializărilor care pot folosi resursa.
+    Task<Resursa> CreeazaAsync(Resursa resursa, IEnumerable<int> specializareIds);
 }

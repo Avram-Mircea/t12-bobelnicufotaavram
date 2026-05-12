@@ -1,0 +1,34 @@
+@model ClinicaMedicala.Controllers.SpecializariController.CreareSpecializareForm
+@{
+    ViewData["Title"] = "Adaugă specializare";
+}
+
+<h2>Adaugă specializare</h2>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Create" method="post" autocomplete="off">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"
+                 style="@(ViewData.ModelState.IsValid ? "display:none" : "")"></div>
+
+            <div class="mb-3">
+                <label asp-for="Nume" class="form-label"></label>
+                <input asp-for="Nume" class="form-control" placeholder='ex: „Reumatologie”' />
+                <span asp-validation-for="Nume" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Descriere" class="form-label"></label>
+                <textarea asp-for="Descriere" class="form-control" rows="2" placeholder="Scurtă descriere (opțional)"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvează</button>
+            <a asp-action="Index" class="btn btn-secondary">Anulează</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

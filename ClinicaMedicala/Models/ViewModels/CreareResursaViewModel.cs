@@ -22,10 +22,12 @@ public class CreareResursaViewModel
     [Display(Name = "Locație (ex: „Etaj 2, Camera 204”)")]
     public string? Locatie { get; set; }
 
-    // Pentru task 4 — pentru acum simplu input text liber
-    [MaxLength(100)]
-    [Display(Name = "Specializare permisă (opțional)")]
-    public string? SpecializarePermisa { get; set; }
+    // REQ-13: lista de ID-uri ale specializărilor care pot folosi această resursă
+    [Display(Name = "Specializări permise")]
+    public List<int> SpecializareIds { get; set; } = new();
+
+    // Populat de controller pentru dropdown (toate specializările active)
+    public List<Specializare> SpecializariDisponibile { get; set; } = new();
 
     [Required]
     [DataType(DataType.Date)]

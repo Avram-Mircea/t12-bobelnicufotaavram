@@ -63,7 +63,7 @@
             <th>Tip</th>
             <th>Nr. inventar</th>
             <th>Locație</th>
-            <th>Specializare</th>
+            <th>Specializări permise</th>
             <th>Stare</th>
             <th>Scadență revizie</th>
         </tr>
@@ -77,7 +77,19 @@
             <td><small>@r.Tip.ToString().Replace('_', ' ')</small></td>
             <td><code>@r.NumarInventar</code></td>
             <td><small>@(r.Locatie ?? "—")</small></td>
-            <td><small>@(r.SpecializarePermisa ?? "—")</small></td>
+            <td>
+                @if (r.Specializari.Any())
+                {
+                    @foreach (var s in r.Specializari)
+                    {
+                        <span class="badge bg-light text-dark border me-1">@s.Nume</span>
+                    }
+                }
+                else
+                {
+                    <small class="text-muted">— oricare —</small>
+                }
+            </td>
             <td>
                 @switch (r.Stare)
                 {

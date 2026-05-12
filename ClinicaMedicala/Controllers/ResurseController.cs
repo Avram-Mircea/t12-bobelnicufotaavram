@@ -1,10 +1,12 @@
 using System.Security.Claims;
+using ClinicaMedicala.Data;
 using ClinicaMedicala.Models;
 using ClinicaMedicala.Models.ViewModels;
 using ClinicaMedicala.Services.Auth;
 using ClinicaMedicala.Services.Resurse;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClinicaMedicala.Controllers;
 
@@ -14,10 +16,12 @@ namespace ClinicaMedicala.Controllers;
 public class ResurseController : Controller
 {
     private readonly IResursaService _resurse;
+    private readonly ApplicationDbContext _ctx;
 
-    public ResurseController(IResursaService resurse)
+    public ResurseController(IResursaService resurse, ApplicationDbContext ctx)
     {
         _resurse = resurse;
+        _ctx = ctx;
     }
 
     // ── LISTĂ + FILTRE ────────────────────────────────────────────────────────
@@ -32,20 +36,32 @@ public class ResurseController : Controller
         return View(lista);
     }
 
-    // ── CREARE (REQ-09) ───────────────────────────────────────────────────────
+    // ── CREARE (REQ-09 + REQ-13) ──────────────────────────────────────────────
     [HttpGet]
-    public IActionResult Create() => View(new CreareResursaViewModel());
+    public async Task<IActionResult> Create()
+    {
+        var model = new CreareResursaViewModel
+        {
+            SpecializariDisponibile = await SpecializariActiveAsync()
+        };
+        return View(model);
+    }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreareResursaViewModel model)
     {
-        if (!ModelState.IsValid) return View(model);
+        if (!ModelState.IsValid)
+        {
+            model.SpecializariDisponibile = await SpecializariActiveAsync();
+            return View(model);
+        }
 
         if (model.DataScadentaRevizie < model.DataUltimaRevizie)
         {
             ModelState.AddModelError(nameof(model.DataScadentaRevizie),
                 "Scadența reviziei trebuie să fie după ultima revizie.");
+            model.SpecializariDisponibile = await SpecializariActiveAsync();
             return View(model);
         }
 
@@ -57,13 +73,12 @@ public class ResurseController : Controller
                 Tip = model.Tip,
                 NumarInventar = model.NumarInventar,
                 Locatie = model.Locatie,
-                SpecializarePermisa = model.SpecializarePermisa,
                 DataUltimaRevizie = model.DataUltimaRevizie,
                 DataScadentaRevizie = model.DataScadentaRevizie,
                 AdministratorId = IdAdminCurent()
             };
 
-            await _resurse.CreeazaAsync(resursa);
+            await _resurse.CreeazaAsync(resursa, model.SpecializareIds);
 
             TempData["Succes"] = $"Resursa „{resursa.Denumire}” a fost adăugată.";
             return RedirectToAction(nameof(Index));
@@ -71,11 +86,15 @@ public class ResurseController : Controller
         catch (InvalidOperationException ex)
         {
             ModelState.AddModelError(string.Empty, ex.Message);
+            model.SpecializariDisponibile = await SpecializariActiveAsync();
             return View(model);
         }
     }
 
-    // ID-ul adminului din claim — folosit ca FK pentru AdministratorId
+    // ── Helpers ───────────────────────────────────────────────────────────────
+    private Task<List<Specializare>> SpecializariActiveAsync() =>
+        _ctx.Specializari.Where(s => s.Activ).OrderBy(s => s.Nume).ToListAsync();
+
     private int IdAdminCurent() =>
         int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 }

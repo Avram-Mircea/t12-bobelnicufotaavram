@@ -31,9 +31,9 @@ public class Resursa
     [MaxLength(100)]
     public string? Locatie { get; set; }
 
-    // Specializarea medicală pentru care este permisă resursa (ex: "Cardiologie")
-    [MaxLength(100)]
-    public string? SpecializarePermisa { get; set; }
+    // REQ-13: specializările medicale care pot utiliza această resursă.
+    // Many-to-many — o sală poate fi folosită de Cardiologie + Pediatrie etc.
+    public ICollection<Specializare> Specializari { get; set; } = new List<Specializare>();
 
     // Dată revizie tehnică — aparatele medicale au revizie periodică obligatorie
     [Required]

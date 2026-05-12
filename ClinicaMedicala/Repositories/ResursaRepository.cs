@@ -30,7 +30,9 @@ public class ResursaRepository : GenericRepository<Resursa>, IResursaRepository
 
     public async Task<IEnumerable<Resursa>> CautaAsync(TipResursa? tip = null, StareResursa? stare = null, string? search = null)
     {
-        IQueryable<Resursa> q = _dbSet.Include(r => r.Administrator);
+        IQueryable<Resursa> q = _dbSet
+            .Include(r => r.Administrator)
+            .Include(r => r.Specializari);
 
         if (tip.HasValue) q = q.Where(r => r.Tip == tip.Value);
         if (stare.HasValue) q = q.Where(r => r.Stare == stare.Value);
