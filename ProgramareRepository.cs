@@ -18,7 +18,7 @@ public class ProgramareRepository : GenericRepository<Programare>, IProgramareRe
     {
         return await _dbSet.AnyAsync(p =>
             p.MedicId == medicId &&
-            p.Status != StatusProgramare.Anulata && // Considerăm că statusul anulat nu blochează
+            p.Status != StatusProgramare.Anulat_Pacient && p.Status != StatusProgramare.Anulat_Clinica && // Considerăm că statusul anulat nu blochează
             p.DataStart < dataEnd && p.DataEnd > dataStart &&
             (!programareExclusaId.HasValue || p.Id != programareExclusaId.Value));
     }
@@ -27,7 +27,7 @@ public class ProgramareRepository : GenericRepository<Programare>, IProgramareRe
     {
         return await _dbSet.AnyAsync(p =>
             p.ResursaId == resursaId &&
-            p.Status != StatusProgramare.Anulata &&
+            p.Status != StatusProgramare.Anulat_Pacient && p.Status != StatusProgramare.Anulat_Clinica &&
             p.DataStart < dataEnd && p.DataEnd > dataStart &&
             (!programareExclusaId.HasValue || p.Id != programareExclusaId.Value));
     }
@@ -38,7 +38,7 @@ public class ProgramareRepository : GenericRepository<Programare>, IProgramareRe
             .Include(p => p.Medic)
             .Include(p => p.Pacient)
             .Include(p => p.Resursa)
-            .Where(p => p.DataStart < end && p.DataEnd > start && p.Status != StatusProgramare.Anulata);
+            .Where(p => p.DataStart < end && p.DataEnd > start && p.Status != StatusProgramare.Anulat_Pacient && p.Status != StatusProgramare.Anulat_Clinica);
 
         if (medicId.HasValue)
         {

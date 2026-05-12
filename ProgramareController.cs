@@ -26,9 +26,10 @@ public class ProgramareController : Controller
         _resursaService = resursaService;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var programari = await _programareService.GetAllAsync();
+        return View(programari);
     }
 
     public async Task<IActionResult> Calendar()
@@ -202,7 +203,7 @@ public class ProgramareController : Controller
         if (programare == null)
             return NotFound();
 
-        programare.Status = StatusProgramare.Anulata;
+        programare.Status = StatusProgramare.Anulat_Clinica;
         programare.MotivAnulare = motivAnulare;
 
         _programareService.Update(programare);

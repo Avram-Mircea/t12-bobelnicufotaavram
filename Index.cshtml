@@ -1,0 +1,47 @@
+@model IEnumerable<ClinicaMedicala.Models.Programare>
+@{
+    ViewData["Title"] = "Lista Programări";
+}
+
+<h1>Programări</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Adaugă Programare</a>
+    <a asp-action="Calendar" class="btn btn-secondary">Vezi Calendar</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Data Început</th>
+            <th>Data Sfârșit</th>
+            <th>Motiv</th>
+            <th>Status</th>
+            <th>Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DataStart</td>
+                    <td>@item.DataEnd</td>
+                    <td>@item.MotivVizita</td>
+                    <td>@item.Status</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Modifică</a>
+                        @if (item.Status != ClinicaMedicala.Models.StatusProgramare.Anulat_Clinica && item.Status != ClinicaMedicala.Models.StatusProgramare.Anulat_Pacient)
+                        {
+                            <form asp-action="Cancel" asp-route-id="@item.Id" method="post" style="display:inline;">
+                                <input type="hidden" name="motivAnulare" value="Anulat de utilizator" />
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Sigur doriți să anulați?');">Anulează</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
