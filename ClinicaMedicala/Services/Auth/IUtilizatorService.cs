@@ -19,4 +19,8 @@ public interface IUtilizatorService
     // Soft-delete: dezactivare cont (REQ-02), nu ștergere fizică
     Task<bool> DezactiveazaAsync(int id);
     Task<bool> ReactiveazaAsync(int id);
+
+    // Resetare parolă de către admin — fără token, fără parola curentă.
+    // Folosit când un membru de staff și-a uitat parola și sună la admin.
+    Task<bool> ReseteazaParolaCaAdminAsync(int id, string parolaNoua);
 }

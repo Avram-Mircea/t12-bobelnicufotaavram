@@ -2,6 +2,9 @@
 @{
     ViewData["Title"] = "Management utilizatori";
     var filtruCurent = ViewBag.FiltruRol as ClinicaMedicala.Models.Rol?;
+    var search = ViewBag.Search as string;
+    var ultimeleLogari = ViewBag.UltimeleLogari as IDictionary<int, DateTime>
+                        ?? new Dictionary<int, DateTime>();
 }
 
 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -19,9 +22,9 @@
 }
 
 <form method="get" class="mb-3">
-    <div class="row g-2 align-items-center">
-        <div class="col-auto"><label class="form-label mb-0">Filtru rol:</label></div>
-        <div class="col-auto">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label mb-1">Filtru rol</label>
             <select name="filtruRol" class="form-select" onchange="this.form.submit()">
                 <option value="">— toate —</option>
                 @foreach (var r in Enum.GetValues<ClinicaMedicala.Models.Rol>())
@@ -30,10 +33,20 @@
                 }
             </select>
         </div>
+        <div class="col-md-5">
+            <label class="form-label mb-1">Caută după nume / prenume / email</label>
+            <input type="text" name="search" value="@search" class="form-control" placeholder="ex: popescu sau dr.popescu" />
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-secondary w-100">Caută</button>
+        </div>
+        <div class="col-md-2">
+            <a asp-action="Index" class="btn btn-outline-secondary w-100">Reset filtre</a>
+        </div>
     </div>
 </form>
 
-<table class="table table-hover">
+<table class="table table-hover align-middle">
     <thead class="table-light">
         <tr>
             <th>Nume</th>
@@ -41,17 +54,18 @@
             <th>Email</th>
             <th>Rol</th>
             <th>Status</th>
-            <th>Creat la</th>
+            <th>Ultima autentificare</th>
             <th class="text-end">Acțiuni</th>
         </tr>
     </thead>
     <tbody>
     @foreach (var u in Model)
     {
+        var ultima = ultimeleLogari.TryGetValue(u.Id, out var d) ? d : (DateTime?)null;
         <tr>
             <td>@u.Nume</td>
             <td>@u.Prenume</td>
-            <td>@u.Email</td>
+            <td><small>@u.Email</small></td>
             <td><span class="badge bg-secondary">@u.Rol</span></td>
             <td>
                 @if (u.StatusCont)
@@ -63,24 +77,38 @@
                     <span class="badge bg-danger">Dezactivat</span>
                 }
             </td>
-            <td>@u.DataCreareCont.ToLocalTime().ToString("dd.MM.yyyy")</td>
-            <td class="text-end">
-                <a asp-action="Details" asp-route-id="@u.Id" class="btn btn-sm btn-outline-secondary">Detalii</a>
-                @if (u.StatusCont)
+            <td>
+                @if (ultima.HasValue)
                 {
-                    <form asp-action="Dezactiveaza" asp-route-id="@u.Id" method="post" class="d-inline"
-                          onsubmit="return confirm('Sigur dezactivezi contul @u.Email?');">
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Dezactivează</button>
-                    </form>
+                    <small>@ultima.Value.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</small>
                 }
                 else
                 {
-                    <form asp-action="Reactiveaza" asp-route-id="@u.Id" method="post" class="d-inline">
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn btn-sm btn-outline-success">Reactivează</button>
-                    </form>
+                    <small class="text-muted">niciodată</small>
                 }
+            </td>
+            <td class="text-end">
+                <div class="btn-group btn-group-sm">
+                    <a asp-action="Details" asp-route-id="@u.Id" class="btn btn-outline-secondary">Detalii</a>
+                    <a asp-action="Edit" asp-route-id="@u.Id" class="btn btn-outline-primary">Editează</a>
+                    <a asp-action="Istoric" asp-route-id="@u.Id" class="btn btn-outline-info">Istoric</a>
+                    <a asp-action="ReseteazaParola" asp-route-id="@u.Id" class="btn btn-outline-warning">Reset parolă</a>
+                    @if (u.StatusCont)
+                    {
+                        <form asp-action="Dezactiveaza" asp-route-id="@u.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Sigur dezactivezi contul @u.Email?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-danger">Dezactivează</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="Reactiveaza" asp-route-id="@u.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-success">Reactivează</button>
+                        </form>
+                    }
+                </div>
             </td>
         </tr>
     }
@@ -89,5 +117,5 @@
 
 @if (!Model.Any())
 {
-    <div class="alert alert-info">Niciun utilizator găsit.</div>
+    <div class="alert alert-info">Niciun utilizator nu corespunde filtrelor.</div>
 }

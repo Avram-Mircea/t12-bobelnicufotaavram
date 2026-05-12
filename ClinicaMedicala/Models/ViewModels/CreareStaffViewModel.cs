@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ClinicaMedicala.Models.Validation;
 
 namespace ClinicaMedicala.Models.ViewModels;
 
@@ -27,9 +28,15 @@ public class CreareStaffViewModel
     public Rol Rol { get; set; }
 
     [Required]
-    [StringLength(100, MinimumLength = 8, ErrorMessage = "Parola trebuie să aibă minim 8 caractere.")]
+    [StrongPassword]
     [DataType(DataType.Password)]
     public string Parola { get; set; } = null!;
+
+    [Required]
+    [DataType(DataType.Password)]
+    [Compare(nameof(Parola), ErrorMessage = "Parolele nu coincid.")]
+    [Display(Name = "Confirmă parola")]
+    public string ConfirmaParola { get; set; } = null!;
 
     // ── Câmpuri specifice MEDIC ─────────────────────────────────────────────
     [MaxLength(100)]

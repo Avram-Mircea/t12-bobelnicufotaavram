@@ -4,6 +4,7 @@ using ClinicaMedicala.Repositories;
 using ClinicaMedicala.Services;
 using ClinicaMedicala.Services.Auth;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -64,6 +65,18 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
+
+// ── Data Protection ───────────────────────────────────────────────────────────
+// În Development, keys-urile sunt EFEMERE (în memorie) — la fiecare restart
+// al serverului, cookie-urile vechi devin invalide și utilizatorii sunt
+// redirecționați la pagina de Login.
+// În Production, ASP.NET persistă cheile pe disc, deci utilizatorii rămân
+// logați și după deploy-uri (comportament dorit în producție).
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddSingleton<IDataProtectionProvider>(sp =>
+        new EphemeralDataProtectionProvider(sp.GetService<ILoggerFactory>()));
+}
 
 var app = builder.Build();
 

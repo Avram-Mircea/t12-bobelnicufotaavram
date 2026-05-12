@@ -15,18 +15,14 @@ public class UtilizatorService : IUtilizatorService
     }
 
     public Task<IEnumerable<Utilizator>> GetAllAsync() => _repo.GetAllAsync();
-
     public Task<Utilizator?> GetByIdAsync(int id) => _repo.GetByIdAsync(id);
-
     public Task<Utilizator?> GetByEmailAsync(string email) => _repo.GetByEmailAsync(email);
-
     public Task<IEnumerable<Utilizator>> GetByRolAsync(Rol rol) => _repo.GetByRolAsync(rol);
 
     public async Task<Utilizator> CreeazaAsync(Utilizator utilizator, string parolaPlain)
     {
         if (utilizator == null) throw new ArgumentNullException(nameof(utilizator));
 
-        // Verificăm unicitatea email-ului explicit (înainte ca DB să arunce constraint violation)
         if (await _repo.EmailExistaAsync(utilizator.Email))
             throw new InvalidOperationException("Există deja un cont cu acest email.");
 
@@ -35,7 +31,7 @@ public class UtilizatorService : IUtilizatorService
         utilizator.DataCreareCont = DateTime.UtcNow;
         utilizator.StatusCont = true;
 
-        // Rolul trebuie să fie consistent cu tipul concret (defensive check)
+        // Sincronizăm Rol cu tipul concret pentru consistență
         utilizator.Rol = utilizator switch
         {
             Medic => Rol.Medic,
@@ -52,7 +48,6 @@ public class UtilizatorService : IUtilizatorService
 
     public async Task ActualizeazaAsync(Utilizator utilizator)
     {
-        // Nu permitem schimbarea parolei prin acest endpoint — folosiți IPasswordResetService
         _repo.Update(utilizator);
         await _repo.SaveChangesAsync();
     }
@@ -74,6 +69,24 @@ public class UtilizatorService : IUtilizatorService
         if (u == null || u.StatusCont) return false;
 
         u.StatusCont = true;
+        _repo.Update(u);
+        await _repo.SaveChangesAsync();
+        return true;
+    }
+
+    public async Task<bool> ReseteazaParolaCaAdminAsync(int id, string parolaNoua)
+    {
+        if (string.IsNullOrWhiteSpace(parolaNoua) || parolaNoua.Length < 8)
+            return false;
+
+        var u = await _repo.GetByIdAsync(id);
+        if (u == null) return false;
+
+        u.ParolaHash = _hasher.Hash(parolaNoua);
+        // Anulăm orice token de reset în curs — parola a fost schimbată
+        u.ResetToken = null;
+        u.ResetTokenExpires = null;
+
         _repo.Update(u);
         await _repo.SaveChangesAsync();
         return true;

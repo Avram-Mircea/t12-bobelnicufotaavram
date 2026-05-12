@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ClinicaMedicala.Models.Validation;
 
 namespace ClinicaMedicala.Models.ViewModels;
 
@@ -8,7 +9,7 @@ public class ResetPasswordViewModel
     public string Token { get; set; } = null!;
 
     [Required]
-    [StringLength(100, MinimumLength = 8, ErrorMessage = "Parola trebuie să aibă minim 8 caractere.")]
+    [StrongPassword]
     [DataType(DataType.Password)]
     [Display(Name = "Parolă nouă")]
     public string ParolaNoua { get; set; } = null!;

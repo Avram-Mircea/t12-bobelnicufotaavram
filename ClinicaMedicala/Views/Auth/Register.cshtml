@@ -86,12 +86,16 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="Parola" class="form-label"></label>
-                            <input asp-for="Parola" class="form-control" />
+                            <input asp-for="Parola" class="form-control"
+                                   data-password-strength="parolaHintsRegister" />
+                            <partial name="_PasswordHints" model="@("parolaHintsRegister")" />
                             <span asp-validation-for="Parola" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="ConfirmaParola" class="form-label"></label>
-                            <input asp-for="ConfirmaParola" class="form-control" />
+                            <input asp-for="ConfirmaParola" class="form-control"
+                                   data-password-match="Parola" />
+                            <div class="form-text password-match-feedback mt-1"></div>
                             <span asp-validation-for="ConfirmaParola" class="text-danger"></span>
                         </div>
                     </div>
@@ -109,4 +113,5 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/password-strength.js" asp-append-version="true"></script>
 }

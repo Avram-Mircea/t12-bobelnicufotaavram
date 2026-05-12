@@ -8,7 +8,10 @@
 
 <div class="card">
     <div class="card-body">
-        <form asp-action="Create" method="post">
+        <form asp-action="Create" method="post" autocomplete="off">
+            @* Honeypot pentru a păcăli password managers — Chrome ignoră primele câmpuri *@
+            <input type="text" name="_fake_user" autocomplete="username" style="display:none" tabindex="-1" aria-hidden="true" />
+            <input type="password" name="_fake_pass" autocomplete="current-password" style="display:none" tabindex="-1" aria-hidden="true" />
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none" : "")"></div>
 
@@ -53,10 +56,33 @@
                 <span asp-validation-for="Adresa" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="Parola" class="form-label"></label>
-                <input asp-for="Parola" class="form-control" />
-                <span asp-validation-for="Parola" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Parola" class="form-label"></label>
+                    <div class="input-group">
+                        <input asp-for="Parola" class="form-control" id="parolaInput"
+                               autocomplete="off"
+                               readonly
+                               onfocus="this.removeAttribute('readonly');"
+                               data-lpignore="true" data-1p-ignore="true" data-bwignore="true"
+                               data-password-strength="parolaHintsCreate" />
+                        <button class="btn btn-outline-secondary" type="button" id="toggleParola"
+                                title="Arată/ascunde parola">👁</button>
+                    </div>
+                    <partial name="_PasswordHints" model="@("parolaHintsCreate")" />
+                    <span asp-validation-for="Parola" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ConfirmaParola" class="form-label"></label>
+                    <input asp-for="ConfirmaParola" class="form-control"
+                           autocomplete="off"
+                           readonly
+                           onfocus="this.removeAttribute('readonly');"
+                           data-lpignore="true" data-1p-ignore="true" data-bwignore="true"
+                           data-password-match="parolaInput" />
+                    <div class="form-text password-match-feedback mt-1"></div>
+                    <span asp-validation-for="ConfirmaParola" class="text-danger"></span>
+                </div>
             </div>
 
             <!-- ── Câmpuri Medic ── -->
@@ -119,6 +145,7 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/password-strength.js" asp-append-version="true"></script>
     <script>
         // Afișare condițională a câmpurilor specifice rolului
         (function () {
@@ -134,6 +161,17 @@
 
             rolSelect.addEventListener('change', toggle);
             toggle();
+        })();
+
+        // Toggle vizibilitate parolă — utilul pentru a confirma vizual ce s-a tastat
+        (function () {
+            const btn = document.getElementById('toggleParola');
+            const inp = document.getElementById('parolaInput');
+            if (btn && inp) {
+                btn.addEventListener('click', () => {
+                    inp.type = inp.type === 'password' ? 'text' : 'password';
+                });
+            }
         })();
     </script>
 }

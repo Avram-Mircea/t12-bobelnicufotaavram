@@ -1,9 +1,16 @@
+using Microsoft.Extensions.Logging;
+
 namespace ClinicaMedicala.Services;
 
 public class BCryptPasswordHasher : IPasswordHasher
 {
-    // Work factor 12 — echilibru între securitate și performanță (≈250ms pe hash)
     private const int WorkFactor = 12;
+    private readonly ILogger<BCryptPasswordHasher>? _logger;
+
+    public BCryptPasswordHasher(ILogger<BCryptPasswordHasher>? logger = null)
+    {
+        _logger = logger;
+    }
 
     public string Hash(string parolaPlainText)
     {
@@ -22,9 +29,10 @@ public class BCryptPasswordHasher : IPasswordHasher
         {
             return BCrypt.Net.BCrypt.Verify(parolaPlainText, hash);
         }
-        catch (BCrypt.Net.SaltParseException)
+        catch (Exception ex)
         {
-            // Hash invalid/corupt în DB
+            // Hash corupt sau format necunoscut — tratăm ca verificare eșuată
+            _logger?.LogError(ex, "BCrypt.Verify a aruncat {Type}", ex.GetType().Name);
             return false;
         }
     }

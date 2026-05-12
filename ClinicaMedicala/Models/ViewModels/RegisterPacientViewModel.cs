@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ClinicaMedicala.Models.Validation;
 
 namespace ClinicaMedicala.Models.ViewModels;
 
@@ -47,7 +48,7 @@ public class RegisterPacientViewModel
     public string ContactUrgentaTelefon { get; set; } = null!;
 
     [Required]
-    [StringLength(100, MinimumLength = 8, ErrorMessage = "Parola trebuie să aibă minim 8 caractere.")]
+    [StrongPassword]
     [DataType(DataType.Password)]
     [Display(Name = "Parolă")]
     public string Parola { get; set; } = null!;

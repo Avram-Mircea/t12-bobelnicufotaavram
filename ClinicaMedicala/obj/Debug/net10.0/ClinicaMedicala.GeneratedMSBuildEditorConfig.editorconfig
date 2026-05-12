@@ -19,41 +19,93 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = ClinicaMedicala
 build_property.RootNamespace = ClinicaMedicala
-build_property.ProjectDir = C:\Users\valfo\OneDrive\Documents\t12-bobelnicufotaavram\ClinicaMedicala\
+build_property.ProjectDir = C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
-build_property.RazorLangVersion = 9.0
+build_property.RazorLangVersion = 10.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\valfo\OneDrive\Documents\t12-bobelnicufotaavram\ClinicaMedicala
+build_property.MSBuildProjectDirectory = C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/valfo/OneDrive/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/Home/Index.cshtml]
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/valfo/OneDrive/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/Home/Privacy.cshtml]
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/valfo/OneDrive/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/Shared/Error.cshtml]
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/valfo/OneDrive/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Shared/_PasswordHints.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYXNzd29yZEhpbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/valfo/OneDrive/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/_ViewImports.cshtml]
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Istoric.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcSXN0b3JpYy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/ReseteazaParola.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcUmVzZXRlYXphUGFyb2xhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/valfo/OneDrive/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/_ViewStart.cshtml]
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/valfo/OneDrive/Documents/t12-bobelnicufotaavram/ClinicaMedicala/Views/Shared/_Layout.cshtml]
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-v736ey2qk6

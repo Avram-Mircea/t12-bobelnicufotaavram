@@ -1,0 +1,81 @@
+@model ClinicaMedicala.Models.ViewModels.ResetParolaAdminViewModel
+@{
+    ViewData["Title"] = "Resetare parolă";
+}
+
+<h2>Resetare parolă</h2>
+<p class="text-muted">Vei seta o parolă nouă pentru utilizator. Comunic-o printr-un canal sigur (telefon, în persoană).</p>
+
+<div class="card border-warning">
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-3">Utilizator</dt>
+            <dd class="col-sm-9">@Model.NumeComplet</dd>
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9"><code>@Model.Email</code></dd>
+        </dl>
+
+        <hr />
+
+        <form asp-action="ReseteazaParola" method="post" autocomplete="off">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="NumeComplet" />
+            <input type="hidden" asp-for="Email" />
+
+            @* Honeypot anti-autofill *@
+            <input type="text" name="_fake_user" autocomplete="username" style="display:none" tabindex="-1" aria-hidden="true" />
+            <input type="password" name="_fake_pass" autocomplete="current-password" style="display:none" tabindex="-1" aria-hidden="true" />
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none" : "")"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ParolaNoua" class="form-label"></label>
+                    <div class="input-group">
+                        <input asp-for="ParolaNoua" class="form-control" id="parolaInput"
+                               autocomplete="off"
+                               readonly
+                               onfocus="this.removeAttribute('readonly');"
+                               data-lpignore="true" data-1p-ignore="true" data-bwignore="true"
+                               data-password-strength="parolaHintsResetAdmin" />
+                        <button class="btn btn-outline-secondary" type="button" id="toggleParola"
+                                title="Arată/ascunde parola">👁</button>
+                    </div>
+                    <partial name="_PasswordHints" model="@("parolaHintsResetAdmin")" />
+                    <span asp-validation-for="ParolaNoua" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ConfirmaParola" class="form-label"></label>
+                    <input asp-for="ConfirmaParola" class="form-control"
+                           autocomplete="off"
+                           readonly
+                           onfocus="this.removeAttribute('readonly');"
+                           data-lpignore="true" data-1p-ignore="true" data-bwignore="true"
+                           data-password-match="parolaInput" />
+                    <div class="form-text password-match-feedback mt-1"></div>
+                    <span asp-validation-for="ConfirmaParola" class="text-danger"></span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-warning">Resetează parola</button>
+            <a asp-action="Index" class="btn btn-secondary">Anulează</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/password-strength.js" asp-append-version="true"></script>
+    <script>
+        (function () {
+            const btn = document.getElementById('toggleParola');
+            const inp = document.getElementById('parolaInput');
+            if (btn && inp) {
+                btn.addEventListener('click', () => {
+                    inp.type = inp.type === 'password' ? 'text' : 'password';
+                });
+            }
+        })();
+    </script>
+}

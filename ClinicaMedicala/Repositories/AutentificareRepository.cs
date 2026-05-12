@@ -19,6 +19,18 @@ public class AutentificareRepository : GenericRepository<Autentificare>, IAutent
             .ToListAsync();
     }
 
+    public async Task<IDictionary<int, DateTime>> GetUltimeleLogariReusiteAsync(IEnumerable<int> utilizatorIds)
+    {
+        var ids = utilizatorIds.ToList();
+        if (ids.Count == 0) return new Dictionary<int, DateTime>();
+
+        return await _dbSet
+            .Where(a => a.Succes && ids.Contains(a.UtilizatorId))
+            .GroupBy(a => a.UtilizatorId)
+            .Select(g => new { UtilizatorId = g.Key, Ultima = g.Max(x => x.DataOra) })
+            .ToDictionaryAsync(x => x.UtilizatorId, x => x.Ultima);
+    }
+
     // Util pentru detectarea brute-force: numără încercări eșuate recente pentru un email
     public async Task<IEnumerable<Autentificare>> GetEsuateRecenteAsync(string email, int minutes = 15)
     {
