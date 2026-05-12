@@ -1,25 +1,21 @@
-using ClinicaMedicala.Models;
-using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using ClinicaMedicala.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace ClinicaMedicala.Controllers
+namespace ClinicaMedicala.Controllers;
+
+// REQ-05: pagina principală cere autentificare. Auth/Login etc. rămân publice.
+[Authorize]
+public class HomeController : Controller
 {
-    public class HomeController : Controller
-    {
-        public IActionResult Index()
-        {
-            return View();
-        }
+    public IActionResult Index() => View();
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+    [AllowAnonymous]
+    public IActionResult Privacy() => View();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-    }
+    [AllowAnonymous]
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error() =>
+        View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
 }

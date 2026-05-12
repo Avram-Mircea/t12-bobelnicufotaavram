@@ -1,0 +1,139 @@
+@model ClinicaMedicala.Models.ViewModels.CreareStaffViewModel
+@{
+    ViewData["Title"] = "Creare cont staff";
+}
+
+<h2>Creare cont staff</h2>
+<p class="text-muted">Pacienții se înregistrează singuri prin pagina publică de înregistrare.</p>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none" : "")"></div>
+
+            <div class="mb-3">
+                <label asp-for="Rol" class="form-label"></label>
+                <select asp-for="Rol" class="form-select" id="rolSelect">
+                    <option value="@ClinicaMedicala.Models.Rol.Medic">Medic</option>
+                    <option value="@ClinicaMedicala.Models.Rol.Asistent">Asistent</option>
+                    <option value="@ClinicaMedicala.Models.Rol.Admin">Administrator</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Nume" class="form-label"></label>
+                    <input asp-for="Nume" class="form-control" />
+                    <span asp-validation-for="Nume" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Prenume" class="form-label"></label>
+                    <input asp-for="Prenume" class="form-control" />
+                    <span asp-validation-for="Prenume" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Telefon" class="form-label"></label>
+                    <input asp-for="Telefon" class="form-control" />
+                    <span asp-validation-for="Telefon" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Adresa" class="form-label"></label>
+                <input asp-for="Adresa" class="form-control" />
+                <span asp-validation-for="Adresa" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Parola" class="form-label"></label>
+                <input asp-for="Parola" class="form-control" />
+                <span asp-validation-for="Parola" class="text-danger"></span>
+            </div>
+
+            <!-- ── Câmpuri Medic ── -->
+            <fieldset id="grupMedic" class="border p-3 mb-3">
+                <legend class="float-none w-auto px-2 h6">Detalii Medic</legend>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Specializare" class="form-label"></label>
+                        <input asp-for="Specializare" class="form-control" />
+                        <span asp-validation-for="Specializare" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CodParafa" class="form-label"></label>
+                        <input asp-for="CodParafa" class="form-control" maxlength="6" />
+                        <span asp-validation-for="CodParafa" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="GradProfesional" class="form-label"></label>
+                        <select asp-for="GradProfesional" class="form-select"
+                                asp-items="@Html.GetEnumSelectList<ClinicaMedicala.Models.GradProfesional>()">
+                            <option value="">-- selectează --</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="CostConsultatie" class="form-label"></label>
+                        <input asp-for="CostConsultatie" class="form-control" type="number" step="0.01" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="NumarContractCAS" class="form-label"></label>
+                    <input asp-for="NumarContractCAS" class="form-control" />
+                </div>
+            </fieldset>
+
+            <!-- ── Câmpuri Asistent ── -->
+            <fieldset id="grupAsistent" class="border p-3 mb-3 d-none">
+                <legend class="float-none w-auto px-2 h6">Detalii Asistent</legend>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Departament" class="form-label"></label>
+                        <input asp-for="Departament" class="form-control" />
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Tura" class="form-label"></label>
+                        <select asp-for="Tura" class="form-select"
+                                asp-items="@Html.GetEnumSelectList<ClinicaMedicala.Models.Tura>()">
+                            <option value="">-- selectează --</option>
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+
+            <button type="submit" class="btn btn-primary">Creează cont</button>
+            <a asp-action="Index" class="btn btn-secondary">Anulează</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        // Afișare condițională a câmpurilor specifice rolului
+        (function () {
+            const rolSelect = document.getElementById('rolSelect');
+            const grupMedic = document.getElementById('grupMedic');
+            const grupAsistent = document.getElementById('grupAsistent');
+
+            function toggle() {
+                const rol = rolSelect.value;
+                grupMedic.classList.toggle('d-none', rol !== '@ClinicaMedicala.Models.Rol.Medic');
+                grupAsistent.classList.toggle('d-none', rol !== '@ClinicaMedicala.Models.Rol.Asistent');
+            }
+
+            rolSelect.addEventListener('change', toggle);
+            toggle();
+        })();
+    </script>
+}

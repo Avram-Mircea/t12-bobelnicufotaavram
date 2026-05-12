@@ -67,6 +67,14 @@ builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 
+// Seed: garantăm un admin la primul start, altfel nimeni nu se poate autentifica
+using (var scope = app.Services.CreateScope())
+{
+    var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
+    await DbSeeder.EnsureAdminAsync(ctx, hasher);
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
