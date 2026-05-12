@@ -122,6 +122,95 @@ public class ProgramareController : Controller
         return BadRequest();
     }
 
+    [HttpGet]
+    public async Task<IActionResult> Edit(int id)
+    {
+        var programare = await _programareService.GetByIdAsync(id);
+        if (programare == null)
+            return NotFound();
+
+        var model = new ProgramareCreateViewModel
+        {
+            Id = programare.Id,
+            DataStart = programare.DataStart,
+            DataEnd = programare.DataEnd,
+            MotivVizita = programare.MotivVizita,
+            TipProgramare = programare.TipProgramare,
+            PacientId = programare.PacientId,
+            MedicId = programare.MedicId,
+            ResursaId = programare.ResursaId
+        };
+
+        await PopulareDictionare();
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, ProgramareCreateViewModel model)
+    {
+        if (id != model.Id)
+            return BadRequest();
+
+        if (ModelState.IsValid)
+        {
+            // Validare disponibilitate
+            bool medicDisponibil = await _programareService.MedicEsteDisponibilAsync(model.MedicId, model.DataStart, model.DataEnd, id);
+            if (!medicDisponibil)
+                ModelState.AddModelError("", "Medicul ales nu este disponibil în acest interval.");
+
+            if (model.ResursaId.HasValue)
+            {
+                bool resursaDisponibila = await _programareService.ResursaEsteDisponibilaAsync(model.ResursaId.Value, model.DataStart, model.DataEnd, id);
+                if (!resursaDisponibila)
+                    ModelState.AddModelError("", "Resursa aleasă nu este disponibilă.");
+            }
+
+            if (model.DataEnd <= model.DataStart)
+                ModelState.AddModelError("DataEnd", "Data de sfârșit trebuie să fie după data de început.");
+
+            if (ModelState.ErrorCount == 0)
+            {
+                var programare = await _programareService.GetByIdAsync(id);
+                if (programare == null)
+                    return NotFound();
+
+                programare.DataStart = model.DataStart;
+                programare.DataEnd = model.DataEnd;
+                programare.MotivVizita = model.MotivVizita;
+                programare.TipProgramare = model.TipProgramare;
+                programare.PacientId = model.PacientId;
+                programare.MedicId = model.MedicId;
+                programare.ResursaId = model.ResursaId;
+
+                _programareService.Update(programare);
+                await _programareService.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
+        await PopulareDictionare();
+        return View(model);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Cancel(int id, string motivAnulare)
+    {
+        var programare = await _programareService.GetByIdAsync(id);
+        if (programare == null)
+            return NotFound();
+
+        programare.Status = StatusProgramare.Anulata;
+        programare.MotivAnulare = motivAnulare;
+
+        _programareService.Update(programare);
+        await _programareService.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
+    }
+
     private async Task PopulareDictionare()
     {
         ViewBag.Pacienti = new SelectList(await _pacientService.GetAllAsync(), "Id", "Nume");
