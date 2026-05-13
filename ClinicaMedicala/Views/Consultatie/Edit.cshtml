@@ -1,0 +1,53 @@
+@model ClinicaMedicala.Models.Consultatie
+@{
+    ViewData["Title"] = "Editare consultație";
+}
+
+<h2>Editare consultație</h2>
+<p class="text-muted">
+    Pacient: <strong>@Model.FisaMedicala.Pacient.Prenume @Model.FisaMedicala.Pacient.Nume</strong> ·
+    Data consultație: <strong>@Model.Data.ToString("dd.MM.yyyy")</strong>
+    @if (Model.Programare != null)
+    {
+        <span> · </span>
+        <span>Tip: @Model.Programare.TipProgramare.ToString().Replace('_', ' ')</span>
+    }
+</p>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label class="form-label">Simptome prezentate</label>
+                <textarea name="simptome" class="form-control" rows="3"
+                          placeholder="Ce a relatat pacientul">@Model.SimptomePrezentate</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Diagnostic (cod ICD-10)</label>
+                <input name="diagnostic" class="form-control" maxlength="20"
+                       value="@Model.DiagnosticICD10"
+                       placeholder='ex: "I10" pentru hipertensiune arterială' />
+                <small class="text-muted">Cod conform clasificării internaționale ICD-10.</small>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tratament recomandat</label>
+                <textarea name="tratament" class="form-control" rows="3"
+                          placeholder="Medicație, recomandări">@Model.TratamentRecomandat</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Observații medic (intern)</label>
+                <textarea name="observatii" class="form-control" rows="2"
+                          placeholder="Note interne, observații suplimentare">@Model.ObservatiiMedic</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvează</button>
+            <a asp-controller="FisaMedicala" asp-action="Details" asp-route-pacientId="@Model.FisaMedicala.PacientId"
+               class="btn btn-secondary">Înapoi la fișă</a>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+@model IEnumerable<ClinicaMedicala.Models.Programare>
+@{
+    ViewData["Title"] = "Programările mele";
+}
+
+<h2>Programările mele</h2>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+<table class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Data și ora</th>
+            <th>Pacient</th>
+            <th>Tip</th>
+            <th>Motiv</th>
+            <th>Status</th>
+            <th class="text-end">Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        var poateFinala = p.Status == ClinicaMedicala.Models.StatusProgramare.Programat
+                       || p.Status == ClinicaMedicala.Models.StatusProgramare.Confirmat;
+        <tr>
+            <td>@p.DataStart.ToString("dd.MM.yyyy HH:mm")</td>
+            <td>@p.Pacient.Prenume @p.Pacient.Nume</td>
+            <td><small>@p.TipProgramare.ToString().Replace('_', ' ')</small></td>
+            <td><small>@p.MotivVizita</small></td>
+            <td>
+                @switch (p.Status)
+                {
+                    case ClinicaMedicala.Models.StatusProgramare.Programat:
+                        <span class="badge bg-warning text-dark">Așteaptă confirmare</span>
+                        break;
+                    case ClinicaMedicala.Models.StatusProgramare.Confirmat:
+                        <span class="badge bg-success">Confirmată</span>
+                        break;
+                    case ClinicaMedicala.Models.StatusProgramare.Finalizat:
+                        <span class="badge bg-primary">Finalizată</span>
+                        break;
+                    case ClinicaMedicala.Models.StatusProgramare.Anulat_Pacient:
+                        <span class="badge bg-secondary">Anulată de pacient</span>
+                        break;
+                    case ClinicaMedicala.Models.StatusProgramare.Anulat_Clinica:
+                        <span class="badge bg-danger">Anulată de clinică</span>
+                        break;
+                    case ClinicaMedicala.Models.StatusProgramare.Neprezentare:
+                        <span class="badge bg-dark">Neprezentare</span>
+                        break;
+                }
+            </td>
+            <td class="text-end">
+                @if (poateFinala)
+                {
+                    <form asp-controller="Programare" asp-action="Finalizeaza" asp-route-id="@p.Id" method="post" class="d-inline"
+                          onsubmit="return confirm('Marchezi consultația ca finalizată?');">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-primary">Finalizează</button>
+                    </form>
+                    <form asp-controller="Programare" asp-action="MarcheazaNeprezentare" asp-route-id="@p.Id" method="post" class="d-inline"
+                          onsubmit="return confirm('Marchezi că pacientul nu s-a prezentat?');">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-sm btn-outline-dark">Neprezentare</button>
+                    </form>
+                }
+                @if (p.Status == ClinicaMedicala.Models.StatusProgramare.Finalizat && p.Consultatie != null)
+                {
+                    <a asp-controller="Consultatie" asp-action="Edit" asp-route-id="@p.Consultatie.Id"
+                       class="btn btn-sm btn-outline-info">Editează consultația</a>
+                }
+                <a asp-action="DetaliuPacient" asp-route-id="@p.PacientId" class="btn btn-sm btn-outline-secondary">Pacient</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

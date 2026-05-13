@@ -1,0 +1,50 @@
+@model ClinicaMedicala.Models.FisaMedicala
+@{
+    ViewData["Title"] = "Raport evoluție pacient";
+}
+
+<h2>Raport evoluție pacient</h2>
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5>Date generale</h5>
+        <dl class="row mb-0">
+            <dt class="col-sm-3">Creată la</dt>
+            <dd class="col-sm-9">@Model.DataCreare.ToLocalTime().ToString("dd.MM.yyyy")</dd>
+            <dt class="col-sm-3">Ultima actualizare</dt>
+            <dd class="col-sm-9">@Model.LastUpdated.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</dd>
+            <dt class="col-sm-3">Istoric boli cronice</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.IstoricBoliCronice) ? "—" : Model.IstoricBoliCronice)</dd>
+            <dt class="col-sm-3">Antecedente familiale</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.AntecedenteFamiliale) ? "—" : Model.AntecedenteFamiliale)</dd>
+            <dt class="col-sm-3">Grupă de risc</dt>
+            <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.GrupaDeRisc) ? "—" : Model.GrupaDeRisc)</dd>
+            <dt class="col-sm-3">Total consultații</dt>
+            <dd class="col-sm-9">@Model.Consultatii.Count</dd>
+        </dl>
+    </div>
+</div>
+
+<h5>Evoluție cronologică</h5>
+@if (Model.Consultatii.Any())
+{
+    <ul class="list-group">
+        @foreach (var c in Model.Consultatii.OrderBy(c => c.Data))
+        {
+            <li class="list-group-item">
+                <strong>@c.Data.ToString("dd.MM.yyyy")</strong>
+                <ul class="mt-2 mb-0">
+                    <li><b>Simptome:</b> @(c.SimptomePrezentate ?? "—")</li>
+                    <li><b>Diagnostic (ICD-10):</b> @(c.DiagnosticICD10 ?? "—")</li>
+                    <li><b>Tratament:</b> @(c.TratamentRecomandat ?? "—")</li>
+                </ul>
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p class="text-muted">Nicio consultație înregistrată încă.</p>
+}
+
+<a asp-action="Details" asp-route-pacientId="@Model.PacientId" class="btn btn-secondary mt-3">Înapoi la fișă</a>

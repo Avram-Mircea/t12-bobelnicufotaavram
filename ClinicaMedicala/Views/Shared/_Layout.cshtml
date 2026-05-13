@@ -23,25 +23,61 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        @if (User.IsInRole(ClinicaMedicala.Models.Rol.Admin.ToString()))
+
+                        @* ─── PACIENT ─── *@
+                        @if (User.IsInRole(ClinicaMedicala.Models.Rol.Pacient.ToString()))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Utilizatori" asp-action="Index">Utilizatori</a>
+                                <a class="nav-link text-dark" asp-controller="Pacient" asp-action="Index">Pagina mea</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Resurse" asp-action="Index">Resurse</a>
+                                <a class="nav-link text-dark" asp-controller="Pacient" asp-action="ProgramarileMele">Programările mele</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Specializari" asp-action="Index">Specializări</a>
+                                <a class="nav-link text-dark" asp-controller="Pacient" asp-action="FisaMea">Fișa mea</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="ReguliConsultatii" asp-action="Index">Reguli consultații</a>
+                                <a class="nav-link text-dark" asp-controller="Pacient" asp-action="RatingMedici">Rating medici</a>
+                            </li>
+                        }
+
+                        @* ─── MEDIC ─── *@
+                        @if (User.IsInRole(ClinicaMedicala.Models.Rol.Medic.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Medic" asp-action="Index">Zona Medic</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Constrangeri" asp-action="TestValidator">Test validator</a>
+                                <a class="nav-link text-dark" asp-controller="Medic" asp-action="Pacientii">Pacienții mei</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Medic" asp-action="Programari">Programările mele</a>
+                            </li>
+                        }
+
+                        @* ─── STAFF (admin/medic/asistent) ─── *@
+                        @if (User.Identity?.IsAuthenticated == true && !User.IsInRole(ClinicaMedicala.Models.Rol.Pacient.ToString()))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Programare" asp-action="Index">Programări (staff)</a>
+                            </li>
+                        }
+
+                        @* ─── ADMIN ─── *@
+                        @if (User.IsInRole(ClinicaMedicala.Models.Rol.Admin.ToString()))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" id="adminDropdown"
+                                   role="button" data-bs-toggle="dropdown">Administrare</a>
+                                <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                                    <li><a class="dropdown-item" asp-controller="Utilizatori" asp-action="Index">Utilizatori</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Resurse" asp-action="Index">Resurse</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Specializari" asp-action="Index">Specializări</a></li>
+                                    <li><a class="dropdown-item" asp-controller="ReguliConsultatii" asp-action="Index">Reguli consultații</a></li>
+                                    <li><a class="dropdown-item" asp-controller="ModerareRating" asp-action="Index">Moderare ratinguri</a></li>
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li><a class="dropdown-item" asp-controller="Constrangeri" asp-action="TestValidator">Test validator constrângeri</a></li>
+                                </ul>
                             </li>
                         }
                     </ul>

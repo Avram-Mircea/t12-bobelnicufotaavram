@@ -1,59 +1,65 @@
 @using System.Security.Claims
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Panou administrare";
     var nume = User.Identity?.Name;
-    var rol = User.FindFirstValue(ClaimTypes.Role);
     var resurseCuRevizieRestanta = ViewBag.ResurseCuRevizieRestanta as int?;
 }
 
 <div class="mb-4">
     <h2>Bun venit, @nume!</h2>
-    <p class="text-muted">Rol: <span class="badge bg-secondary">@rol</span></p>
+    <p class="text-muted">Panou administrare</p>
 </div>
 
-@* Dashboard widget — doar pentru admin *@
-@if (rol == ClinicaMedicala.Models.Rol.Admin.ToString())
-{
-    <h5 class="mb-3">Panou administrare</h5>
-
-    <div class="row g-3">
-        @if (resurseCuRevizieRestanta.HasValue && resurseCuRevizieRestanta.Value > 0)
-        {
-            <div class="col-md-4">
-                <div class="card text-bg-warning">
-                    <div class="card-body">
-                        <h6 class="card-subtitle mb-1">⚠ Resurse cu revizia restantă</h6>
-                        <h3 class="card-title mb-2">@resurseCuRevizieRestanta</h3>
-                        <a asp-controller="Resurse" asp-action="Index" class="btn btn-sm btn-light">
-                            Vezi resursele →
-                        </a>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="col-md-4">
-                <div class="card text-bg-success">
-                    <div class="card-body">
-                        <h6 class="card-subtitle mb-1">✅ Revizii la zi</h6>
-                        <p class="card-text mb-0">Toate resursele active au revizia validă.</p>
-                    </div>
-                </div>
-            </div>
-        }
-
+<div class="row g-3">
+    @if (resurseCuRevizieRestanta.HasValue && resurseCuRevizieRestanta.Value > 0)
+    {
         <div class="col-md-4">
-            <div class="card">
+            <div class="card text-bg-warning">
                 <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">Scurtături</h6>
-                    <div class="d-grid gap-2">
-                        <a asp-controller="Utilizatori" asp-action="Index" class="btn btn-sm btn-outline-primary">Management utilizatori</a>
-                        <a asp-controller="Resurse" asp-action="Index" class="btn btn-sm btn-outline-primary">Management resurse</a>
-                        <a asp-controller="Specializari" asp-action="Index" class="btn btn-sm btn-outline-primary">Specializări medicale</a>
-                    </div>
+                    <h6 class="card-subtitle mb-1">⚠ Resurse cu revizia restantă</h6>
+                    <h3 class="card-title mb-2">@resurseCuRevizieRestanta</h3>
+                    <a asp-controller="Resurse" asp-action="Index" class="btn btn-sm btn-light">
+                        Vezi resursele →
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-4">
+            <div class="card text-bg-success">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-1">✅ Revizii la zi</h6>
+                    <p class="card-text mb-0">Toate resursele active au revizia validă.</p>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Management</h6>
+                <div class="d-grid gap-2">
+                    <a asp-controller="Utilizatori" asp-action="Index" class="btn btn-sm btn-outline-primary">Utilizatori</a>
+                    <a asp-controller="Resurse" asp-action="Index" class="btn btn-sm btn-outline-primary">Resurse</a>
+                    <a asp-controller="Specializari" asp-action="Index" class="btn btn-sm btn-outline-primary">Specializări</a>
                 </div>
             </div>
         </div>
     </div>
-}
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Configurare clinică</h6>
+                <div class="d-grid gap-2">
+                    <a asp-controller="ReguliConsultatii" asp-action="Index" class="btn btn-sm btn-outline-secondary">Reguli consultații</a>
+                    <a asp-controller="ModerareRating" asp-action="Index" class="btn btn-sm btn-outline-secondary">Moderare ratinguri</a>
+                    <a asp-controller="Constrangeri" asp-action="TestValidator" class="btn btn-sm btn-outline-secondary">Test validator</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

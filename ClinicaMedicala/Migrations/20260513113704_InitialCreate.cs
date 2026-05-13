@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace ClinicaMedicala.Migrations
 {
     /// <inheritdoc />
@@ -11,6 +13,36 @@ namespace ClinicaMedicala.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ReguliConsultatii",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TipProgramare = table.Column<int>(type: "int", nullable: false),
+                    NecesitaAsistent = table.Column<bool>(type: "bit", nullable: false),
+                    Descriere = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReguliConsultatii", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Specializari",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nume = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Descriere = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    Activ = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Specializari", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Utilizatori",
                 columns: table => new
@@ -25,7 +57,9 @@ namespace ClinicaMedicala.Migrations
                     Adresa = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
                     Rol = table.Column<int>(type: "int", nullable: false),
                     StatusCont = table.Column<bool>(type: "bit", nullable: false),
-                    DataCreareCont = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    DataCreareCont = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ResetToken = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: true),
+                    ResetTokenExpires = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -146,9 +180,9 @@ namespace ClinicaMedicala.Migrations
                     Denumire = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
                     Tip = table.Column<int>(type: "int", nullable: false),
                     Stare = table.Column<int>(type: "int", nullable: false),
+                    Activ = table.Column<bool>(type: "bit", nullable: false),
                     NumarInventar = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Locatie = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    SpecializarePermisa = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     DataUltimaRevizie = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataScadentaRevizie = table.Column<DateTime>(type: "datetime2", nullable: false),
                     AdministratorId = table.Column<int>(type: "int", nullable: false)
@@ -228,7 +262,8 @@ namespace ClinicaMedicala.Migrations
                     IstoricBoliCronice = table.Column<string>(type: "nvarchar(2000)", maxLength: 2000, nullable: true),
                     AntecedenteFamiliale = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: true),
                     GrupaDeRisc = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
-                    PacientId = table.Column<int>(type: "int", nullable: false)
+                    PacientId = table.Column<int>(type: "int", nullable: false),
+                    LastUpdated = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -297,6 +332,57 @@ namespace ClinicaMedicala.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "DependenteResurse",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ResursaPrincipalaId = table.Column<int>(type: "int", nullable: false),
+                    ResursaCerutaId = table.Column<int>(type: "int", nullable: false),
+                    Descriere = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DependenteResurse", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DependenteResurse_Resurse_ResursaCerutaId",
+                        column: x => x.ResursaCerutaId,
+                        principalTable: "Resurse",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_DependenteResurse_Resurse_ResursaPrincipalaId",
+                        column: x => x.ResursaPrincipalaId,
+                        principalTable: "Resurse",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PerioadeMentenanta",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ResursaId = table.Column<int>(type: "int", nullable: false),
+                    Inceput = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Sfarsit = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Descriere = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PerioadeMentenanta", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PerioadeMentenanta_Resurse_ResursaId",
+                        column: x => x.ResursaId,
+                        principalTable: "Resurse",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Programari",
                 columns: table => new
                 {
@@ -346,6 +432,30 @@ namespace ClinicaMedicala.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ResursaSpecializare",
+                columns: table => new
+                {
+                    ResurseId = table.Column<int>(type: "int", nullable: false),
+                    SpecializariId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResursaSpecializare", x => new { x.ResurseId, x.SpecializariId });
+                    table.ForeignKey(
+                        name: "FK_ResursaSpecializare_Resurse_ResurseId",
+                        column: x => x.ResurseId,
+                        principalTable: "Resurse",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ResursaSpecializare_Specializari_SpecializariId",
+                        column: x => x.SpecializariId,
+                        principalTable: "Specializari",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Consultatii",
                 columns: table => new
                 {
@@ -383,6 +493,40 @@ namespace ClinicaMedicala.Migrations
                         onDelete: ReferentialAction.SetNull);
                 });
 
+            migrationBuilder.InsertData(
+                table: "ReguliConsultatii",
+                columns: new[] { "Id", "Descriere", "NecesitaAsistent", "TipProgramare" },
+                values: new object[,]
+                {
+                    { 1, "Consultație simplă — fără cerințe speciale.", false, 0 },
+                    { 2, "Re-evaluare pacient — de obicei fără asistent.", false, 1 },
+                    { 3, "Intervenție clinică — asistent obligatoriu.", true, 2 },
+                    { 4, "Stabilizare pacient — asistent obligatoriu.", true, 3 },
+                    { 5, "Consultație remote — fără asistent fizic.", false, 4 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Specializari",
+                columns: new[] { "Id", "Activ", "Descriere", "Nume" },
+                values: new object[,]
+                {
+                    { 1, true, null, "Medicină de familie" },
+                    { 2, true, null, "Medicină internă" },
+                    { 3, true, null, "Cardiologie" },
+                    { 4, true, null, "Pediatrie" },
+                    { 5, true, null, "Chirurgie generală" },
+                    { 6, true, null, "Ortopedie și traumatologie" },
+                    { 7, true, null, "Obstetrică-Ginecologie" },
+                    { 8, true, null, "Neurologie" },
+                    { 9, true, null, "Dermatologie" },
+                    { 10, true, null, "Oftalmologie" },
+                    { 11, true, null, "ORL" },
+                    { 12, true, null, "Stomatologie" },
+                    { 13, true, null, "Endocrinologie" },
+                    { 14, true, null, "Psihiatrie" },
+                    { 15, true, null, "Radiologie imagistică" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Autentificari_UtilizatorId",
                 table: "Autentificari",
@@ -404,6 +548,17 @@ namespace ClinicaMedicala.Migrations
                 column: "ProgramareId",
                 unique: true,
                 filter: "[ProgramareId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DependenteResurse_ResursaCerutaId",
+                table: "DependenteResurse",
+                column: "ResursaCerutaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DependenteResurse_ResursaPrincipalaId_ResursaCerutaId",
+                table: "DependenteResurse",
+                columns: new[] { "ResursaPrincipalaId", "ResursaCerutaId" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_DocumenteMedicale_MedicId",
@@ -446,6 +601,11 @@ namespace ClinicaMedicala.Migrations
                 filter: "[CNP] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PerioadeMentenanta_ResursaId",
+                table: "PerioadeMentenanta",
+                column: "ResursaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Programari_AsistentId",
                 table: "Programari",
                 column: "AsistentId");
@@ -477,14 +637,37 @@ namespace ClinicaMedicala.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ReguliConsultatii_TipProgramare",
+                table: "ReguliConsultatii",
+                column: "TipProgramare",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResursaSpecializare_SpecializariId",
+                table: "ResursaSpecializare",
+                column: "SpecializariId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Resurse_AdministratorId",
                 table: "Resurse",
                 column: "AdministratorId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Resurse_Denumire",
+                table: "Resurse",
+                column: "Denumire",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Resurse_NumarInventar",
                 table: "Resurse",
                 column: "NumarInventar",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Specializari_Nume",
+                table: "Specializari",
+                column: "Nume",
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -504,6 +687,9 @@ namespace ClinicaMedicala.Migrations
                 name: "Consultatii");
 
             migrationBuilder.DropTable(
+                name: "DependenteResurse");
+
+            migrationBuilder.DropTable(
                 name: "DocumenteMedicale");
 
             migrationBuilder.DropTable(
@@ -513,13 +699,25 @@ namespace ClinicaMedicala.Migrations
                 name: "MedicPacienti");
 
             migrationBuilder.DropTable(
+                name: "PerioadeMentenanta");
+
+            migrationBuilder.DropTable(
                 name: "Ratinguri");
+
+            migrationBuilder.DropTable(
+                name: "ReguliConsultatii");
+
+            migrationBuilder.DropTable(
+                name: "ResursaSpecializare");
 
             migrationBuilder.DropTable(
                 name: "FiseMedicale");
 
             migrationBuilder.DropTable(
                 name: "Programari");
+
+            migrationBuilder.DropTable(
+                name: "Specializari");
 
             migrationBuilder.DropTable(
                 name: "Asistenti");

@@ -1,0 +1,128 @@
+@model IEnumerable<ClinicaMedicala.Models.Programare>
+@{
+    ViewData["Title"] = "Programări — staff";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Programări</h2>
+    <div>
+        <a asp-action="Create" class="btn btn-primary">+ Adaugă programare</a>
+        <a asp-action="Calendar" class="btn btn-secondary">Calendar</a>
+    </div>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+<table class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Data și ora</th>
+            <th>Pacient</th>
+            <th>Medic</th>
+            <th>Tip</th>
+            <th>Motiv</th>
+            <th>Status</th>
+            <th class="text-end">Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (Model != null)
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.DataStart.ToString("dd.MM.yyyy HH:mm")</td>
+                <td><small>@(item.Pacient != null ? item.Pacient.Prenume + " " + item.Pacient.Nume : "?")</small></td>
+                <td><small>@(item.Medic != null ? "Dr. " + item.Medic.Prenume + " " + item.Medic.Nume : "?")</small></td>
+                <td><small>@item.TipProgramare.ToString().Replace('_', ' ')</small></td>
+                <td><small>@item.MotivVizita</small></td>
+                <td>
+                    @switch (item.Status)
+                    {
+                        case ClinicaMedicala.Models.StatusProgramare.Programat:
+                            <span class="badge bg-warning text-dark">Așteaptă confirmare</span>
+                            break;
+                        case ClinicaMedicala.Models.StatusProgramare.Confirmat:
+                            <span class="badge bg-success">Confirmată</span>
+                            break;
+                        case ClinicaMedicala.Models.StatusProgramare.Finalizat:
+                            <span class="badge bg-primary">Finalizată</span>
+                            break;
+                        case ClinicaMedicala.Models.StatusProgramare.Anulat_Pacient:
+                            <span class="badge bg-secondary">Anulată de pacient</span>
+                            break;
+                        case ClinicaMedicala.Models.StatusProgramare.Anulat_Clinica:
+                            <span class="badge bg-danger">Anulată de clinică</span>
+                            break;
+                        case ClinicaMedicala.Models.StatusProgramare.Neprezentare:
+                            <span class="badge bg-dark">Neprezentare</span>
+                            break;
+                    }
+                </td>
+                <td class="text-end">
+                    @{
+                        var poateFinala = item.Status == ClinicaMedicala.Models.StatusProgramare.Programat
+                                       || item.Status == ClinicaMedicala.Models.StatusProgramare.Confirmat;
+                    }
+
+                    @* Confirmă — doar pentru Programat *@
+                    @if (item.Status == ClinicaMedicala.Models.StatusProgramare.Programat)
+                    {
+                        <form asp-action="Confirma" asp-route-id="@item.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-success">Confirmă</button>
+                        </form>
+                    }
+
+                    @* Finalizează & Neprezentare — pentru Programat/Confirmat *@
+                    @if (poateFinala)
+                    {
+                        <form asp-action="Finalizeaza" asp-route-id="@item.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Marchezi consultația ca finalizată?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-primary">Finalizează</button>
+                        </form>
+                        <form asp-action="MarcheazaNeprezentare" asp-route-id="@item.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Marchezi că pacientul nu s-a prezentat?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-sm btn-outline-dark">Neprezentare</button>
+                        </form>
+                    }
+
+                    @* Modifică — doar pe cele active *@
+                    @if (poateFinala)
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary">Modifică</a>
+                    }
+
+                    @* Anulează — pentru cele care nu sunt deja în stare finală *@
+                    @if (item.Status != ClinicaMedicala.Models.StatusProgramare.Anulat_Clinica
+                       && item.Status != ClinicaMedicala.Models.StatusProgramare.Anulat_Pacient
+                       && item.Status != ClinicaMedicala.Models.StatusProgramare.Finalizat
+                       && item.Status != ClinicaMedicala.Models.StatusProgramare.Neprezentare)
+                    {
+                        <form asp-action="Cancel" asp-route-id="@item.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Sigur anulezi această programare?');">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="motivAnulare" value="Anulat de clinică" />
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Anulează</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info">Nicio programare înregistrată.</div>
+}

@@ -1,0 +1,15 @@
+﻿@model List<ClinicaMedicala.Models.Rating>
+
+<h2>Ratinguri</h2>
+
+<h3>Media ratingurilor: @ViewBag.AverageRating</h3>
+
+@foreach (var rating in Model)
+{
+    <div>
+        <strong>Scor:</strong> @rating.Scor <br />
+        <strong>Comentariu:</strong> @rating.Comentariu <br />
+        <strong>Data:</strong> @rating.Data.ToShortDateString()
+        <hr />
+    </div>
+}

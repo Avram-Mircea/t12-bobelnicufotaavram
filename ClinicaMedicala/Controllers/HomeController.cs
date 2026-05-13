@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicaMedicala.Controllers;
 
-// REQ-05: pagina principală cere autentificare. Auth/Login etc. rămân publice.
+// REQ-05: pagina principală cere autentificare (excepție: Privacy/Error).
 [Authorize]
 public class HomeController : Controller
 {
@@ -19,11 +19,22 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Index()
     {
-        // Dashboard widget pentru admin: resurse cu revizie restantă
+        // Redirect rolul utilizatorului către dashboard-ul specific
+        if (User.IsInRole(Rol.Pacient.ToString()))
+            return RedirectToAction("Index", "Pacient");
+
+        if (User.IsInRole(Rol.Medic.ToString()))
+            return RedirectToAction("Index", "Medic");
+
+        if (User.IsInRole(Rol.Asistent.ToString()))
+            return RedirectToAction("Index", "Programare");
+
+        // Pentru admin: dashboard local cu widget-ul de resurse cu revizie restantă
         if (User.IsInRole(Rol.Admin.ToString()))
         {
             ViewBag.ResurseCuRevizieRestanta = await _resurse.NumarCuRevizieRestantaAsync();
         }
+
         return View();
     }
 

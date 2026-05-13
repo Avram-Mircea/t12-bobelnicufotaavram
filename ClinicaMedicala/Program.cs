@@ -3,6 +3,8 @@ using ClinicaMedicala.Models;
 using ClinicaMedicala.Repositories;
 using ClinicaMedicala.Services;
 using ClinicaMedicala.Services.Auth;
+using ClinicaMedicala.Services.Pacienti;
+using ClinicaMedicala.Services.Programari;
 using ClinicaMedicala.Services.Resurse;
 using ClinicaMedicala.Services.Validare;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -25,6 +27,10 @@ builder.Services.AddScoped<IAutentificareRepository, AutentificareRepository>();
 builder.Services.AddScoped<IResursaRepository, ResursaRepository>();
 builder.Services.AddScoped<ISpecializareRepository, SpecializareRepository>();
 builder.Services.AddScoped<IReguliConsultatieRepository, ReguliConsultatieRepository>();
+builder.Services.AddScoped<IProgramareRepository, ProgramareRepository>();
+builder.Services.AddScoped<IFisaMedicalaRepository, FisaMedicalaRepository>();
+builder.Services.AddScoped<IDocumentMedicalRepository, DocumentMedicalRepository>();
+builder.Services.AddScoped<IRatingRepository, RatingRepository>();
 
 // ── Servicii ──────────────────────────────────────────────────────────────────
 builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
@@ -36,6 +42,10 @@ builder.Services.AddScoped<IResursaService, ResursaService>();
 builder.Services.AddScoped<ISpecializareService, SpecializareService>();
 builder.Services.AddScoped<IReguliConsultatieService, ReguliConsultatieService>();
 builder.Services.AddScoped<IConstraintValidationService, ConstraintValidationService>();
+builder.Services.AddScoped<IProgramareService, ProgramareService>();
+builder.Services.AddScoped<IFisaMedicalaService, FisaMedicalaService>();
+builder.Services.AddScoped<IDocumentMedicalService, DocumentMedicalService>();
+builder.Services.AddScoped<IRatingService, RatingService>();
 
 // ── Authentication: Cookie-based ──────────────────────────────────────────────
 // REQ-01, REQ-03: rol stocat în claim, un singur rol principal per utilizator

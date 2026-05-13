@@ -1,0 +1,82 @@
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Zona Medic";
+    var nume = User.Identity?.Name;
+    var programariAzi = ViewBag.ProgramariAzi as List<ClinicaMedicala.Models.Programare>;
+    var nrPacienti = ViewBag.NumarPacientiUnici as int? ?? 0;
+    var ratingMediu = ViewBag.RatingMediu as double? ?? 0;
+}
+
+<div class="mb-4">
+    <h2>Bun venit, @nume</h2>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="card text-bg-primary">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-1">Programări azi</h6>
+                <h3 class="card-title mb-0">@(programariAzi?.Count ?? 0)</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-bg-info">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-1">Pacienți unici</h6>
+                <h3 class="card-title mb-0">@nrPacienti</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-bg-warning">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-1">Rating mediu</h6>
+                <h3 class="card-title mb-0">@(ratingMediu == 0 ? "—" : ratingMediu.ToString("0.0") + " ★")</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-2 text-muted">Acțiuni rapide</h6>
+                <div class="d-grid gap-2">
+                    <a asp-action="Pacientii" class="btn btn-sm btn-outline-primary">Pacienții mei</a>
+                    <a asp-action="Programari" class="btn btn-sm btn-outline-primary">Toate programările</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h5>Programări astăzi</h5>
+@if (programariAzi != null && programariAzi.Any())
+{
+    <table class="table table-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Ora</th>
+                <th>Pacient</th>
+                <th>Motiv</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var p in programariAzi)
+        {
+            <tr>
+                <td>@p.DataStart.ToString("HH:mm") - @p.DataEnd.ToString("HH:mm")</td>
+                <td>@p.Pacient.Prenume @p.Pacient.Nume</td>
+                <td><small>@p.MotivVizita</small></td>
+                <td><small>@p.Status.ToString().Replace('_', ' ')</small></td>
+                <td><a asp-action="DetaliuPacient" asp-route-id="@p.PacientId" class="btn btn-sm btn-outline-secondary">Detalii</a></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-light border">Nicio programare astăzi.</div>
+}

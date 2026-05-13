@@ -1,0 +1,16 @@
+﻿<h2>Documente Medicale</h2>
+
+<form asp-action="Upload" method="post">
+    <input name="PacientId" type="hidden" />
+
+    <select name="TipDocument">
+        <option value="0">Analize</option>
+        <option value="1">Rețetă</option>
+        <option value="2">Externare</option>
+    </select>
+
+    <input name="Observatii" />
+    <input name="CaleFisier" />
+
+    <button>Upload</button>
+</form>

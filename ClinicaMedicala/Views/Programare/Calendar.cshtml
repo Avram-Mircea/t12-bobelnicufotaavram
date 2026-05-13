@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Calendar Programări";
+}
+
+<h1>Calendar Programări</h1>
+
+<div>
+    <a asp-action="Index" class="btn btn-secondary mb-3">Înapoi la Listă</a>
+</div>
+
+<div id="calendar"></div>
+
+@section Scripts {
+    <!-- FullCalendar CSS & JS -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js'></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                locale: 'ro',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: '@Url.Action("GetProgramariForCalendar", "Programare")'
+            });
+
+            calendar.render();
+        });
+    </script>
+}

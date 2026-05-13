@@ -31,4 +31,7 @@ public class FisaMedicala
     public Pacient Pacient { get; set; } = null!;
 
     public ICollection<Consultatie> Consultatii { get; set; } = new List<Consultatie>();
+
+    // REQ-37: timestamp ultima modificare (audit minimal)
+    public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
 }

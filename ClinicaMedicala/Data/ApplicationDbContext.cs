@@ -131,9 +131,10 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(r => r.MedicId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // Un pacient poate acorda un singur rating unui medic
+        // Unicitate: pentru aceeași pereche (pacient, medic) poate exista
+        // cel mult un rating per direcție (pacient→medic și medic→pacient).
         modelBuilder.Entity<Rating>()
-            .HasIndex(r => new { r.PacientId, r.MedicId })
+            .HasIndex(r => new { r.PacientId, r.MedicId, r.AcordatDeMedic })
             .IsUnique();
 
         // ── AUTENTIFICARE ─────────────────────────────────────────────────────

@@ -1,0 +1,98 @@
+@model ClinicaMedicala.Models.FisaMedicala
+@{
+    ViewData["Title"] = "Fișa mea medicală";
+    var documente = ViewBag.Documente as List<ClinicaMedicala.Models.DocumentMedical>;
+}
+
+<h2>Fișa mea medicală</h2>
+
+@if (Model == null)
+{
+    <div class="alert alert-info">
+        Fișa ta medicală încă nu a fost creată. Va fi întocmită automat de medic la prima ta consultație.
+    </div>
+}
+else
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Data creării</dt>
+                <dd class="col-sm-9">@Model.DataCreare.ToLocalTime().ToString("dd.MM.yyyy")</dd>
+
+                <dt class="col-sm-3">Ultima actualizare</dt>
+                <dd class="col-sm-9">@Model.LastUpdated.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</dd>
+
+                <dt class="col-sm-3">Istoric boli cronice</dt>
+                <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.IstoricBoliCronice) ? "—" : Model.IstoricBoliCronice)</dd>
+
+                <dt class="col-sm-3">Antecedente familiale</dt>
+                <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.AntecedenteFamiliale) ? "—" : Model.AntecedenteFamiliale)</dd>
+
+                <dt class="col-sm-3">Grupă de risc</dt>
+                <dd class="col-sm-9">@(string.IsNullOrWhiteSpace(Model.GrupaDeRisc) ? "—" : Model.GrupaDeRisc)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <h5>Istoric consultații (@Model.Consultatii.Count)</h5>
+    @if (Model.Consultatii.Any())
+    {
+        <table class="table table-sm">
+            <thead class="table-light">
+                <tr>
+                    <th>Data</th>
+                    <th>Simptome</th>
+                    <th>Diagnostic</th>
+                    <th>Tratament</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var c in Model.Consultatii.OrderByDescending(c => c.Data))
+            {
+                <tr>
+                    <td>@c.Data.ToString("dd.MM.yyyy")</td>
+                    <td><small>@(c.SimptomePrezentate ?? "—")</small></td>
+                    <td><small>@(c.DiagnosticICD10 ?? "—")</small></td>
+                    <td><small>@(c.TratamentRecomandat ?? "—")</small></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-muted">Nicio consultație înregistrată încă.</p>
+    }
+}
+
+<hr />
+<h5>Documentele mele medicale</h5>
+@if (documente != null && documente.Any())
+{
+    <table class="table table-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Data</th>
+                <th>Tip</th>
+                <th>Observații</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var d in documente)
+        {
+            <tr>
+                <td>@d.DataIncarcare.ToLocalTime().ToString("dd.MM.yyyy")</td>
+                <td>@d.TipDocument.ToString().Replace('_', ' ')</td>
+                <td><small>@(d.Observatii ?? "—")</small></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Niciun document încărcat încă.</p>
+}
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Înapoi la pagina mea</a>

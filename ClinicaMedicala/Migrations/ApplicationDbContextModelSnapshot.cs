@@ -195,6 +195,9 @@ namespace ClinicaMedicala.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("PacientId")
                         .HasColumnType("int");
 
@@ -308,6 +311,9 @@ namespace ClinicaMedicala.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("AcordatDeMedic")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Comentariu")
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
@@ -334,7 +340,7 @@ namespace ClinicaMedicala.Migrations
 
                     b.HasIndex("MedicId");
 
-                    b.HasIndex("PacientId", "MedicId")
+                    b.HasIndex("PacientId", "MedicId", "AcordatDeMedic")
                         .IsUnique();
 
                     b.ToTable("Ratinguri");

@@ -25,6 +25,11 @@ public class Rating
     // Adminul poate ascunde comentarii inadecvate fără a le șterge
     public bool Vizibil { get; set; } = true;
 
+    // REQ-45 vs REQ-46: distingem direcția ratingului.
+    // false = acordat de PACIENT pentru medic (vizibil public)
+    // true  = acordat de MEDIC pentru pacient (intern, note clinice)
+    public bool AcordatDeMedic { get; set; } = false;
+
     [Required]
     public int PacientId { get; set; }
 

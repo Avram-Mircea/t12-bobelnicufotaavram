@@ -1,0 +1,68 @@
+@model IEnumerable<ClinicaMedicala.Models.Medic>
+@{
+    ViewData["Title"] = "Acordă rating medicilor";
+    var ratinguriDate = ViewBag.RatinguriDate as List<int> ?? new List<int>();
+}
+
+<h2>Acordă rating medicilor</h2>
+<p class="text-muted">Poți acorda un singur rating per medic, după ce ai o consultație finalizată.</p>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Nu ai încă consultații finalizate cu vreun medic. Vei putea acorda rating după ce vei avea cel puțin o consultație.</div>
+}
+else
+{
+    foreach (var medic in Model)
+    {
+        var ratingExistent = ratinguriDate.Contains(medic.Id);
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Dr. @medic.Prenume @medic.Nume <small class="text-muted">— @medic.Specializare</small></h5>
+
+                @if (ratingExistent)
+                {
+                    <span class="badge bg-success">Ai acordat deja rating</span>
+                }
+                else
+                {
+                    <form asp-action="AcordaRating" method="post" class="row g-2 align-items-end">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="medicId" value="@medic.Id" />
+
+                        <div class="col-md-2">
+                            <label class="form-label">Scor (1-5)</label>
+                            <select name="scor" class="form-select" required>
+                                <option value="">—</option>
+                                <option value="5">★★★★★ (5)</option>
+                                <option value="4">★★★★ (4)</option>
+                                <option value="3">★★★ (3)</option>
+                                <option value="2">★★ (2)</option>
+                                <option value="1">★ (1)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="form-label">Comentariu (opțional)</label>
+                            <input type="text" name="comentariu" class="form-control" maxlength="1000"
+                                   placeholder="Cum ți s-a părut consultația?" />
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary w-100">Trimite</button>
+                        </div>
+                    </form>
+                }
+            </div>
+        </div>
+    }
+}
+
+<a asp-action="Index" class="btn btn-secondary">Înapoi la pagina mea</a>

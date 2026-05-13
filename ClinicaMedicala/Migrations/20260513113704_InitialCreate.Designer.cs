@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClinicaMedicala.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260512090132_AddResetTokenToUtilizator")]
-    partial class AddResetTokenToUtilizator
+    [Migration("20260513113704_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,6 +106,37 @@ namespace ClinicaMedicala.Migrations
                     b.ToTable("Consultatii");
                 });
 
+            modelBuilder.Entity("ClinicaMedicala.Models.DependentaResursa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descriere")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("ResursaCerutaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResursaPrincipalaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResursaCerutaId");
+
+                    b.HasIndex("ResursaPrincipalaId", "ResursaCerutaId")
+                        .IsUnique();
+
+                    b.ToTable("DependenteResurse");
+                });
+
             modelBuilder.Entity("ClinicaMedicala.Models.DocumentMedical", b =>
                 {
                     b.Property<int>("Id")
@@ -167,6 +198,9 @@ namespace ClinicaMedicala.Migrations
                         .HasMaxLength(2000)
                         .HasColumnType("nvarchar(2000)");
 
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("PacientId")
                         .HasColumnType("int");
 
@@ -176,6 +210,37 @@ namespace ClinicaMedicala.Migrations
                         .IsUnique();
 
                     b.ToTable("FiseMedicale");
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.PerioadaMentenanta", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Descriere")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("Inceput")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ResursaId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Sfarsit")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ResursaId");
+
+                    b.ToTable("PerioadeMentenanta");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Programare", b =>
@@ -281,6 +346,69 @@ namespace ClinicaMedicala.Migrations
                     b.ToTable("Ratinguri");
                 });
 
+            modelBuilder.Entity("ClinicaMedicala.Models.ReguliConsultatie", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Descriere")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<bool>("NecesitaAsistent")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TipProgramare")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TipProgramare")
+                        .IsUnique();
+
+                    b.ToTable("ReguliConsultatii");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Descriere = "Consultație simplă — fără cerințe speciale.",
+                            NecesitaAsistent = false,
+                            TipProgramare = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Descriere = "Re-evaluare pacient — de obicei fără asistent.",
+                            NecesitaAsistent = false,
+                            TipProgramare = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Descriere = "Intervenție clinică — asistent obligatoriu.",
+                            NecesitaAsistent = true,
+                            TipProgramare = 2
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Descriere = "Stabilizare pacient — asistent obligatoriu.",
+                            NecesitaAsistent = true,
+                            TipProgramare = 3
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Descriere = "Consultație remote — fără asistent fizic.",
+                            NecesitaAsistent = false,
+                            TipProgramare = 4
+                        });
+                });
+
             modelBuilder.Entity("ClinicaMedicala.Models.Resursa", b =>
                 {
                     b.Property<int>("Id")
@@ -288,6 +416,9 @@ namespace ClinicaMedicala.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activ")
+                        .HasColumnType("bit");
 
                     b.Property<int>("AdministratorId")
                         .HasColumnType("int");
@@ -312,10 +443,6 @@ namespace ClinicaMedicala.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("SpecializarePermisa")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<int>("Stare")
                         .HasColumnType("int");
 
@@ -326,10 +453,133 @@ namespace ClinicaMedicala.Migrations
 
                     b.HasIndex("AdministratorId");
 
+                    b.HasIndex("Denumire")
+                        .IsUnique();
+
                     b.HasIndex("NumarInventar")
                         .IsUnique();
 
                     b.ToTable("Resurse");
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.Specializare", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Activ")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Descriere")
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Nume")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Nume")
+                        .IsUnique();
+
+                    b.ToTable("Specializari");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Activ = true,
+                            Nume = "Medicină de familie"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Activ = true,
+                            Nume = "Medicină internă"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Activ = true,
+                            Nume = "Cardiologie"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Activ = true,
+                            Nume = "Pediatrie"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Activ = true,
+                            Nume = "Chirurgie generală"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Activ = true,
+                            Nume = "Ortopedie și traumatologie"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Activ = true,
+                            Nume = "Obstetrică-Ginecologie"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Activ = true,
+                            Nume = "Neurologie"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Activ = true,
+                            Nume = "Dermatologie"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Activ = true,
+                            Nume = "Oftalmologie"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Activ = true,
+                            Nume = "ORL"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Activ = true,
+                            Nume = "Stomatologie"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Activ = true,
+                            Nume = "Endocrinologie"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Activ = true,
+                            Nume = "Psihiatrie"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Activ = true,
+                            Nume = "Radiologie imagistică"
+                        });
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Utilizator", b =>
@@ -423,6 +673,21 @@ namespace ClinicaMedicala.Migrations
                     b.HasIndex("PacientiId");
 
                     b.ToTable("MedicPacienti");
+                });
+
+            modelBuilder.Entity("ResursaSpecializare", b =>
+                {
+                    b.Property<int>("ResurseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SpecializariId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ResurseId", "SpecializariId");
+
+                    b.HasIndex("SpecializariId");
+
+                    b.ToTable("ResursaSpecializare", (string)null);
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Administrator", b =>
@@ -554,6 +819,25 @@ namespace ClinicaMedicala.Migrations
                     b.Navigation("Programare");
                 });
 
+            modelBuilder.Entity("ClinicaMedicala.Models.DependentaResursa", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Resursa", "ResursaCeruta")
+                        .WithMany("DependenteIntrate")
+                        .HasForeignKey("ResursaCerutaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("ClinicaMedicala.Models.Resursa", "ResursaPrincipala")
+                        .WithMany("DependenteIesite")
+                        .HasForeignKey("ResursaPrincipalaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("ResursaCeruta");
+
+                    b.Navigation("ResursaPrincipala");
+                });
+
             modelBuilder.Entity("ClinicaMedicala.Models.DocumentMedical", b =>
                 {
                     b.HasOne("ClinicaMedicala.Models.Medic", "Medic")
@@ -581,6 +865,17 @@ namespace ClinicaMedicala.Migrations
                         .IsRequired();
 
                     b.Navigation("Pacient");
+                });
+
+            modelBuilder.Entity("ClinicaMedicala.Models.PerioadaMentenanta", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Resursa", "Resursa")
+                        .WithMany("PerioadeMentenanta")
+                        .HasForeignKey("ResursaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resursa");
                 });
 
             modelBuilder.Entity("ClinicaMedicala.Models.Programare", b =>
@@ -676,6 +971,21 @@ namespace ClinicaMedicala.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ResursaSpecializare", b =>
+                {
+                    b.HasOne("ClinicaMedicala.Models.Resursa", null)
+                        .WithMany()
+                        .HasForeignKey("ResurseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ClinicaMedicala.Models.Specializare", null)
+                        .WithMany()
+                        .HasForeignKey("SpecializariId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("ClinicaMedicala.Models.Administrator", b =>
                 {
                     b.HasOne("ClinicaMedicala.Models.Utilizator", null)
@@ -724,6 +1034,12 @@ namespace ClinicaMedicala.Migrations
 
             modelBuilder.Entity("ClinicaMedicala.Models.Resursa", b =>
                 {
+                    b.Navigation("DependenteIesite");
+
+                    b.Navigation("DependenteIntrate");
+
+                    b.Navigation("PerioadeMentenanta");
+
                     b.Navigation("Programari");
                 });
 
