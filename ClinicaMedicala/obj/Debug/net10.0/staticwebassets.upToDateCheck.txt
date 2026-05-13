@@ -1,6 +1,7 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\password-strength.js
+wwwroot\js\programare-form.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -125,3 +126,4 @@ C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\wwwroot\js\passw
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\wwwroot\favicon.ico
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\wwwroot\css\site.css
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\wwwroot\lib\jquery\LICENSE.txt
+C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\wwwroot\js\programare-form.js

@@ -20,6 +20,7 @@ public class ProgramareController : Controller
     private readonly IProgramareService _programareService;
     private readonly IGenericService<Medic> _medicService;
     private readonly IGenericService<Pacient> _pacientService;
+    private readonly IGenericService<Asistent> _asistentService;
     private readonly IGenericService<Resursa> _resursaService;
     private readonly IConstraintValidationService _validator;
     private readonly ApplicationDbContext _ctx;
@@ -28,6 +29,7 @@ public class ProgramareController : Controller
         IProgramareService programareService,
         IGenericService<Medic> medicService,
         IGenericService<Pacient> pacientService,
+        IGenericService<Asistent> asistentService,
         IGenericService<Resursa> resursaService,
         IConstraintValidationService validator,
         ApplicationDbContext ctx)
@@ -35,6 +37,7 @@ public class ProgramareController : Controller
         _programareService = programareService;
         _medicService = medicService;
         _pacientService = pacientService;
+        _asistentService = asistentService;
         _resursaService = resursaService;
         _validator = validator;
         _ctx = ctx;
@@ -217,6 +220,26 @@ public class ProgramareController : Controller
             return RedirectToAction(nameof(Index));
         }
 
+        // La confirmare validăm complet — dacă tipul cere asistent, trebuie atașat unul
+        // (din Edit înainte de Confirma). Pacientul nu poate atașa asistent la solicitare.
+        var rezultat = await _validator.ValideazaProgramareAsync(new CerereValidareProgramare
+        {
+            MedicId = programare.MedicId,
+            TipProgramare = programare.TipProgramare,
+            AsistentId = programare.AsistentId,
+            ResursaIds = programare.ResursaId.HasValue ? new List<int> { programare.ResursaId.Value } : new List<int>(),
+            DataStart = programare.DataStart,
+            DataEnd = programare.DataEnd,
+            EsteSolicitareDePacient = false   // confirmare = validare strictă
+        });
+
+        if (!rezultat.EValida)
+        {
+            TempData["Eroare"] = "Nu poți confirma programarea: " + string.Join(" ", rezultat.Erori) +
+                                 " Folosește „Modifică” pentru a completa datele lipsă.";
+            return RedirectToAction(nameof(Index));
+        }
+
         programare.Status = StatusProgramare.Confirmat;
         programare.NotificareTrimisa = true;
 
@@ -332,10 +355,60 @@ public class ProgramareController : Controller
         return RedirectToAction(nameof(Index));
     }
 
+    // REQ-15: returnează resursele compatibile cu specializarea unui medic, pentru
+    // filtrarea dinamică a dropdown-ului de Resursa pe form-ul Create/Edit.
+    [HttpGet]
+    public async Task<IActionResult> ResurseCompatibile(int medicId)
+    {
+        var medic = await _ctx.Medici.FirstOrDefaultAsync(m => m.Id == medicId);
+        if (medic == null) return Json(Array.Empty<object>());
+
+        var azi = DateTime.UtcNow.Date;
+
+        var resurse = await _ctx.Resurse
+            .Include(r => r.Specializari)
+            .Include(r => r.PerioadeMentenanta)
+            .Where(r => r.Activ
+                     && (r.Stare == StareResursa.Functional || r.Stare == StareResursa.Rezervat)
+                     && r.DataScadentaRevizie >= azi
+                     && !r.PerioadeMentenanta.Any(p => p.Inceput.Date <= azi && p.Sfarsit.Date >= azi))
+            .ToListAsync();
+
+        // Universal (fără specializări) SAU compatibilă cu specializarea medicului
+        var compatibile = resurse
+            .Where(r => !r.Specializari.Any()
+                     || r.Specializari.Any(s =>
+                          s.Nume.Equals(medic.Specializare, StringComparison.OrdinalIgnoreCase)))
+            .OrderBy(r => r.Tip).ThenBy(r => r.Denumire)
+            .Select(r => new
+            {
+                id = r.Id,
+                text = $"{r.Denumire} ({r.Tip.ToString().Replace('_', ' ')})"
+            });
+
+        return Json(compatibile);
+    }
+
     private async Task PopulareDictionare()
     {
-        ViewBag.Pacienti = new SelectList(await _pacientService.GetAllAsync(), "Id", "Nume");
-        ViewBag.Medici = new SelectList(await _medicService.GetAllAsync(), "Id", "Nume");
-        ViewBag.Resurse = new SelectList(await _resursaService.GetAllAsync(), "Id", "Denumire");
+        var pacienti = (await _pacientService.GetAllAsync())
+            .Select(p => new { p.Id, NumeAfisat = $"{p.Prenume} {p.Nume} — CNP {p.CNP}" })
+            .OrderBy(p => p.NumeAfisat);
+        ViewBag.Pacienti = new SelectList(pacienti, "Id", "NumeAfisat");
+
+        var medici = (await _medicService.GetAllAsync())
+            .Select(m => new { m.Id, NumeAfisat = $"Dr. {m.Prenume} {m.Nume} — {m.Specializare}" })
+            .OrderBy(m => m.NumeAfisat);
+        ViewBag.Medici = new SelectList(medici, "Id", "NumeAfisat");
+
+        var asistenti = (await _asistentService.GetAllAsync())
+            .Select(a => new { a.Id, NumeAfisat = $"{a.Prenume} {a.Nume} — {a.Departament}" })
+            .OrderBy(a => a.NumeAfisat);
+        ViewBag.Asistenti = new SelectList(asistenti, "Id", "NumeAfisat");
+
+        var resurse = (await _resursaService.GetAllAsync())
+            .Select(r => new { r.Id, NumeAfisat = $"{r.Denumire} ({r.Tip.ToString().Replace('_', ' ')})" })
+            .OrderBy(r => r.NumeAfisat);
+        ViewBag.Resurse = new SelectList(resurse, "Id", "NumeAfisat");
     }
 }

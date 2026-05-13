@@ -40,9 +40,11 @@ public class ConstraintValidationService : IConstraintValidationService
         }
 
         // ── 3. Tip consultație → necesită asistent? (REQ-16) ──────────────────
+        // La solicitare inițială de pacient (status Programat), nu cerem încă asistentul.
+        // Asistenta îl va atașa la confirmare.
         var necesitaAsistent = await _reguli.NecesitaAsistentAsync(cerere.TipProgramare);
 
-        if (necesitaAsistent && cerere.AsistentId == null)
+        if (necesitaAsistent && cerere.AsistentId == null && !cerere.EsteSolicitareDePacient)
         {
             rezultat.AdaugaEroare(
                 $"Tipul „{cerere.TipProgramare.ToString().Replace('_', ' ')}” necesită prezența unui asistent.");

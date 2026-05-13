@@ -3,18 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\MXB\\Documents\\IS\\Implementare_software\\ClinicaMedicala\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.Programari.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.Consultatii.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
+      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mxb\\documents\\is\\implementare_software\\clinicamedicala\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mxb\\documents\\is\\implementare_software\\clinicamedicala\\models\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:models\\enums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|c:\\users\\mxb\\documents\\is\\implementare_software\\clinicamedicala\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{3A4B61C5-C661-F64B-EF18-50261C5AEC9E}|ClinicaMedicala.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.Resurse.sql||{0058A1F7-65F3-4DB9-B3D0-CA7E64DD73CD}"
@@ -35,26 +29,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "dbo.Programari [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.Programari.sql",
-              "ToolTip": "dbo.Programari [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-05-13T13:13:06.185Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "dbo.Consultatii [Data]",
-              "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.Consultatii.sql",
-              "ToolTip": "dbo.Consultatii [Data]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
-              "WhenOpened": "2026-05-13T13:12:59.607Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\MXB\\Documents\\IS\\Implementare_software\\ClinicaMedicala\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
@@ -62,11 +36,12 @@
               "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-05-12T20:23:34.539Z"
+              "WhenOpened": "2026-05-12T20:23:34.539Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "dbo.Resurse.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.Resurse.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.Resurse.sql",
@@ -75,7 +50,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Enums.cs",
               "DocumentMoniker": "C:\\Users\\MXB\\Documents\\IS\\Implementare_software\\ClinicaMedicala\\Models\\Enums.cs",
               "RelativeDocumentMoniker": "Models\\Enums.cs",
@@ -83,12 +58,11 @@
               "RelativeToolTip": "Models\\Enums.cs",
               "ViewState": "AgIAADIAAAAAAAAAAAAIwEEAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-05-12T12:59:34.373Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-05-12T12:59:34.373Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "dbo.Utilizatori.sql",
               "DocumentMoniker": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.Utilizatori.sql",
               "ToolTip": "ViewDataWindow_MSSQL__/_localdb__MSSQLLocalDB/ClinicaMedicala/True/SqlTable/dbo.Utilizatori.sql",

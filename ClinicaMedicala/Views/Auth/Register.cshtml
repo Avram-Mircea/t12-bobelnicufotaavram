@@ -9,19 +9,28 @@
             <div class="card-body">
                 <h3 class="card-title text-center mb-4">Înregistrare Pacient</h3>
 
-                <form asp-action="Register" method="post">
+                <form asp-action="Register" method="post" autocomplete="off">
                     @Html.AntiForgeryToken()
+
+                    @* Honeypot fields — păcălesc browserul să nu autocompleteze câmpurile reale *@
+                    <input type="text" name="_fake_user" autocomplete="username"
+                           style="display:none" tabindex="-1" aria-hidden="true" />
+                    <input type="password" name="_fake_pass" autocomplete="current-password"
+                           style="display:none" tabindex="-1" aria-hidden="true" />
+
                     <div asp-validation-summary="ModelOnly" class="alert alert-danger" style="@(ViewData.ModelState.IsValid ? "display:none" : "")"></div>
 
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="Nume" class="form-label"></label>
-                            <input asp-for="Nume" class="form-control" />
+                            <input asp-for="Nume" class="form-control"
+                                   autocomplete="off" />
                             <span asp-validation-for="Nume" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="Prenume" class="form-label"></label>
-                            <input asp-for="Prenume" class="form-control" />
+                            <input asp-for="Prenume" class="form-control"
+                                   autocomplete="off" />
                             <span asp-validation-for="Prenume" class="text-danger"></span>
                         </div>
                     </div>
@@ -29,12 +38,16 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="Email" class="form-label"></label>
-                            <input asp-for="Email" class="form-control" />
+                            <input asp-for="Email" class="form-control"
+                                   autocomplete="off"
+                                   readonly onfocus="this.removeAttribute('readonly');"
+                                   data-lpignore="true" data-1p-ignore="true" data-bwignore="true" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="Telefon" class="form-label"></label>
-                            <input asp-for="Telefon" class="form-control" />
+                            <input asp-for="Telefon" class="form-control"
+                                   autocomplete="off" />
                             <span asp-validation-for="Telefon" class="text-danger"></span>
                         </div>
                     </div>
@@ -42,19 +55,22 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="CNP" class="form-label"></label>
-                            <input asp-for="CNP" class="form-control" maxlength="13" />
+                            <input asp-for="CNP" class="form-control" maxlength="13"
+                                   autocomplete="off" />
                             <span asp-validation-for="CNP" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="DataNastere" class="form-label"></label>
-                            <input asp-for="DataNastere" class="form-control" type="date" />
+                            <input asp-for="DataNastere" class="form-control" type="date"
+                                   autocomplete="off" />
                             <span asp-validation-for="DataNastere" class="text-danger"></span>
                         </div>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="Adresa" class="form-label"></label>
-                        <input asp-for="Adresa" class="form-control" />
+                        <input asp-for="Adresa" class="form-control"
+                               autocomplete="off" />
                         <span asp-validation-for="Adresa" class="text-danger"></span>
                     </div>
 
@@ -71,12 +87,14 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="ContactUrgentaNume" class="form-label"></label>
-                            <input asp-for="ContactUrgentaNume" class="form-control" />
+                            <input asp-for="ContactUrgentaNume" class="form-control"
+                                   autocomplete="off" />
                             <span asp-validation-for="ContactUrgentaNume" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="ContactUrgentaTelefon" class="form-label"></label>
-                            <input asp-for="ContactUrgentaTelefon" class="form-control" />
+                            <input asp-for="ContactUrgentaTelefon" class="form-control"
+                                   autocomplete="off" />
                             <span asp-validation-for="ContactUrgentaTelefon" class="text-danger"></span>
                         </div>
                     </div>
@@ -87,14 +105,20 @@
                         <div class="col-md-6 mb-3">
                             <label asp-for="Parola" class="form-label"></label>
                             <input asp-for="Parola" class="form-control"
-                                   data-password-strength="parolaHintsRegister" />
+                                   data-password-strength="parolaHintsRegister"
+                                   autocomplete="off"
+                                   readonly onfocus="this.removeAttribute('readonly');"
+                                   data-lpignore="true" data-1p-ignore="true" data-bwignore="true" />
                             <partial name="_PasswordHints" model="@("parolaHintsRegister")" />
                             <span asp-validation-for="Parola" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="ConfirmaParola" class="form-label"></label>
                             <input asp-for="ConfirmaParola" class="form-control"
-                                   data-password-match="Parola" />
+                                   data-password-match="Parola"
+                                   autocomplete="off"
+                                   readonly onfocus="this.removeAttribute('readonly');"
+                                   data-lpignore="true" data-1p-ignore="true" data-bwignore="true" />
                             <div class="form-text password-match-feedback mt-1"></div>
                             <span asp-validation-for="ConfirmaParola" class="text-danger"></span>
                         </div>

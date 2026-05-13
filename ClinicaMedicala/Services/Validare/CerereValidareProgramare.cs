@@ -12,4 +12,8 @@ public class CerereValidareProgramare
     public List<int> ResursaIds { get; set; } = new();
     public DateTime DataStart { get; set; }
     public DateTime DataEnd { get; set; }
+
+    // True = solicitare inițială de pacient (status Programat, urmează confirmare staff).
+    // Validatorul nu cere prezența asistentei — asistenta o va atașa la confirmare.
+    public bool EsteSolicitareDePacient { get; set; } = false;
 }

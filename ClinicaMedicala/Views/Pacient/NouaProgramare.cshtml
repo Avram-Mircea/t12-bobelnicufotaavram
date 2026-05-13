@@ -16,7 +16,8 @@
 
             <div class="mb-3">
                 <label asp-for="MedicId" class="form-label"></label>
-                <select asp-for="MedicId" asp-items="ViewBag.Medici" class="form-select">
+                <select asp-for="MedicId" asp-items="ViewBag.Medici" class="form-select searchable-select"
+                        data-placeholder="Caută medic după nume sau specializare...">
                     <option value="">— alege medic —</option>
                 </select>
                 <span asp-validation-for="MedicId" class="text-danger"></span>

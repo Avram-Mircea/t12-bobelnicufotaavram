@@ -1,74 +1,91 @@
 @model ClinicaMedicala.Models.ViewModels.ProgramareCreateViewModel
 @{
-    ViewData["Title"] = "Modifică Programare";
+    ViewData["Title"] = "Modifică programare";
 }
 
-<h1>Modifică Programare</h1>
+<h2>Modifică programare</h2>
 
-<hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Edit" method="post" autocomplete="off">
+            @Html.AntiForgeryToken()
             <input type="hidden" asp-for="Id" />
 
-            <div class="form-group mb-3">
-                <label asp-for="PacientId" class="control-label"></label>
-                <select asp-for="PacientId" class="form-control" asp-items="ViewBag.Pacienti">
-                    <option value="">-- Selectați Pacientul --</option>
-                </select>
-                <span asp-validation-for="PacientId" class="text-danger"></span>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"
+                 style="@(ViewData.ModelState.IsValid ? "display:none" : "")"></div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="PacientId" class="form-label"></label>
+                    <select asp-for="PacientId" class="form-select searchable-select"
+                            asp-items="ViewBag.Pacienti" data-placeholder="Caută pacient după nume sau CNP...">
+                        <option value="">— Selectează pacientul —</option>
+                    </select>
+                    <span asp-validation-for="PacientId" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="MedicId" class="form-label"></label>
+                    <select asp-for="MedicId" class="form-select searchable-select"
+                            asp-items="ViewBag.Medici" data-placeholder="Caută medic după nume sau specializare...">
+                        <option value="">— Selectează medicul —</option>
+                    </select>
+                    <span asp-validation-for="MedicId" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="MedicId" class="control-label"></label>
-                <select asp-for="MedicId" class="form-control" asp-items="ViewBag.Medici">
-                    <option value="">-- Selectați Medicul --</option>
-                </select>
-                <span asp-validation-for="MedicId" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="AsistentId" class="form-label"></label>
+                    <select asp-for="AsistentId" class="form-select searchable-select"
+                            asp-items="ViewBag.Asistenti" data-placeholder="Caută asistent (opțional)...">
+                        <option value="">— Fără asistent —</option>
+                    </select>
+                    <span asp-validation-for="AsistentId" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="ResursaId" class="form-label"></label>
+                    <select asp-for="ResursaId" class="form-select searchable-select"
+                            asp-items="ViewBag.Resurse" data-placeholder="Caută cabinet/aparat...">
+                        <option value="">— Fără resursă —</option>
+                    </select>
+                    <span asp-validation-for="ResursaId" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="ResursaId" class="control-label"></label>
-                <select asp-for="ResursaId" class="form-control" asp-items="ViewBag.Resurse">
-                    <option value="">-- Fără Resursă --</option>
-                </select>
-                <span asp-validation-for="ResursaId" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DataStart" class="form-label"></label>
+                    <input asp-for="DataStart" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="DataStart" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DataEnd" class="form-label"></label>
+                    <input asp-for="DataEnd" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="DataEnd" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="DataStart" class="control-label"></label>
-                <input asp-for="DataStart" class="form-control" type="datetime-local" />
-                <span asp-validation-for="DataStart" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label asp-for="TipProgramare" class="form-label"></label>
+                    <select asp-for="TipProgramare" class="form-select"
+                            asp-items="@Html.GetEnumSelectList<ClinicaMedicala.Models.TipProgramare>()"></select>
+                    <span asp-validation-for="TipProgramare" class="text-danger"></span>
+                </div>
+                <div class="col-md-8 mb-3">
+                    <label asp-for="MotivVizita" class="form-label"></label>
+                    <input asp-for="MotivVizita" class="form-control" />
+                    <span asp-validation-for="MotivVizita" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-group mb-3">
-                <label asp-for="DataEnd" class="control-label"></label>
-                <input asp-for="DataEnd" class="form-control" type="datetime-local" />
-                <span asp-validation-for="DataEnd" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="MotivVizita" class="control-label"></label>
-                <input asp-for="MotivVizita" class="form-control" />
-                <span asp-validation-for="MotivVizita" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="TipProgramare" class="control-label"></label>
-                <select asp-for="TipProgramare" class="form-control" asp-items="Html.GetEnumSelectList<ClinicaMedicala.Models.TipProgramare>()">
-                </select>
-                <span asp-validation-for="TipProgramare" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Salvează Modificările" class="btn btn-warning" />
-                <a asp-action="Index" class="btn btn-secondary">Înapoi la listă</a>
-            </div>
+            <button type="submit" class="btn btn-warning">Salvează modificările</button>
+            <a asp-action="Index" class="btn btn-secondary">Înapoi la listă</a>
         </form>
     </div>
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/programare-form.js" asp-append-version="true"></script>
 }

@@ -20,7 +20,8 @@
 
                     <div class="mb-3">
                         <label asp-for="MedicId" class="form-label"></label>
-                        <select asp-for="MedicId" class="form-select">
+                        <select asp-for="MedicId" class="form-select searchable-select"
+                                data-placeholder="Caută medic după nume sau specializare...">
                             <option value="">— alege medic —</option>
                             @foreach (var m in Model.Medici)
                             {
@@ -38,7 +39,8 @@
 
                     <div class="mb-3">
                         <label asp-for="AsistentId" class="form-label"></label>
-                        <select asp-for="AsistentId" class="form-select">
+                        <select asp-for="AsistentId" class="form-select searchable-select"
+                                data-placeholder="Caută asistent după nume sau departament...">
                             <option value="">— fără asistent —</option>
                             @foreach (var a in Model.Asistenti)
                             {

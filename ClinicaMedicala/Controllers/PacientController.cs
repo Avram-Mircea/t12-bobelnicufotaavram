@@ -135,7 +135,8 @@ public class PacientController : Controller
             AsistentId = null,
             ResursaIds = new List<int>(),
             DataStart = model.DataStart,
-            DataEnd = model.DataEnd
+            DataEnd = model.DataEnd,
+            EsteSolicitareDePacient = true   // asistentul va fi atașat la confirmare
         });
         if (!rezultat.EValida)
             foreach (var er in rezultat.Erori)
