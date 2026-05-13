@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mircea\\source\\repos\\ClinicaMedicala\\ClinicaMedicala.csproj": {}
+    "C:\\Users\\MXB\\Documents\\IS\\Implementare_software\\ClinicaMedicala\\ClinicaMedicala.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mircea\\source\\repos\\ClinicaMedicala\\ClinicaMedicala.csproj": {
+    "C:\\Users\\MXB\\Documents\\IS\\Implementare_software\\ClinicaMedicala\\ClinicaMedicala.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mircea\\source\\repos\\ClinicaMedicala\\ClinicaMedicala.csproj",
+        "projectUniqueName": "C:\\Users\\MXB\\Documents\\IS\\Implementare_software\\ClinicaMedicala\\ClinicaMedicala.csproj",
         "projectName": "ClinicaMedicala",
-        "projectPath": "C:\\Users\\Mircea\\source\\repos\\ClinicaMedicala\\ClinicaMedicala.csproj",
-        "packagesPath": "C:\\Users\\Mircea\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mircea\\source\\repos\\ClinicaMedicala\\obj\\",
+        "projectPath": "C:\\Users\\MXB\\Documents\\IS\\Implementare_software\\ClinicaMedicala\\ClinicaMedicala.csproj",
+        "packagesPath": "C:\\Users\\MXB\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\MXB\\Documents\\IS\\Implementare_software\\ClinicaMedicala\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Mircea\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\MXB\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
