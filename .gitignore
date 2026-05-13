@@ -36,3 +36,6 @@ appsettings.*.json
 *.db
 *.db-shm
 *.db-wal
+
+## Documente medicale incarcate de utilizatori — nu comitem date reale de pacienti
+ClinicaMedicala/wwwroot/uploads/

@@ -6,8 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClinicaMedicala.Controllers;
 
-// REQ-05: pagina principală cere autentificare (excepție: Privacy/Error).
-[Authorize]
 public class HomeController : Controller
 {
     private readonly IResursaService _resurse;
@@ -17,24 +15,15 @@ public class HomeController : Controller
         _resurse = resurse;
     }
 
+    // Pagina de start — prezentare publică, accesibilă și fără autentificare.
+    // Adminul (dacă e logat) vede în plus widget de alertă pentru revizii restante.
+    [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
-        // Redirect rolul utilizatorului către dashboard-ul specific
-        if (User.IsInRole(Rol.Pacient.ToString()))
-            return RedirectToAction("Index", "Pacient");
-
-        if (User.IsInRole(Rol.Medic.ToString()))
-            return RedirectToAction("Index", "Medic");
-
-        if (User.IsInRole(Rol.Asistent.ToString()))
-            return RedirectToAction("Index", "Programare");
-
-        // Pentru admin: dashboard local cu widget-ul de resurse cu revizie restantă
         if (User.IsInRole(Rol.Admin.ToString()))
         {
             ViewBag.ResurseCuRevizieRestanta = await _resurse.NumarCuRevizieRestantaAsync();
         }
-
         return View();
     }
 

@@ -1,0 +1,42 @@
+@model ClinicaMedicala.Models.DocumentMedical
+@{
+    ViewData["Title"] = "Editare document medical";
+}
+
+<h2>Editare document medical</h2>
+<p class="text-muted">
+    Încărcat: @Model.DataIncarcare.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+    @if (!string.IsNullOrWhiteSpace(Model.CaleFisier))
+    {
+        <span> · </span>
+        <a asp-action="Download" asp-route-id="@Model.Id" target="_blank">⬇ Descarcă fișierul original</a>
+    }
+</p>
+<p class="text-muted small">Pentru a încărca un fișier nou trebuie să ștergi acest document și să încarci unul nou.</p>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="PacientId" />
+            <input type="hidden" asp-for="CaleFisier" />
+            <input type="hidden" asp-for="DataIncarcare" />
+            <input type="hidden" asp-for="MedicId" />
+
+            <div class="mb-3">
+                <label asp-for="TipDocument" class="form-label"></label>
+                <select asp-for="TipDocument" class="form-select"
+                        asp-items="@Html.GetEnumSelectList<ClinicaMedicala.Models.TipDocument>()"></select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Observatii" class="form-label"></label>
+                <textarea asp-for="Observatii" class="form-control" rows="3" maxlength="1000"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvează</button>
+            <a asp-action="Index" asp-route-pacientId="@Model.PacientId" class="btn btn-secondary">Anulează</a>
+        </form>
+    </div>
+</div>

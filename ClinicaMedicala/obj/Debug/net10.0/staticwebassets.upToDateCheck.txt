@@ -63,6 +63,8 @@ wwwroot\lib\jquery\dist\jquery.slim.js
 wwwroot\lib\jquery\dist\jquery.slim.min.js
 wwwroot\lib\jquery\dist\jquery.slim.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\uploads\documente\2\87909d5724a64f899273f140c27581d5.pdf
+wwwroot\uploads\documente\6\f61ebe5b6ef2437ca9a6f2606bd552ef.pdf
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\wwwroot\lib\jquery\dist\jquery.slim.min.map
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\wwwroot\lib\jquery\dist\jquery.slim.min.js
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\wwwroot\lib\jquery\dist\jquery.slim.js
