@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Consultație nouă";
+    var pacientId = ViewBag.PacientId as int? ?? 0;
+    var fisaId = ViewBag.FisaMedicalaId as int? ?? 0;
+}
+
+<h2>Adaugă consultație în fișă</h2>
+<p class="text-muted">Folosit pentru consultații care nu au fost programate în prealabil (ex: urgențe).</p>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="pacientId" value="@pacientId" />
+            <input type="hidden" name="fisaMedicalaId" value="@fisaId" />
+
+            <div class="mb-3">
+                <label class="form-label">Simptome prezentate</label>
+                <textarea name="simptome" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Diagnostic (cod ICD-10)</label>
+                <input name="diagnostic" class="form-control" maxlength="20"
+                       placeholder='ex: "I10"' />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Tratament recomandat</label>
+                <textarea name="tratament" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Observații medic (intern)</label>
+                <textarea name="observatii" class="form-control" rows="2"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvează consultația</button>
+            <a asp-controller="FisaMedicala" asp-action="Details" asp-route-pacientId="@pacientId"
+               class="btn btn-secondary">Anulează</a>
+        </form>
+    </div>
+</div>

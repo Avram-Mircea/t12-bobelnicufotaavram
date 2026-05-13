@@ -1,0 +1,79 @@
+@model ClinicaMedicala.Models.Utilizator
+@{
+    ViewData["Title"] = $"Detalii: {Model.Prenume} {Model.Nume}";
+}
+
+<h2>@Model.Prenume @Model.Nume</h2>
+<p class="text-muted">@Model.Rol — @(Model.StatusCont ? "Activ" : "Dezactivat")</p>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row mb-0">
+            <dt class="col-sm-3">ID</dt>
+            <dd class="col-sm-9">@Model.Id</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+
+            <dt class="col-sm-3">Telefon</dt>
+            <dd class="col-sm-9">@Model.Telefon</dd>
+
+            <dt class="col-sm-3">Adresă</dt>
+            <dd class="col-sm-9">@Model.Adresa</dd>
+
+            <dt class="col-sm-3">Data creării contului</dt>
+            <dd class="col-sm-9">@Model.DataCreareCont.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</dd>
+        </dl>
+
+        @if (Model is ClinicaMedicala.Models.Medic medic)
+        {
+            <hr />
+            <h5>Detalii medic</h5>
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Specializare</dt>
+                <dd class="col-sm-9">@medic.Specializare</dd>
+                <dt class="col-sm-3">Cod parafă</dt>
+                <dd class="col-sm-9">@medic.CodParafa</dd>
+                <dt class="col-sm-3">Grad profesional</dt>
+                <dd class="col-sm-9">@medic.GradProfesional</dd>
+                <dt class="col-sm-3">Cost consultație</dt>
+                <dd class="col-sm-9">@medic.CostConsultatie.ToString("C")</dd>
+                @if (!string.IsNullOrWhiteSpace(medic.NumarContractCAS))
+                {
+                    <dt class="col-sm-3">Contract CAS</dt>
+                    <dd class="col-sm-9">@medic.NumarContractCAS</dd>
+                }
+            </dl>
+        }
+        else if (Model is ClinicaMedicala.Models.Asistent asistent)
+        {
+            <hr />
+            <h5>Detalii asistent</h5>
+            <dl class="row mb-0">
+                <dt class="col-sm-3">Departament</dt>
+                <dd class="col-sm-9">@asistent.Departament</dd>
+                <dt class="col-sm-3">Tură</dt>
+                <dd class="col-sm-9">@asistent.Tura</dd>
+            </dl>
+        }
+        else if (Model is ClinicaMedicala.Models.Pacient pacient)
+        {
+            <hr />
+            <h5>Detalii pacient</h5>
+            <dl class="row mb-0">
+                <dt class="col-sm-3">CNP</dt>
+                <dd class="col-sm-9">@pacient.CNP</dd>
+                <dt class="col-sm-3">Data nașterii</dt>
+                <dd class="col-sm-9">@pacient.DataNastere.ToString("dd.MM.yyyy")</dd>
+                <dt class="col-sm-3">Grupă sanguină</dt>
+                <dd class="col-sm-9">@pacient.GrupaSanguina</dd>
+                <dt class="col-sm-3">Asigurat CNAS</dt>
+                <dd class="col-sm-9">@(pacient.AsiguratCNAS ? "Da" : "Nu")</dd>
+                <dt class="col-sm-3">Contact urgență</dt>
+                <dd class="col-sm-9">@pacient.ContactUrgentaNume — @pacient.ContactUrgentaTelefon</dd>
+            </dl>
+        }
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary mt-3">Înapoi la listă</a>

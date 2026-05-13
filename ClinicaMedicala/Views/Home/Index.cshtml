@@ -1,8 +1,200 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Clinica Medicală";
+    ViewData["FullWidth"] = true;
+    var rol = User.FindFirstValue(ClaimTypes.Role);
+    var resurseCuRevizieRestanta = ViewBag.ResurseCuRevizieRestanta as int?;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@* ── HERO SECTION ────────────────────────────────────────────────────────── *@
+<section class="hero-section">
+    <div class="hero-overlay">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6 text-white py-5">
+                    <h1 class="display-3 fw-bold mb-3">Sănătatea ta, prioritatea noastră</h1>
+                    <p class="lead mb-4">
+                        Clinică medicală modernă cu specialiști acreditați, programări online rapide
+                        și acces digital la fișa medicală — toate într-un singur loc.
+                    </p>
+
+                    @if (User.Identity?.IsAuthenticated != true)
+                    {
+                        @* Vizitator anonim — invitație la autentificare/înregistrare *@
+                        <a asp-controller="Auth" asp-action="Register" class="btn btn-light btn-lg me-2">
+                            ✍️ Înregistrează-te
+                        </a>
+                        <a asp-controller="Auth" asp-action="Login" class="btn btn-outline-light btn-lg">
+                            🔑 Autentificare
+                        </a>
+                    }
+                    else if (rol == ClinicaMedicala.Models.Rol.Pacient.ToString())
+                    {
+                        <a asp-controller="Pacient" asp-action="NouaProgramare" class="btn btn-light btn-lg me-2">
+                            📅 Fă o programare
+                        </a>
+                        <a asp-controller="Pacient" asp-action="FisaMea" class="btn btn-outline-light btn-lg">
+                            🩺 Fișa mea
+                        </a>
+                    }
+                    else if (rol == ClinicaMedicala.Models.Rol.Medic.ToString())
+                    {
+                        <a asp-controller="Medic" asp-action="Programari" class="btn btn-light btn-lg me-2">
+                            📋 Programările mele
+                        </a>
+                        <a asp-controller="Medic" asp-action="Pacientii" class="btn btn-outline-light btn-lg">
+                            👥 Pacienții mei
+                        </a>
+                    }
+                    else if (rol == ClinicaMedicala.Models.Rol.Asistent.ToString())
+                    {
+                        <a asp-controller="Programare" asp-action="Index" class="btn btn-light btn-lg">
+                            📋 Gestionează programări
+                        </a>
+                    }
+                    else if (rol == ClinicaMedicala.Models.Rol.Admin.ToString())
+                    {
+                        <a asp-controller="Utilizatori" asp-action="Index" class="btn btn-light btn-lg me-2">
+                            👥 Utilizatori
+                        </a>
+                        <a asp-controller="Resurse" asp-action="Index" class="btn btn-outline-light btn-lg">
+                            🏥 Resurse
+                        </a>
+                    }
+                </div>
+                <div class="col-lg-6 d-none d-lg-block text-center">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=80"
+                         alt="Echipa medicală"
+                         class="img-fluid rounded-4 shadow-lg hero-image" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@* ── ALERTĂ ADMIN (revizii) ──────────────────────────────────────────────── *@
+@if (rol == ClinicaMedicala.Models.Rol.Admin.ToString()
+     && resurseCuRevizieRestanta.HasValue && resurseCuRevizieRestanta.Value > 0)
+{
+    <div class="container my-3">
+        <div class="alert alert-warning d-flex justify-content-between align-items-center mb-0">
+            <div>
+                ⚠ <strong>@resurseCuRevizieRestanta resurse</strong> au revizia restantă.
+            </div>
+            <a asp-controller="Resurse" asp-action="Index" class="btn btn-sm btn-warning">
+                Vezi resursele →
+            </a>
+        </div>
+    </div>
+}
+
+@* ── PUNCTE FORTE ────────────────────────────────────────────────────────── *@
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">De ce să alegi clinica noastră</h2>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">👨‍⚕️</div>
+                        <h5 class="card-title">Specialiști acreditați</h5>
+                        <p class="card-text text-muted">
+                            Echipă medicală cu experiență, certificată în 15+ specializări:
+                            cardiologie, pediatrie, dermatologie, chirurgie și multe altele.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">📅</div>
+                        <h5 class="card-title">Programări online 24/7</h5>
+                        <p class="card-text text-muted">
+                            Programează-te în câteva clickuri, oricând. Sistemul nostru
+                            verifică automat disponibilitatea medicului și a sălii.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">🔬</div>
+                        <h5 class="card-title">Echipamente moderne</h5>
+                        <p class="card-text text-muted">
+                            Aparatură imagistică performantă, săli de procedură dotate
+                            și laboratoare de analize la standarde înalte.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">📋</div>
+                        <h5 class="card-title">Fișă medicală digitală</h5>
+                        <p class="card-text text-muted">
+                            Acces oricând la istoricul medical, analizele și documentele tale —
+                            de pe orice dispozitiv, securizat și criptat.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">⭐</div>
+                        <h5 class="card-title">Calitate evaluată</h5>
+                        <p class="card-text text-muted">
+                            Sistem de rating transparent: alegi medicul informat din experiențele
+                            altor pacienți, moderat de echipa noastră.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm feature-card">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">🔐</div>
+                        <h5 class="card-title">Confidențialitate GDPR</h5>
+                        <p class="card-text text-muted">
+                            Datele tale sunt protejate cu parole criptate, conexiune HTTPS
+                            și jurnal de acces — conform reglementărilor europene.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@* ── STATISTICI ────────────────────────────────────────────────────────── *@
+<section class="py-5 stats-section text-white text-center">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-3">
+                <h2 class="display-4 fw-bold">15+</h2>
+                <p class="lead">Specializări medicale</p>
+            </div>
+            <div class="col-md-3">
+                <h2 class="display-4 fw-bold">24/7</h2>
+                <p class="lead">Programări online</p>
+            </div>
+            <div class="col-md-3">
+                <h2 class="display-4 fw-bold">100%</h2>
+                <p class="lead">Date securizate</p>
+            </div>
+            <div class="col-md-3">
+                <h2 class="display-4 fw-bold">⭐⭐⭐⭐⭐</h2>
+                <p class="lead">Rating moderat</p>
+            </div>
+        </div>
+    </div>
+</section>

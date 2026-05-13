@@ -1,0 +1,100 @@
+@model IEnumerable<ClinicaMedicala.Models.DocumentMedical>
+@{
+    ViewData["Title"] = "Documente medicale";
+    var pacientId = ViewBag.PacientId as int? ?? 0;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Documente medicale pacient</h2>
+    <a asp-controller="Medic" asp-action="DetaliuPacient" asp-route-id="@pacientId"
+       class="btn btn-secondary">Înapoi la pacient</a>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>+ Încarcă document nou</h5>
+        <form asp-action="Upload" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="pacientId" value="@pacientId" />
+
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Tip document</label>
+                    <select name="tipDocument" class="form-select" required>
+                        @foreach (var t in Enum.GetValues<ClinicaMedicala.Models.TipDocument>())
+                        {
+                            <option value="@t">@t.ToString().Replace('_', ' ')</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="col-md-5 mb-3">
+                    <label class="form-label">Fișier</label>
+                    <input type="file" name="fisier" class="form-control"
+                           accept=".pdf,.jpg,.jpeg,.png,.doc,.docx" required />
+                    <small class="text-muted">PDF, JPG, PNG, DOC, DOCX · max. 10 MB</small>
+                </div>
+
+                <div class="col-md-3 mb-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Încarcă</button>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Observații (opțional)</label>
+                <input name="observatii" class="form-control" maxlength="500"
+                       placeholder='ex: "Analize de sânge de rutină"' />
+            </div>
+        </form>
+    </div>
+</div>
+
+<h5>Documente existente</h5>
+<table class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Data</th>
+            <th>Tip</th>
+            <th>Observații</th>
+            <th class="text-end">Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var d in Model)
+    {
+        <tr>
+            <td>@d.DataIncarcare.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</td>
+            <td><span class="badge bg-light text-dark border">@d.TipDocument.ToString().Replace('_', ' ')</span></td>
+            <td><small>@(d.Observatii ?? "—")</small></td>
+            <td class="text-end">
+                @if (!string.IsNullOrWhiteSpace(d.CaleFisier))
+                {
+                    <a asp-action="Download" asp-route-id="@d.Id"
+                       class="btn btn-sm btn-outline-primary" target="_blank">⬇ Descarcă</a>
+                }
+                <a asp-action="Edit" asp-route-id="@d.Id" class="btn btn-sm btn-outline-secondary">Editează</a>
+                <form asp-action="Delete" asp-route-id="@d.Id" method="post" class="d-inline"
+                      onsubmit="return confirm('Sigur ștergi acest document?');">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="pacientId" value="@pacientId" />
+                    <button type="submit" class="btn btn-sm btn-outline-danger">Șterge</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Niciun document încărcat încă.</div>
+}

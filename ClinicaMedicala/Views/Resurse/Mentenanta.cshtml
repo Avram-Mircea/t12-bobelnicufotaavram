@@ -1,0 +1,114 @@
+@model List<ClinicaMedicala.Models.PerioadaMentenanta>
+@{
+    var r = ViewBag.Resursa as ClinicaMedicala.Models.Resursa;
+    ViewData["Title"] = $"Mentenanță — {r?.Denumire}";
+    var azi = DateTime.UtcNow.Date;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="mb-0">Perioade de mentenanță</h2>
+        <p class="text-muted mb-0">@r?.Denumire — <code>@r?.NumarInventar</code></p>
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">Înapoi la lista resurselor</a>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+<div class="card mb-4">
+    <div class="card-body">
+        <h5>+ Programează perioadă de mentenanță</h5>
+        <form asp-action="AdaugaPerioada" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="resursaId" value="@r?.Id" />
+
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Început</label>
+                    <input type="date" name="inceput" class="form-control" required
+                           min="@azi.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label class="form-label">Sfârșit</label>
+                    <input type="date" name="sfarsit" class="form-control" required
+                           min="@azi.ToString("yyyy-MM-dd")" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Descriere (opțional)</label>
+                    <input type="text" name="descriere" class="form-control" maxlength="500"
+                           placeholder='ex: „Calibrare anuală Siemens”' />
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Adaugă perioadă</button>
+        </form>
+        <small class="text-muted">
+            În perioada de mentenanță resursa va fi automat indisponibilă pentru programări noi.
+            Nu se acceptă suprapuneri.
+        </small>
+    </div>
+</div>
+
+<h5>Istoric perioade</h5>
+<table class="table table-sm table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Început</th>
+            <th>Sfârșit</th>
+            <th>Status</th>
+            <th>Descriere</th>
+            <th class="text-end">Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        var inProgres = p.Inceput.Date <= azi && p.Sfarsit.Date >= azi;
+        var viitoare = p.Inceput.Date > azi;
+        var trecuta = p.Sfarsit.Date < azi;
+        <tr class="@(trecuta ? "text-muted" : "")">
+            <td>@p.Inceput.ToString("dd.MM.yyyy")</td>
+            <td>@p.Sfarsit.ToString("dd.MM.yyyy")</td>
+            <td>
+                @if (inProgres)
+                {
+                    <span class="badge bg-warning text-dark">În curs</span>
+                }
+                else if (viitoare)
+                {
+                    <span class="badge bg-info text-dark">Programată</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Trecută</span>
+                }
+            </td>
+            <td><small>@(p.Descriere ?? "—")</small></td>
+            <td class="text-end">
+                @if (!trecuta)
+                {
+                    <form asp-action="StergePerioada" method="post" class="d-inline"
+                          onsubmit="return confirm('Sigur ștergi această perioadă de mentenanță?');">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="perioadaId" value="@p.Id" />
+                        <input type="hidden" name="resursaId" value="@r?.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Șterge</button>
+                    </form>
+                }
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Nicio perioadă de mentenanță înregistrată.</div>
+}

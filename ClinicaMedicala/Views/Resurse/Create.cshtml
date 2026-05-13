@@ -1,0 +1,79 @@
+@model ClinicaMedicala.Models.ViewModels.CreareResursaViewModel
+@{
+    ViewData["Title"] = "Adaugă resursă";
+}
+
+<h2>Adaugă resursă nouă</h2>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Create" method="post" autocomplete="off">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"
+                 style="@(ViewData.ModelState.IsValid ? "display:none" : "")"></div>
+
+            <div class="row">
+                <div class="col-md-7 mb-3">
+                    <label asp-for="Denumire" class="form-label"></label>
+                    <input asp-for="Denumire" class="form-control" placeholder='ex: „Cabinet Cardiologie 1”' />
+                    <span asp-validation-for="Denumire" class="text-danger"></span>
+                </div>
+                <div class="col-md-5 mb-3">
+                    <label asp-for="Tip" class="form-label"></label>
+                    <select asp-for="Tip" class="form-select"
+                            asp-items="@Html.GetEnumSelectList<ClinicaMedicala.Models.TipResursa>()"></select>
+                    <span asp-validation-for="Tip" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-5 mb-3">
+                    <label asp-for="NumarInventar" class="form-label"></label>
+                    <input asp-for="NumarInventar" class="form-control" placeholder="ex: INV-2026-001" />
+                    <span asp-validation-for="NumarInventar" class="text-danger"></span>
+                </div>
+                <div class="col-md-7 mb-3">
+                    <label asp-for="Locatie" class="form-label"></label>
+                    <input asp-for="Locatie" class="form-control" placeholder='ex: „Etaj 2, Camera 204”' />
+                    <span asp-validation-for="Locatie" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="SpecializareIds" class="form-label"></label>
+                @if (Model.SpecializariDisponibile.Any())
+                {
+                    <div class="border rounded p-2" style="max-height: 220px; overflow-y: auto;">
+                        @foreach (var s in Model.SpecializariDisponibile)
+                        {
+                            var bifat = Model.SpecializareIds.Contains(s.Id);
+                            <div class="form-check">
+                                <input type="checkbox" name="SpecializareIds" value="@s.Id"
+                                       class="form-check-input"
+                                       id="spec_@s.Id"
+                                       checked="@bifat" />
+                                <label class="form-check-label" for="spec_@s.Id">@s.Nume</label>
+                            </div>
+                        }
+                    </div>
+                    <small class="text-muted">Bifează specializările care pot folosi această resursă. Lasă necompletat = orice specializare.</small>
+                }
+                else
+                {
+                    <div class="alert alert-warning">
+                        Nu există specializări active.
+                        <a asp-controller="Specializari" asp-action="Create">Adaugă una</a> înainte de a continua.
+                    </div>
+                }
+            </div>
+
+            <button type="submit" class="btn btn-primary">Salvează resursa</button>
+            <a asp-action="Index" class="btn btn-secondary">Anulează</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

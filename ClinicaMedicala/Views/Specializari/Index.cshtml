@@ -1,0 +1,61 @@
+@model IEnumerable<ClinicaMedicala.Models.Specializare>
+@{
+    ViewData["Title"] = "Specializări medicale";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Specializări medicale</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Adaugă specializare</a>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+<p class="text-muted">
+    Specializările sunt folosite pentru a restricționa ce resurse pot fi alocate la programări
+    (ex: <em>„Doar sălile asociate Cardiologiei pot fi folosite pentru consult de Cardiologie”</em>).
+</p>
+
+<table class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Nume</th>
+            <th>Descriere</th>
+            <th>Status</th>
+            <th class="text-end">Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var s in Model)
+    {
+        <tr class="@(s.Activ ? "" : "text-muted")">
+            <td><strong>@s.Nume</strong></td>
+            <td><small>@(s.Descriere ?? "—")</small></td>
+            <td>
+                @if (s.Activ)
+                {
+                    <span class="badge bg-success">Activ</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Inactiv</span>
+                }
+            </td>
+            <td class="text-end">
+                <form asp-action="ToggleActiv" asp-route-id="@s.Id" method="post" class="d-inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-sm @(s.Activ ? "btn-outline-warning" : "btn-outline-success")">
+                        @(s.Activ ? "Dezactivează" : "Activează")
+                    </button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

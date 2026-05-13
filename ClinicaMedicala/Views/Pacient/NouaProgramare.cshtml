@@ -1,0 +1,60 @@
+@model ClinicaMedicala.Models.ViewModels.ProgramareCreateViewModel
+@{
+    ViewData["Title"] = "Programare nouă";
+}
+
+<h2>Solicită o programare</h2>
+<p class="text-muted">Completează datele. Asistenta va confirma programarea.</p>
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="NouaProgramare" method="post" autocomplete="off">
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"
+                 style="@(ViewData.ModelState.IsValid ? "display:none" : "")"></div>
+
+            <div class="mb-3">
+                <label asp-for="MedicId" class="form-label"></label>
+                <select asp-for="MedicId" asp-items="ViewBag.Medici" class="form-select searchable-select"
+                        data-placeholder="Caută medic după nume sau specializare...">
+                    <option value="">— alege medic —</option>
+                </select>
+                <span asp-validation-for="MedicId" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TipProgramare" class="form-label"></label>
+                <select asp-for="TipProgramare" class="form-select"
+                        asp-items="@Html.GetEnumSelectList<ClinicaMedicala.Models.TipProgramare>()"></select>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DataStart" class="form-label"></label>
+                    <input asp-for="DataStart" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="DataStart" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="DataEnd" class="form-label"></label>
+                    <input asp-for="DataEnd" class="form-control" type="datetime-local" />
+                    <span asp-validation-for="DataEnd" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="MotivVizita" class="form-label"></label>
+                <textarea asp-for="MotivVizita" class="form-control" rows="3"
+                          placeholder="Descrie pe scurt motivul vizitei"></textarea>
+                <span asp-validation-for="MotivVizita" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Trimite cererea</button>
+            <a asp-action="Index" class="btn btn-secondary">Anulează</a>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

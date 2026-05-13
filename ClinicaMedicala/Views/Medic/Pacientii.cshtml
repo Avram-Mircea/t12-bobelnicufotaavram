@@ -1,0 +1,40 @@
+@model IEnumerable<ClinicaMedicala.Models.Pacient>
+@{
+    ViewData["Title"] = "Pacienții mei";
+}
+
+<h2>Pacienții mei</h2>
+<p class="text-muted">Lista pacienților cu care ai avut sau ai programări.</p>
+
+<table class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Nume</th>
+            <th>Prenume</th>
+            <th>CNP</th>
+            <th>Telefon</th>
+            <th>Email</th>
+            <th class="text-end">Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.Nume</td>
+            <td>@p.Prenume</td>
+            <td><code>@p.CNP</code></td>
+            <td><small>@p.Telefon</small></td>
+            <td><small>@p.Email</small></td>
+            <td class="text-end">
+                <a asp-action="DetaliuPacient" asp-route-id="@p.Id" class="btn btn-sm btn-outline-primary">Detalii</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Niciun pacient încă. Vei vedea aici pacienții pe măsură ce au programări cu tine.</div>
+}

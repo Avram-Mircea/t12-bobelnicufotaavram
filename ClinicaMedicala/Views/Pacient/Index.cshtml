@@ -1,0 +1,90 @@
+@using System.Security.Claims
+@{
+    ViewData["Title"] = "Pagina mea";
+    var nume = User.Identity?.Name;
+    var programari = ViewBag.ProgramariViitoare as List<ClinicaMedicala.Models.Programare>;
+    var areFisa = ViewBag.AreFisa as bool? ?? false;
+}
+
+<div class="mb-4">
+    <h2>Bun venit, @nume!</h2>
+    <p class="text-muted">Aici poți gestiona programările tale și accesa fișa medicală.</p>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <div class="card text-bg-primary h-100">
+            <div class="card-body">
+                <h5 class="card-title">📅 Programare nouă</h5>
+                <p class="card-text">Solicită o consultație online.</p>
+                <a asp-action="NouaProgramare" class="btn btn-light">Programează-te</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-bg-info h-100">
+            <div class="card-body">
+                <h5 class="card-title">📋 Programările mele</h5>
+                <p class="card-text">Vezi istoricul și statusul programărilor.</p>
+                <a asp-action="ProgramarileMele" class="btn btn-light">Vezi lista</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-bg-secondary h-100">
+            <div class="card-body">
+                <h5 class="card-title">🩺 Fișa mea medicală</h5>
+                <p class="card-text">@(areFisa ? "Vezi datele tale medicale." : "Fișa va fi creată după prima consultație.")</p>
+                <a asp-action="FisaMea" class="btn btn-light">Deschide</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h5>Programări viitoare</h5>
+@if (programari != null && programari.Any())
+{
+    <table class="table table-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Data și ora</th>
+                <th>Medic</th>
+                <th>Tip</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var p in programari)
+        {
+            <tr>
+                <td>@p.DataStart.ToString("dd.MM.yyyy HH:mm")</td>
+                <td>Dr. @p.Medic.Prenume @p.Medic.Nume — @p.Medic.Specializare</td>
+                <td><small>@p.TipProgramare.ToString().Replace('_', ' ')</small></td>
+                <td>
+                    @if (p.Status == ClinicaMedicala.Models.StatusProgramare.Confirmat)
+                    {
+                        <span class="badge bg-success">Confirmată</span>
+                    }
+                    else if (p.Status == ClinicaMedicala.Models.StatusProgramare.Programat)
+                    {
+                        <span class="badge bg-warning text-dark">Așteaptă confirmare</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">@p.Status</span>
+                    }
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-light border">Nicio programare viitoare. <a asp-action="NouaProgramare">Programează-te</a> pentru o consultație.</div>
+}

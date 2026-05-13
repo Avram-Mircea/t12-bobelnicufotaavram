@@ -1,0 +1,164 @@
+@model IEnumerable<ClinicaMedicala.Models.Resursa>
+@{
+    ViewData["Title"] = "Management resurse";
+    var filtruTip = ViewBag.FiltruTip as ClinicaMedicala.Models.TipResursa?;
+    var filtruStare = ViewBag.FiltruStare as ClinicaMedicala.Models.StareResursa?;
+    var search = ViewBag.Search as string;
+    var doarActive = ViewBag.DoarActive as bool?;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Management resurse</h2>
+    <a asp-action="Create" class="btn btn-primary">+ Adaugă resursă</a>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+<form method="get" class="mb-3">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label mb-1">Tip</label>
+            <select name="tip" class="form-select" onchange="this.form.submit()">
+                <option value="">— toate —</option>
+                @foreach (var t in Enum.GetValues<ClinicaMedicala.Models.TipResursa>())
+                {
+                    <option value="@t" selected="@(filtruTip == t)">@t.ToString().Replace('_', ' ')</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label mb-1">Stare tehnică</label>
+            <select name="stare" class="form-select" onchange="this.form.submit()">
+                <option value="">— toate —</option>
+                @foreach (var s in Enum.GetValues<ClinicaMedicala.Models.StareResursa>())
+                {
+                    <option value="@s" selected="@(filtruStare == s)">@s.ToString().Replace('_', ' ')</option>
+                }
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label mb-1">Status</label>
+            <select name="doarActive" class="form-select" onchange="this.form.submit()">
+                <option value="">— toate —</option>
+                <option value="true" selected="@(doarActive == true)">Doar active</option>
+                <option value="false" selected="@(doarActive == false)">Doar inactive</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label class="form-label mb-1">Caută</label>
+            <input type="text" name="search" value="@search" class="form-control"
+                   placeholder="denumire / nr. inventar / locație" />
+        </div>
+        <div class="col-md-1">
+            <a asp-action="Index" class="btn btn-outline-secondary w-100">Reset</a>
+        </div>
+    </div>
+</form>
+
+<table class="table table-hover align-middle">
+    <thead class="table-light">
+        <tr>
+            <th>Denumire</th>
+            <th>Tip</th>
+            <th>Nr. inventar</th>
+            <th>Locație</th>
+            <th>Specializări permise</th>
+            <th>Stare tehnică</th>
+            <th>Status</th>
+            <th>Scadență revizie</th>
+            <th class="text-end">Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var r in Model)
+    {
+        var scadent = r.DataScadentaRevizie < DateTime.UtcNow;
+        <tr class="@(!r.Activ ? "text-muted" : "")">
+            <td><strong>@r.Denumire</strong></td>
+            <td><small>@r.Tip.ToString().Replace('_', ' ')</small></td>
+            <td><code>@r.NumarInventar</code></td>
+            <td><small>@(r.Locatie ?? "—")</small></td>
+            <td>
+                @if (r.Specializari.Any())
+                {
+                    @foreach (var s in r.Specializari)
+                    {
+                        <span class="badge bg-light text-dark border me-1">@s.Nume</span>
+                    }
+                }
+                else
+                {
+                    <small class="text-muted">— oricare —</small>
+                }
+            </td>
+            <td>
+                @switch (r.Stare)
+                {
+                    case ClinicaMedicala.Models.StareResursa.Functional:
+                        <span class="badge bg-success">Funcțional</span>
+                        break;
+                    case ClinicaMedicala.Models.StareResursa.In_Mentenanta:
+                        <span class="badge bg-warning text-dark">În mentenanță</span>
+                        break;
+                    case ClinicaMedicala.Models.StareResursa.Defect:
+                        <span class="badge bg-danger">Defect</span>
+                        break;
+                    case ClinicaMedicala.Models.StareResursa.Rezervat:
+                        <span class="badge bg-info text-dark">Rezervat</span>
+                        break;
+                }
+            </td>
+            <td>
+                @if (r.Activ)
+                {
+                    <span class="badge bg-success">Activ</span>
+                }
+                else
+                {
+                    <span class="badge bg-secondary">Inactiv</span>
+                }
+            </td>
+            <td>
+                <small class="@(scadent && r.Activ ? "text-danger fw-bold" : "")">
+                    @r.DataScadentaRevizie.ToLocalTime().ToString("dd.MM.yyyy")
+                    @if (scadent && r.Activ) { <text>⚠</text> }
+                </small>
+            </td>
+            <td class="text-end">
+                <div class="btn-group btn-group-sm">
+                    <a asp-action="Edit" asp-route-id="@r.Id" class="btn btn-outline-primary">Editează</a>
+                    <a asp-action="Mentenanta" asp-route-id="@r.Id" class="btn btn-outline-info">Mentenanță</a>
+                    <a asp-action="Dependente" asp-route-id="@r.Id" class="btn btn-outline-info">Dependențe</a>
+                    @if (r.Activ)
+                    {
+                        <form asp-action="Dezactiveaza" asp-route-id="@r.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Dezactivezi resursa „@r.Denumire”? Nu va mai apărea în calendar pentru programări noi.');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-danger">Dezactivează</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="Activeaza" asp-route-id="@r.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-success">Activează</button>
+                        </form>
+                    }
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Nicio resursă nu corespunde filtrelor. Apasă „+ Adaugă resursă” ca să creezi prima.</div>
+}

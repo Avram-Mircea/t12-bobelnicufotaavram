@@ -30,6 +30,54 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxBY2Nlc3NEZW5pZWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/ForgotPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxMb2dpbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZWdpc3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Auth/ResetPassword.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Constrangeri/TestValidator.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3RyYW5nZXJpXFRlc3RWYWxpZGF0b3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Consultatie/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VsdGF0aWVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Consultatie/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29uc3VsdGF0aWVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/DocumentMedical/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRNZWRpY2FsXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/DocumentMedical/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9jdW1lbnRNZWRpY2FsXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/FisaMedicala/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlzYU1lZGljYWxhXERldGFpbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/FisaMedicala/Raport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmlzYU1lZGljYWxhXFJhcG9ydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -38,12 +86,140 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Medic/DetaliuPacient.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNcRGV0YWxpdVBhY2llbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Medic/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Medic/Pacientii.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNcUGFjaWVudGlpLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Medic/Programari.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVkaWNcUHJvZ3JhbWFyaS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/ModerareRating/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTW9kZXJhcmVSYXRpbmdcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Pacient/FisaMea.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFjaWVudFxGaXNhTWVhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Pacient/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFjaWVudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Pacient/NouaProgramare.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFjaWVudFxOb3VhUHJvZ3JhbWFyZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Pacient/ProgramarileMele.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFjaWVudFxQcm9ncmFtYXJpbGVNZWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Pacient/RatingMedici.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFjaWVudFxSYXRpbmdNZWRpY2kuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Programare/Calendar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFyZVxDYWxlbmRhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Programare/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFyZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Programare/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFyZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Programare/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZ3JhbWFyZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Rating/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF0aW5nXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Rating/List.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF0aW5nXExpc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/ReguliConsultatii/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVndWxpQ29uc3VsdGF0aWlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Resurse/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdXJzZVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Resurse/Dependente.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdXJzZVxEZXBlbmRlbnRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Resurse/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdXJzZVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Resurse/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdXJzZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Resurse/Mentenanta.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdXJzZVxNZW50ZW5hbnRhLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Shared/_LoginPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Shared/_PasswordHints.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9QYXNzd29yZEhpbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Specializari/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl6YXJpXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Specializari/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3BlY2lhbGl6YXJpXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/Istoric.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcSXN0b3JpYy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/Utilizatori/ReseteazaParola.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXRpbGl6YXRvcmlcUmVzZXRlYXphUGFyb2xhLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/MXB/Documents/IS/Implementare_software/ClinicaMedicala/Views/_ViewImports.cshtml]

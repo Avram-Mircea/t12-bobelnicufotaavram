@@ -1,0 +1,100 @@
+@model ClinicaMedicala.Models.FisaMedicala
+@{
+    ViewData["Title"] = "Fișă medicală";
+    var esteNoua = Model.Id == 0;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Fișă medicală pacient</h2>
+    <a asp-controller="DocumentMedical" asp-action="Index" asp-route-pacientId="@Model.PacientId"
+       class="btn btn-outline-primary">Documente medicale</a>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+@if (esteNoua)
+{
+    <div class="alert alert-info">
+        Acest pacient nu are încă o fișă medicală. Completează datele și apasă „Salvează" pentru a o crea.
+    </div>
+}
+else
+{
+    <p class="text-muted">
+        Creată la: @Model.DataCreare.ToLocalTime().ToString("dd.MM.yyyy") ·
+        Ultima actualizare: @Model.LastUpdated.ToLocalTime().ToString("dd.MM.yyyy HH:mm")
+    </p>
+}
+
+<div class="card">
+    <div class="card-body">
+        <form asp-action="Save" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="PacientId" />
+
+            <div class="mb-3">
+                <label asp-for="IstoricBoliCronice" class="form-label">Istoric boli cronice</label>
+                <textarea asp-for="IstoricBoliCronice" class="form-control" rows="4"
+                          placeholder="Diabet, HTA, cardiopatie etc."></textarea>
+                <span asp-validation-for="IstoricBoliCronice" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="AntecedenteFamiliale" class="form-label">Antecedente familiale</label>
+                <textarea asp-for="AntecedenteFamiliale" class="form-control" rows="3"
+                          placeholder="Antecedente heredocolaterale relevante clinic"></textarea>
+                <span asp-validation-for="AntecedenteFamiliale" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GrupaDeRisc" class="form-label">Grupă de risc</label>
+                <input asp-for="GrupaDeRisc" class="form-control"
+                       placeholder="ex: cardiovascular, oncologic" />
+                <span asp-validation-for="GrupaDeRisc" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">@(esteNoua ? "Creează fișa" : "Salvează modificările")</button>
+            <a asp-controller="Medic" asp-action="DetaliuPacient" asp-route-id="@Model.PacientId"
+               class="btn btn-secondary">Înapoi</a>
+        </form>
+    </div>
+</div>
+
+@if (!esteNoua && Model.Consultatii != null && Model.Consultatii.Any())
+{
+    <hr />
+    <h5>Istoric consultații</h5>
+    <table class="table table-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Data</th>
+                <th>Simptome</th>
+                <th>Diagnostic (ICD-10)</th>
+                <th>Tratament</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var c in Model.Consultatii.OrderByDescending(c => c.Data))
+        {
+            <tr>
+                <td>@c.Data.ToString("dd.MM.yyyy")</td>
+                <td><small>@(c.SimptomePrezentate ?? "—")</small></td>
+                <td><small>@(c.DiagnosticICD10 ?? "—")</small></td>
+                <td><small>@(c.TratamentRecomandat ?? "—")</small></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

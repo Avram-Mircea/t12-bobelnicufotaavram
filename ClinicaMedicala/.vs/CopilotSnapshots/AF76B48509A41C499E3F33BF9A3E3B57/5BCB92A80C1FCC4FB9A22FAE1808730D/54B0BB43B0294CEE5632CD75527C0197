@@ -1,0 +1,49 @@
+﻿using ClinicaMedicala.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace ClinicaMedicala.Data;
+
+public class ApplicationDbContext : DbContext
+{
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
+
+    public DbSet<Utilizator> Utilizatori { get; set; } = null!;
+    public DbSet<Medic> Medici { get; set; } = null!;
+    public DbSet<Asistent> Asistenti { get; set; } = null!;
+    public DbSet<Pacient> Pacienti { get; set; } = null!;
+    public DbSet<Resursa> Resurse { get; set; } = null!;
+    public DbSet<Programare> Programari { get; set; } = null!;
+    public DbSet<FisaMedicala> FiseMedicale { get; set; } = null!;
+    public DbSet<Consultatie> Consultatii { get; set; } = null!;
+    public DbSet<DocumentMedical> DocumenteMedicale { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // Index unic pe CodParafa pentru Medici
+        modelBuilder.Entity<Medic>()
+            .HasIndex(m => m.CodParafa)
+            .IsUnique();
+
+        // Index unic pe NumarInventar pentru Resurse
+        modelBuilder.Entity<Resursa>()
+            .HasIndex(r => r.NumarInventar)
+            .IsUnique();
+
+        // Tip de coloană decimal(18,2) pentru CostConsultatie
+        modelBuilder.Entity<Medic>()
+            .Property(m => m.CostConsultatie)
+            .HasColumnType("decimal(18,2)");
+
+        // Prevenim ștergerea în cascadă a consultațiilor la ștergerea unui Medic
+        modelBuilder.Entity<Consultatie>()
+            .HasOne(c => c.Medic)
+            .WithMany()
+            .HasForeignKey(c => c.MedicId)
+            .OnDelete(DeleteBehavior.Restrict);
+    }
+}

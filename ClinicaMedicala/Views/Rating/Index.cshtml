@@ -1,0 +1,34 @@
+﻿@model List<ClinicaMedicala.Models.Rating>
+
+<h2>Ratinguri</h2>
+
+<h3>Media: @ViewBag.AverageRating</h3>
+
+@if (ViewBag.CanRate == true)
+{
+    <form asp-action="Add" method="post">
+
+        <input type="hidden" name="MedicId" value="@ViewBag.MedicId" />
+        <input type="hidden" name="PacientId" value="@ViewBag.PacientId" />
+
+        <label>Scor</label>
+        <input type="number" name="Scor" min="1" max="5" required />
+
+        <label>Comentariu</label>
+        <textarea name="Comentariu"></textarea>
+
+        <button type="submit">Trimite</button>
+    </form>
+}
+
+<hr />
+
+@foreach (var r in Model)
+{
+    <div>
+        <strong>Scor:</strong> @r.Scor <br />
+        <strong>Comentariu:</strong> @r.Comentariu <br />
+        <strong>Data:</strong> @r.Data
+    </div>
+    <hr />
+}

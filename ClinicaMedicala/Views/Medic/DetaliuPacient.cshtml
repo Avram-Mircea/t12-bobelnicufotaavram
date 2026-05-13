@@ -1,0 +1,115 @@
+@model ClinicaMedicala.Models.Pacient
+@{
+    ViewData["Title"] = $"Pacient: {Model.Prenume} {Model.Nume}";
+    var programari = ViewBag.Programari as List<ClinicaMedicala.Models.Programare>;
+    var poateRating = ViewBag.AcordaRatingDisponibil as bool? ?? false;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="mb-0">@Model.Prenume @Model.Nume</h2>
+        <p class="text-muted mb-0">CNP: <code>@Model.CNP</code> · @Model.GrupaSanguina</p>
+    </div>
+    <div>
+        <a asp-controller="FisaMedicala" asp-action="Details" asp-route-pacientId="@Model.Id"
+           class="btn btn-primary">Fișa medicală</a>
+        <a asp-controller="Consultatie" asp-action="Create" asp-route-pacientId="@Model.Id"
+           class="btn btn-outline-primary">+ Consultație</a>
+        <a asp-controller="DocumentMedical" asp-action="Index" asp-route-pacientId="@Model.Id"
+           class="btn btn-outline-primary">Documente</a>
+    </div>
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+@if (TempData["Eroare"] != null)
+{
+    <div class="alert alert-danger">@TempData["Eroare"]</div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Date pacient</h5>
+                <dl class="row mb-0">
+                    <dt class="col-sm-4">Data nașterii</dt>
+                    <dd class="col-sm-8">@Model.DataNastere.ToString("dd.MM.yyyy")</dd>
+                    <dt class="col-sm-4">Telefon</dt>
+                    <dd class="col-sm-8">@Model.Telefon</dd>
+                    <dt class="col-sm-4">Email</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+                    <dt class="col-sm-4">Asigurat CNAS</dt>
+                    <dd class="col-sm-8">@(Model.AsiguratCNAS ? "Da" : "Nu")</dd>
+                    <dt class="col-sm-4">Alergii</dt>
+                    <dd class="col-sm-8">@(Model.AlergiiCunoscute ?? "—")</dd>
+                    <dt class="col-sm-4">Contact urgență</dt>
+                    <dd class="col-sm-8">@Model.ContactUrgentaNume — @Model.ContactUrgentaTelefon</dd>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        @if (poateRating)
+        {
+            <div class="card mb-3 border-warning">
+                <div class="card-body">
+                    <h5>Acordă rating pacient</h5>
+                    <form asp-action="AcordaRatingPacient" method="post" class="row g-2 align-items-end">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="pacientId" value="@Model.Id" />
+                        <div class="col-md-3">
+                            <label class="form-label">Scor (1-5)</label>
+                            <select name="scor" class="form-select" required>
+                                <option value="">—</option>
+                                <option value="5">5</option>
+                                <option value="4">4</option>
+                                <option value="3">3</option>
+                                <option value="2">2</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                        <div class="col-md-7">
+                            <label class="form-label">Comentariu (opțional)</label>
+                            <input type="text" name="comentariu" class="form-control" maxlength="1000" />
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-warning w-100">Trimite</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<h5>Programări cu acest pacient</h5>
+@if (programari != null && programari.Any())
+{
+    <table class="table table-sm">
+        <thead class="table-light">
+            <tr>
+                <th>Data și ora</th>
+                <th>Tip</th>
+                <th>Motiv</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var p in programari)
+        {
+            <tr>
+                <td>@p.DataStart.ToString("dd.MM.yyyy HH:mm")</td>
+                <td><small>@p.TipProgramare.ToString().Replace('_', ' ')</small></td>
+                <td><small>@p.MotivVizita</small></td>
+                <td><small>@p.Status.ToString().Replace('_', ' ')</small></td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+<a asp-action="Pacientii" class="btn btn-secondary">Înapoi la pacienți</a>

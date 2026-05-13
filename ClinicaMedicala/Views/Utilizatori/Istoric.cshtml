@@ -1,0 +1,83 @@
+@model IEnumerable<ClinicaMedicala.Models.Autentificare>
+@{
+    var u = ViewBag.Utilizator as ClinicaMedicala.Models.Utilizator;
+    ViewData["Title"] = $"Istoric autentificări - {u?.Prenume} {u?.Nume}";
+    var totalSucces = Model.Count(a => a.Succes);
+    var totalEsuate = Model.Count(a => !a.Succes);
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2 class="mb-0">Istoric autentificări</h2>
+        <p class="text-muted mb-0">@u?.Prenume @u?.Nume — <code>@u?.Email</code></p>
+    </div>
+    <a asp-action="Index" class="btn btn-secondary">Înapoi la listă</a>
+</div>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <div class="card text-bg-success">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-1">Autentificări reușite</h6>
+                <h3 class="card-title mb-0">@totalSucces</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-bg-danger">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-1">Încercări eșuate</h6>
+                <h3 class="card-title mb-0">@totalEsuate</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-bg-light border">
+            <div class="card-body">
+                <h6 class="card-subtitle mb-1">Total înregistrări</h6>
+                <h3 class="card-title mb-0">@Model.Count()</h3>
+                <small class="text-muted">(ultimele 100)</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-sm table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Data & ora</th>
+            <th>Status</th>
+            <th>Adresă IP</th>
+            <th>User Agent</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var a in Model)
+    {
+        <tr class="@(a.Succes ? "" : "table-danger")">
+            <td><small>@a.DataOra.ToLocalTime().ToString("dd.MM.yyyy HH:mm:ss")</small></td>
+            <td>
+                @if (a.Succes)
+                {
+                    <span class="badge bg-success">✓ Reușit</span>
+                }
+                else
+                {
+                    <span class="badge bg-danger">✗ Eșuat</span>
+                }
+            </td>
+            <td><code>@(a.AdresaIp ?? "—")</code></td>
+            <td><small class="text-muted" title="@a.UserAgent">
+                @(string.IsNullOrEmpty(a.UserAgent)
+                    ? "—"
+                    : (a.UserAgent.Length > 80 ? a.UserAgent.Substring(0, 80) + "…" : a.UserAgent))
+            </small></td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Niciun istoric de autentificare pentru acest cont încă.</div>
+}

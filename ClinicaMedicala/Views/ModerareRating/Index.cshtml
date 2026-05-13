@@ -1,0 +1,102 @@
+@model IEnumerable<ClinicaMedicala.Models.Rating>
+@{
+    ViewData["Title"] = "Moderare ratinguri";
+    var doarNemoderate = ViewBag.DoarNemoderate as bool? ?? false;
+    var nemoderateCount = ViewBag.NemoderateCount as int? ?? 0;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        <h2>Moderare ratinguri</h2>
+        <p class="text-muted mb-0">Revizuiește comentariile lăsate de pacienți și medici.</p>
+    </div>
+    @if (nemoderateCount > 0)
+    {
+        <span class="badge bg-warning text-dark fs-6">@nemoderateCount nemoderate</span>
+    }
+</div>
+
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">@TempData["Succes"]</div>
+}
+
+<form method="get" class="mb-3">
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" name="doarNemoderate" value="true"
+               id="cbNemoderate" onchange="this.form.submit()"
+               @(doarNemoderate ? "checked" : "") />
+        <label class="form-check-label" for="cbNemoderate">Arată doar nemoderatele</label>
+    </div>
+</form>
+
+<table class="table table-hover">
+    <thead class="table-light">
+        <tr>
+            <th>Data</th>
+            <th>Pacient</th>
+            <th>Medic</th>
+            <th>Scor</th>
+            <th>Comentariu</th>
+            <th>Status</th>
+            <th class="text-end">Acțiuni</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var r in Model)
+    {
+        <tr class="@(!r.Vizibil ? "table-secondary" : "")">
+            <td><small>@r.Data.ToLocalTime().ToString("dd.MM.yyyy HH:mm")</small></td>
+            <td><small>@r.Pacient.Prenume @r.Pacient.Nume</small></td>
+            <td><small>Dr. @r.Medic.Prenume @r.Medic.Nume</small></td>
+            <td><strong>@r.Scor ★</strong></td>
+            <td><small>@(r.Comentariu ?? "—")</small></td>
+            <td>
+                @if (!r.Vizibil)
+                {
+                    <span class="badge bg-danger">Ascuns</span>
+                }
+                else if (r.Moderat)
+                {
+                    <span class="badge bg-success">Moderat</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning text-dark">Nemoderat</span>
+                }
+            </td>
+            <td class="text-end">
+                <div class="btn-group btn-group-sm">
+                    @if (!r.Moderat)
+                    {
+                        <form asp-action="MarcheazaModerat" asp-route-id="@r.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-success">Aprobă</button>
+                        </form>
+                    }
+                    @if (r.Vizibil)
+                    {
+                        <form asp-action="Ascunde" asp-route-id="@r.Id" method="post" class="d-inline"
+                              onsubmit="return confirm('Sigur ascunzi acest comentariu?');">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-danger">Ascunde</button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-action="Restaureaza" asp-route-id="@r.Id" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-outline-warning">Restaurează</button>
+                        </form>
+                    }
+                </div>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Niciun rating de moderat.</div>
+}
