@@ -2,6 +2,8 @@
 @{
     ViewData["Title"] = "Editare cont";
     var rol = Model.Rol;
+    var specializari = (ViewBag.Specializari as List<string>) ?? new List<string>();
+    var departamente = (ViewBag.Departamente as List<string>) ?? new List<string>();
 }
 
 <h2>Editare cont</h2>
@@ -60,7 +62,23 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="Specializare" class="form-label"></label>
-                        <input asp-for="Specializare" class="form-control" />
+                        @{
+                            // Includem și valoarea curentă, dacă specializarea a fost dezactivată între timp.
+                            var optiuniSpec = specializari.ToList();
+                            if (!string.IsNullOrWhiteSpace(Model.Specializare)
+                                && !optiuniSpec.Contains(Model.Specializare))
+                            {
+                                optiuniSpec.Insert(0, Model.Specializare);
+                            }
+                        }
+                        <select asp-for="Specializare" class="form-select searchable-select"
+                                data-placeholder="Caută specializarea...">
+                            <option value="">— Selectează specializarea —</option>
+                            @foreach (var s in optiuniSpec)
+                            {
+                                <option value="@s">@s</option>
+                            }
+                        </select>
                         <span asp-validation-for="Specializare" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -91,7 +109,22 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="Departament" class="form-label"></label>
-                        <input asp-for="Departament" class="form-control" />
+                        @{
+                            var optiuniDep = departamente.ToList();
+                            if (!string.IsNullOrWhiteSpace(Model.Departament)
+                                && !optiuniDep.Contains(Model.Departament))
+                            {
+                                optiuniDep.Insert(0, Model.Departament);
+                            }
+                        }
+                        <select asp-for="Departament" class="form-select searchable-select"
+                                data-placeholder="Caută departamentul...">
+                            <option value="">— Selectează departamentul —</option>
+                            @foreach (var d in optiuniDep)
+                            {
+                                <option value="@d">@d</option>
+                            }
+                        </select>
                         <span asp-validation-for="Departament" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 mb-3">

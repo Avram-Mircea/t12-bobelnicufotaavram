@@ -43,23 +43,199 @@ public class ProgramareController : Controller
         _ctx = ctx;
     }
 
+    // După acțiuni (Confirma/Finalizeaza/Cancel/...), medicul se întoarce la
+    // pagina lui dedicată „Programările mele”; restul staff-ului rămâne pe lista
+    // globală Programare/Index (care e oricum filtrată per rol — vezi Index()).
+    private IActionResult RedirectDupaActiune()
+    {
+        if (User.IsInRole(Rol.Medic.ToString()))
+            return RedirectToAction("Programari", "Medic");
+        return RedirectToAction(nameof(Index));
+    }
+
     public async Task<IActionResult> Index()
     {
+        var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+        // Medicul ar trebui să folosească /Medic/Programari, dar dacă ajunge aici
+        // (ex. redirect post-acțiune), îl trimitem la pagina lui dedicată.
+        if (User.IsInRole(Rol.Medic.ToString()))
+        {
+            return RedirectToAction("Programari", "Medic");
+        }
+
+        // Asistenta vede doar programările legate de departamentul ei — adică
+        // acelea unde medicul are aceeași specializare ca departamentul ei.
+        if (User.IsInRole(Rol.Asistent.ToString()) && int.TryParse(userIdClaim, out var idAsistent))
+        {
+            var asistent = await _ctx.Asistenti.FirstOrDefaultAsync(a => a.Id == idAsistent);
+            if (asistent != null)
+            {
+                var departament = asistent.Departament;
+                var programariDept = await _ctx.Programari
+                    .Include(p => p.Pacient)
+                    .Include(p => p.Medic)
+                    .Include(p => p.Resursa)
+                    .Where(p => p.Medic.Specializare == departament)
+                    .OrderByDescending(p => p.DataStart)
+                    .ToListAsync();
+
+                ViewBag.DepartamentAsistent = departament;
+                return View(programariDept);
+            }
+        }
+
         var programari = await _programareService.GetAllWithRelationsAsync();
         return View(programari);
     }
 
-    public IActionResult Calendar() => View();
+    // REQ-28, REQ-29, REQ-30, REQ-31, REQ-32 — calendar interactiv cu filtre.
+    public async Task<IActionResult> Calendar()
+    {
+        ViewBag.Medici = await _ctx.Medici
+            .OrderBy(m => m.Nume).ThenBy(m => m.Prenume)
+            .Select(m => new { m.Id, NumeAfisat = $"Dr. {m.Prenume} {m.Nume} — {m.Specializare}" })
+            .ToListAsync();
+
+        ViewBag.Resurse = await _ctx.Resurse
+            .Where(r => r.Activ)
+            .OrderBy(r => r.Denumire)
+            .Select(r => new { r.Id, NumeAfisat = $"{r.Denumire} ({r.Tip.ToString().Replace('_', ' ')})" })
+            .ToListAsync();
+
+        return View();
+    }
+
+    // REQ-28: evenimente pentru calendar (consumat de FullCalendar).
+    // FullCalendar trimite automat ?start=...&end=... la fiecare schimbare de vizualizare,
+    // iar JS-ul nostru atașează manual ?medicId=...&resursaId=... din dropdown-uri (REQ-29, REQ-30).
+    // Răspunsul e re-cerut la fiecare refetch → vizualizarea se actualizează „în timp real” (REQ-32).
+    [HttpGet]
+    public async Task<IActionResult> Evenimente(
+        DateTime? start, DateTime? end, int? medicId, int? resursaId)
+    {
+        // Fereastra de timp — FullCalendar o trimite mereu; punem fallback-uri rezonabile
+        var inceput = start ?? DateTime.UtcNow.AddDays(-30);
+        var sfarsit = end ?? DateTime.UtcNow.AddDays(60);
+
+        var query = _ctx.Programari
+            .AsNoTracking()
+            .Include(p => p.Pacient)
+            .Include(p => p.Medic)
+            .Include(p => p.Resursa)
+            .Where(p => p.DataStart < sfarsit && p.DataEnd > inceput);
+
+        if (medicId.HasValue && medicId.Value > 0)
+            query = query.Where(p => p.MedicId == medicId.Value);
+
+        if (resursaId.HasValue && resursaId.Value > 0)
+            query = query.Where(p => p.ResursaId == resursaId.Value);
+
+        var programari = await query.OrderBy(p => p.DataStart).ToListAsync();
+
+        var evenimente = programari.Select(p => new
+        {
+            id = p.Id,
+            title = TitluEveniment(p),
+            start = p.DataStart.ToString("o"),
+            end = p.DataEnd.ToString("o"),
+            backgroundColor = CuloareStatus(p.Status),
+            borderColor = CuloareStatus(p.Status),
+            url = Url.Action(nameof(Edit), new { id = p.Id }),
+            extendedProps = new
+            {
+                pacient = p.Pacient != null ? $"{p.Pacient.Prenume} {p.Pacient.Nume}" : "—",
+                medic = p.Medic != null ? $"Dr. {p.Medic.Prenume} {p.Medic.Nume}" : "—",
+                resursa = p.Resursa?.Denumire ?? "—",
+                tip = p.TipProgramare.ToString().Replace('_', ' '),
+                motiv = p.MotivVizita,
+                status = p.Status.ToString().Replace('_', ' ')
+            }
+        });
+
+        return Json(evenimente);
+    }
+
+    // REQ-31: intervale indisponibile (mentenanță resursă + resurse inactive) —
+    // returnate ca background events ca să fie marcate vizibil în calendar.
+    [HttpGet]
+    public async Task<IActionResult> PerioadeIndisponibile(
+        DateTime? start, DateTime? end, int? resursaId)
+    {
+        var inceput = (start ?? DateTime.UtcNow.AddDays(-30)).Date;
+        var sfarsit = (end ?? DateTime.UtcNow.AddDays(60)).Date.AddDays(1);
+
+        var query = _ctx.PerioadeMentenanta
+            .AsNoTracking()
+            .Include(p => p.Resursa)
+            .Where(p => p.Inceput < sfarsit && p.Sfarsit >= inceput);
+
+        if (resursaId.HasValue && resursaId.Value > 0)
+            query = query.Where(p => p.ResursaId == resursaId.Value);
+
+        var perioade = await query.ToListAsync();
+
+        var evenimente = perioade.Select(p => new
+        {
+            id = $"mentenanta-{p.Id}",
+            title = $"🔧 Mentenanță: {p.Resursa.Denumire}",
+            start = p.Inceput.ToString("yyyy-MM-dd"),
+            end = p.Sfarsit.AddDays(1).ToString("yyyy-MM-dd"),  // FullCalendar: end e exclusiv
+            display = "background",
+            backgroundColor = "#dc3545",
+            extendedProps = new
+            {
+                tip = "mentenanta",
+                resursa = p.Resursa.Denumire,
+                descriere = p.Descriere
+            }
+        });
+
+        return Json(evenimente);
+    }
+
+    // Culori per status — aliniate cu badge-urile din lista de programări
+    private static string CuloareStatus(StatusProgramare status) => status switch
+    {
+        StatusProgramare.Programat => "#ffc107",         // galben — așteaptă confirmare
+        StatusProgramare.Confirmat => "#198754",         // verde — confirmată
+        StatusProgramare.Finalizat => "#0d6efd",         // albastru — finalizată
+        StatusProgramare.Anulat_Pacient => "#6c757d",    // gri — anulat de pacient
+        StatusProgramare.Anulat_Clinica => "#dc3545",    // roșu — anulat de clinică
+        StatusProgramare.Neprezentare => "#212529",      // negru — neprezentare
+        _ => "#0d7377"
+    };
+
+    private static string TitluEveniment(Programare p)
+    {
+        var pacient = p.Pacient != null
+            ? $"{p.Pacient.Prenume[..1]}. {p.Pacient.Nume}"
+            : "Pacient ?";
+        var medic = p.Medic != null ? $"Dr. {p.Medic.Nume}" : "Medic ?";
+        return $"{pacient} · {medic}";
+    }
 
     [HttpGet]
     public async Task<IActionResult> Create()
     {
         await PopulareDictionare();
-        return View(new ProgramareCreateViewModel
+
+        var model = new ProgramareCreateViewModel
         {
             DataStart = DateTime.Now,
             DataEnd = DateTime.Now.AddMinutes(30)
-        });
+        };
+
+        // Pentru medic, pre-completăm automat câmpul MedicId cu Id-ul lui curent,
+        // ca să nu mai trebuiască să se aleagă singur din dropdown.
+        if (User.IsInRole(Rol.Medic.ToString()))
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+            if (int.TryParse(userId, out var idMedic))
+                model.MedicId = idMedic;
+        }
+
+        return View(model);
     }
 
     [HttpPost]
@@ -128,7 +304,7 @@ public class ProgramareController : Controller
         await _programareService.SaveChangesAsync();
 
         TempData["Succes"] = "Programarea a fost creată cu succes.";
-        return RedirectToAction(nameof(Index));
+        return RedirectDupaActiune();
     }
 
     [HttpGet]
@@ -203,7 +379,7 @@ public class ProgramareController : Controller
         await _programareService.SaveChangesAsync();
 
         TempData["Succes"] = "Programarea a fost actualizată.";
-        return RedirectToAction(nameof(Index));
+        return RedirectDupaActiune();
     }
 
     // REQ-21, REQ-26: asistenta confirmă programările făcute de pacienți
@@ -217,7 +393,7 @@ public class ProgramareController : Controller
         if (programare.Status != StatusProgramare.Programat)
         {
             TempData["Eroare"] = "Doar programările în starea 'Programat' pot fi confirmate.";
-            return RedirectToAction(nameof(Index));
+            return RedirectDupaActiune();
         }
 
         // La confirmare validăm complet — dacă tipul cere asistent, trebuie atașat unul
@@ -237,7 +413,7 @@ public class ProgramareController : Controller
         {
             TempData["Eroare"] = "Nu poți confirma programarea: " + string.Join(" ", rezultat.Erori) +
                                  " Folosește „Modifică” pentru a completa datele lipsă.";
-            return RedirectToAction(nameof(Index));
+            return RedirectDupaActiune();
         }
 
         programare.Status = StatusProgramare.Confirmat;
@@ -247,7 +423,7 @@ public class ProgramareController : Controller
         await _programareService.SaveChangesAsync();
 
         TempData["Succes"] = "Programarea a fost confirmată.";
-        return RedirectToAction(nameof(Index));
+        return RedirectDupaActiune();
     }
 
     // Finalizare consultație (după ce medicul a terminat vizita)
@@ -264,7 +440,7 @@ public class ProgramareController : Controller
          && programare.Status != StatusProgramare.Programat)
         {
             TempData["Eroare"] = "Doar programările confirmate/programate pot fi finalizate.";
-            return RedirectToAction(nameof(Index));
+            return RedirectDupaActiune();
         }
 
         // 1. Asigură-te că pacientul are o FisaMedicala — dacă nu, creează una.
@@ -312,7 +488,7 @@ public class ProgramareController : Controller
         await _programareService.SaveChangesAsync();
 
         TempData["Succes"] = "Programarea a fost marcată ca finalizată. Consultația a fost adăugată în fișa pacientului.";
-        return RedirectToAction(nameof(Index));
+        return RedirectDupaActiune();
     }
 
     // Pacientul nu s-a prezentat
@@ -327,7 +503,7 @@ public class ProgramareController : Controller
          && programare.Status != StatusProgramare.Programat)
         {
             TempData["Eroare"] = "Doar programările confirmate/programate pot fi marcate ca neprezentare.";
-            return RedirectToAction(nameof(Index));
+            return RedirectDupaActiune();
         }
 
         programare.Status = StatusProgramare.Neprezentare;
@@ -335,7 +511,7 @@ public class ProgramareController : Controller
         await _programareService.SaveChangesAsync();
 
         TempData["Succes"] = "Programarea a fost marcată ca neprezentare.";
-        return RedirectToAction(nameof(Index));
+        return RedirectDupaActiune();
     }
 
     [HttpPost]
@@ -352,7 +528,7 @@ public class ProgramareController : Controller
         await _programareService.SaveChangesAsync();
 
         TempData["Succes"] = "Programarea a fost anulată.";
-        return RedirectToAction(nameof(Index));
+        return RedirectDupaActiune();
     }
 
     // REQ-15: returnează resursele compatibile cu specializarea unui medic, pentru

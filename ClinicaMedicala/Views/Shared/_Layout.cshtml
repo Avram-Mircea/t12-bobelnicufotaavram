@@ -53,16 +53,41 @@
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Medic" asp-action="Programari">📋 Programările mele</a>
                             </li>
+                            @* Cele două calendare grupate într-un singur dropdown pentru claritate *@
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="medicCalendarDropdown"
+                                   role="button" data-bs-toggle="dropdown" aria-expanded="false">📅 Calendar</a>
+                                <ul class="dropdown-menu" aria-labelledby="medicCalendarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Medic" asp-action="Calendar">
+                                            👤 Calendarul meu
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-controller="Programare" asp-action="Calendar">
+                                            🏥 Calendar clinică
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Medic" asp-action="Pacientii">👥 Pacienții mei</a>
                             </li>
                         }
 
-                        @* ─── STAFF (admin/medic/asistent) ─── *@
-                        @if (User.Identity?.IsAuthenticated == true && !User.IsInRole(ClinicaMedicala.Models.Rol.Pacient.ToString()))
+                        @* ─── STAFF non-medic (admin/asistent) ─── *@
+                        @* Medicul are toate acțiunile direct pe „Programările mele”
+                           și calendarul clinicii în dropdown-ul lui — nu îi mai afișăm
+                           secțiunile staff ca să nu dublăm meniul. *@
+                        @if (User.Identity?.IsAuthenticated == true
+                             && !User.IsInRole(ClinicaMedicala.Models.Rol.Pacient.ToString())
+                             && !User.IsInRole(ClinicaMedicala.Models.Rol.Medic.ToString()))
                         {
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Programare" asp-action="Index">📋 Programări (staff)</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Programare" asp-action="Calendar">📅 Calendar clinică</a>
                             </li>
                         }
 

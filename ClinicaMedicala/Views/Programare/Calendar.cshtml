@@ -1,37 +1,77 @@
 @{
-    ViewData["Title"] = "Calendar Programări";
+    ViewData["Title"] = "Calendar programări";
+    var medici = ViewBag.Medici as IEnumerable<dynamic>;
+    var resurse = ViewBag.Resurse as IEnumerable<dynamic>;
 }
 
-<h1>Calendar Programări</h1>
-
-<div>
-    <a asp-action="Index" class="btn btn-secondary mb-3">Înapoi la Listă</a>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">📅 Calendar programări</h2>
+    <div>
+        <a asp-action="Create" class="btn btn-primary">+ Adaugă programare</a>
+        <a asp-action="Index" class="btn btn-outline-secondary">Listă</a>
+    </div>
 </div>
 
-<div id="calendar"></div>
+@* Filtre — REQ-29, REQ-30 *@
+<div class="card mb-3">
+    <div class="card-body py-3">
+        <div class="row g-2 align-items-end">
+            <div class="col-md-5">
+                <label for="filtruMedic" class="form-label small text-muted mb-1">Filtrează după medic</label>
+                <select id="filtruMedic" class="form-select form-select-sm">
+                    <option value="">— Toți medicii —</option>
+                    @if (medici != null)
+                    {
+                        foreach (var m in medici)
+                        {
+                            <option value="@m.Id">@m.NumeAfisat</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-5">
+                <label for="filtruResursa" class="form-label small text-muted mb-1">Filtrează după resursă</label>
+                <select id="filtruResursa" class="form-select form-select-sm">
+                    <option value="">— Toate resursele —</option>
+                    @if (resurse != null)
+                    {
+                        foreach (var r in resurse)
+                        {
+                            <option value="@r.Id">@r.NumeAfisat</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-2 d-flex gap-2">
+                <button id="btnResetFiltre" type="button" class="btn btn-sm btn-outline-secondary w-100">
+                    Resetează
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Legendă culori status *@
+<div class="d-flex flex-wrap gap-3 mb-3 small">
+    <span><span class="badge" style="background:#ffc107;color:#000">Programat</span></span>
+    <span><span class="badge" style="background:#198754">Confirmat</span></span>
+    <span><span class="badge" style="background:#0d6efd">Finalizat</span></span>
+    <span><span class="badge" style="background:#6c757d">Anulat pacient</span></span>
+    <span><span class="badge" style="background:#dc3545">Anulat clinică</span></span>
+    <span><span class="badge" style="background:#212529">Neprezentare</span></span>
+    <span class="ms-auto" id="indicatorRefresh" title="Calendarul se actualizează automat la 30 secunde">
+        <small class="text-muted">⟳ Actualizat</small>
+    </span>
+</div>
+
+<div id="calendar"
+     data-url-evenimente="@Url.Action("Evenimente", "Programare")"
+     data-url-mentenanta="@Url.Action("PerioadeIndisponibile", "Programare")">
+</div>
 
 @section Scripts {
-    <!-- FullCalendar CSS & JS -->
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales-all.min.js'></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var calendarEl = document.getElementById('calendar');
-
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'timeGridWeek',
-                locale: 'ro',
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
-                },
-                events: '@Url.Action("GetProgramariForCalendar", "Programare")'
-            });
-
-            calendar.render();
-        });
-    </script>
+    @* FullCalendar v6 — CSS injectat de JS, deci un singur fișier necesar *@
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/locales/ro.global.min.js'></script>
+    <script src="~/js/calendar-programari.js" asp-append-version="true"></script>
 }

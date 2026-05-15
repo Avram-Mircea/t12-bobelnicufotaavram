@@ -1,6 +1,7 @@
 using ClinicaMedicala.Models;
 using ClinicaMedicala.Models.ViewModels;
 using ClinicaMedicala.Services.Auth;
+using ClinicaMedicala.Services.Resurse;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,12 +15,29 @@ public class UtilizatoriController : Controller
 {
     private readonly IUtilizatorService _utilizatorService;
     private readonly Repositories.IAutentificareRepository _autRepo;
+    private readonly ISpecializareService _specializareService;
 
     public UtilizatoriController(IUtilizatorService utilizatorService,
-                                  Repositories.IAutentificareRepository autRepo)
+                                  Repositories.IAutentificareRepository autRepo,
+                                  ISpecializareService specializareService)
     {
         _utilizatorService = utilizatorService;
         _autRepo = autRepo;
+        _specializareService = specializareService;
+    }
+
+    // Încarcă în ViewBag lista de specializări active — sursa de adevăr pentru
+    // dropdown-urile de „Specializare (medic)” și „Departament (asistent)”.
+    // Le reutilizăm pe ambele pentru că în practica clinică departamentul = specializarea.
+    private async Task PopuleazaDictionareStaffAsync()
+    {
+        var specializari = (await _specializareService.GetActiveAsync())
+            .Select(s => s.Nume)
+            .OrderBy(n => n)
+            .ToList();
+
+        ViewBag.Specializari = specializari;
+        ViewBag.Departamente = specializari;
     }
 
     // ── LISTA UTILIZATORI ─────────────────────────────────────────────────────
@@ -72,13 +90,21 @@ public class UtilizatoriController : Controller
 
     // ── CREARE STAFF (medic / asistent / admin) ───────────────────────────────
     [HttpGet]
-    public IActionResult Create() => View(new CreareStaffViewModel());
+    public async Task<IActionResult> Create()
+    {
+        await PopuleazaDictionareStaffAsync();
+        return View(new CreareStaffViewModel());
+    }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Create(CreareStaffViewModel model)
     {
-        if (!ModelState.IsValid) return View(model);
+        if (!ModelState.IsValid)
+        {
+            await PopuleazaDictionareStaffAsync();
+            return View(model);
+        }
 
         Utilizator utilizator;
 
@@ -102,6 +128,7 @@ public class UtilizatoriController : Controller
         catch (InvalidOperationException ex)
         {
             ModelState.AddModelError(string.Empty, ex.Message);
+            await PopuleazaDictionareStaffAsync();
             return View(model);
         }
     }
@@ -112,6 +139,8 @@ public class UtilizatoriController : Controller
     {
         var u = await _utilizatorService.GetByIdAsync(id);
         if (u == null) return NotFound();
+
+        await PopuleazaDictionareStaffAsync();
 
         var model = new EditeazaUtilizatorViewModel
         {
@@ -155,7 +184,11 @@ public class UtilizatoriController : Controller
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Edit(EditeazaUtilizatorViewModel model)
     {
-        if (!ModelState.IsValid) return View(model);
+        if (!ModelState.IsValid)
+        {
+            await PopuleazaDictionareStaffAsync();
+            return View(model);
+        }
 
         var u = await _utilizatorService.GetByIdAsync(model.Id);
         if (u == null) return NotFound();
@@ -179,7 +212,7 @@ public class UtilizatoriController : Controller
                     {
                         ModelState.AddModelError(string.Empty,
                             "Câmpurile specifice medicului sunt obligatorii.");
-                        return RepopuleazaEdit(model, u);
+                        return await RepopuleazaEdit(model, u);
                     }
                     m.Specializare = model.Specializare;
                     m.CodParafa = model.CodParafa;
@@ -193,7 +226,7 @@ public class UtilizatoriController : Controller
                     {
                         ModelState.AddModelError(string.Empty,
                             "Departamentul și tura sunt obligatorii.");
-                        return RepopuleazaEdit(model, u);
+                        return await RepopuleazaEdit(model, u);
                     }
                     a.Departament = model.Departament;
                     a.Tura = model.Tura.Value;
@@ -217,12 +250,12 @@ public class UtilizatoriController : Controller
             // Cel mai probabil: CodParafa duplicat (unique index)
             ModelState.AddModelError(string.Empty,
                 "Conflict: există deja un utilizator cu acest cod de parafă.");
-            return RepopuleazaEdit(model, u);
+            return await RepopuleazaEdit(model, u);
         }
     }
 
     // Re-populează câmpurile readonly înainte de a re-randa formularul cu erori
-    private IActionResult RepopuleazaEdit(EditeazaUtilizatorViewModel model, Utilizator u)
+    private async Task<IActionResult> RepopuleazaEdit(EditeazaUtilizatorViewModel model, Utilizator u)
     {
         model.Email = u.Email;
         model.Rol = u.Rol.ToString();
@@ -232,6 +265,7 @@ public class UtilizatoriController : Controller
             model.DataNastere = p.DataNastere;
             model.GrupaSanguina = p.GrupaSanguina;
         }
+        await PopuleazaDictionareStaffAsync();
         return View(model);
     }
 

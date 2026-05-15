@@ -123,7 +123,7 @@ public class AuthController : Controller
                 Telefon = model.Telefon,
                 Adresa = model.Adresa,
                 CNP = model.CNP,
-                DataNastere = model.DataNastere,
+                DataNastere = model.DataNastere!.Value,
                 GrupaSanguina = model.GrupaSanguina,
                 AsiguratCNAS = false,
                 ContactUrgentaNume = model.ContactUrgentaNume,

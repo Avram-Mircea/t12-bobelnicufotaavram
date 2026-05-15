@@ -215,7 +215,7 @@ public class ApplicationDbContext : DbContext
             new Specializare { Id = 2,  Nume = "Medicină internă",         Activ = true },
             new Specializare { Id = 3,  Nume = "Cardiologie",              Activ = true },
             new Specializare { Id = 4,  Nume = "Pediatrie",                Activ = true },
-            new Specializare { Id = 5,  Nume = "Chirurgie generală",       Activ = true },
+            new Specializare { Id = 5,  Nume = "Chirurgie",       Activ = true },
             new Specializare { Id = 6,  Nume = "Ortopedie și traumatologie", Activ = true },
             new Specializare { Id = 7,  Nume = "Obstetrică-Ginecologie",   Activ = true },
             new Specializare { Id = 8,  Nume = "Neurologie",               Activ = true },

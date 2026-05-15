@@ -1,0 +1,34 @@
+@{
+    ViewData["Title"] = "Calendarul meu";
+    var medicId = (int)ViewBag.MedicId;
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">📅 Calendarul meu</h2>
+    <a asp-action="Programari" class="btn btn-outline-secondary">Lista programărilor</a>
+</div>
+
+@* Legendă culori status *@
+<div class="d-flex flex-wrap gap-3 mb-3 small">
+    <span><span class="badge" style="background:#ffc107;color:#000">Programat</span></span>
+    <span><span class="badge" style="background:#198754">Confirmat</span></span>
+    <span><span class="badge" style="background:#0d6efd">Finalizat</span></span>
+    <span><span class="badge" style="background:#6c757d">Anulat pacient</span></span>
+    <span><span class="badge" style="background:#dc3545">Anulat clinică</span></span>
+    <span><span class="badge" style="background:#212529">Neprezentare</span></span>
+    <span class="ms-auto" id="indicatorRefresh" title="Calendarul se actualizează automat la 30 secunde">
+        <small class="text-muted">⟳ Actualizat</small>
+    </span>
+</div>
+
+<div id="calendar"
+     data-medic-id="@medicId"
+     data-url-evenimente="@Url.Action("Evenimente", "Programare")"
+     data-url-mentenanta="@Url.Action("PerioadeIndisponibile", "Programare")">
+</div>
+
+@section Scripts {
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/locales/ro.global.min.js'></script>
+    <script src="~/js/calendar-programari.js" asp-append-version="true"></script>
+}

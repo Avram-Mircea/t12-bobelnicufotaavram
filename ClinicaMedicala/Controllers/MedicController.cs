@@ -155,4 +155,13 @@ public class MedicController : Controller
         var programari = await _programareService.GetProgramariMedicAsync(idMedic);
         return View(programari);
     }
+
+    // ── REQ-28: calendarul medicului — filtrat automat pe Id-ul lui curent ─────
+    // Vizualizarea folosește același endpoint JSON din ProgramareController (Evenimente),
+    // dar cu medicId forțat din claim — medicul nu poate vedea agenda altora.
+    public IActionResult Calendar()
+    {
+        ViewBag.MedicId = IdMedicCurent();
+        return View();
+    }
 }

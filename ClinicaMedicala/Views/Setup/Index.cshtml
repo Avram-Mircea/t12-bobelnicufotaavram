@@ -1,0 +1,100 @@
+@model ClinicaMedicala.Models.ViewModels.SetupAdminViewModel
+@{
+    ViewData["Title"] = "Configurare inițială";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h3 class="card-title text-center mb-2">🛠️ Configurare inițială</h3>
+                <p class="text-center text-muted mb-4">
+                    Aplicația rulează pentru prima dată. Creează contul de administrator
+                    care va gestiona clinica. Acest cont se creează o singură dată.
+                </p>
+
+                <form asp-action="Index" method="post" autocomplete="off">
+                    @Html.AntiForgeryToken()
+
+                    @* Honeypot — împotriva autocomplete-ului agresiv din browser *@
+                    <input type="text" name="_fake_user" autocomplete="username"
+                           style="display:none" tabindex="-1" aria-hidden="true" />
+                    <input type="password" name="_fake_pass" autocomplete="current-password"
+                           style="display:none" tabindex="-1" aria-hidden="true" />
+
+                    <div asp-validation-summary="ModelOnly" class="alert alert-danger"
+                         style="@(ViewData.ModelState.IsValid ? "display:none" : "")"></div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Nume" class="form-label"></label>
+                            <input asp-for="Nume" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Nume" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Prenume" class="form-label"></label>
+                            <input asp-for="Prenume" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Prenume" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control"
+                                   autocomplete="off"
+                                   readonly onfocus="this.removeAttribute('readonly');"
+                                   data-lpignore="true" data-1p-ignore="true" data-bwignore="true" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Telefon" class="form-label"></label>
+                            <input asp-for="Telefon" class="form-control" autocomplete="off" />
+                            <span asp-validation-for="Telefon" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Adresa" class="form-label"></label>
+                        <input asp-for="Adresa" class="form-control" autocomplete="off" />
+                        <span asp-validation-for="Adresa" class="text-danger"></span>
+                    </div>
+
+                    <hr />
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Parola" class="form-label"></label>
+                            <input asp-for="Parola" class="form-control"
+                                   data-password-strength="parolaHintsSetup"
+                                   autocomplete="off"
+                                   readonly onfocus="this.removeAttribute('readonly');"
+                                   data-lpignore="true" data-1p-ignore="true" data-bwignore="true" />
+                            <partial name="_PasswordHints" model="@("parolaHintsSetup")" />
+                            <span asp-validation-for="Parola" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="ConfirmaParola" class="form-label"></label>
+                            <input asp-for="ConfirmaParola" class="form-control"
+                                   data-password-match="Parola"
+                                   autocomplete="off"
+                                   readonly onfocus="this.removeAttribute('readonly');"
+                                   data-lpignore="true" data-1p-ignore="true" data-bwignore="true" />
+                            <div class="form-text password-match-feedback mt-1"></div>
+                            <span asp-validation-for="ConfirmaParola" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Creează contul de administrator
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/password-strength.js" asp-append-version="true"></script>
+}

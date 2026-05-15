@@ -3,8 +3,9 @@ using ClinicaMedicala.Models.Validation;
 
 namespace ClinicaMedicala.Models.ViewModels;
 
-// Pacientul se înregistrează singur (REQ-02); staff-ul e creat doar de admin.
-public class RegisterPacientViewModel
+// Primul utilizator din sistem își creează singur contul de administrator.
+// Folosit doar la prima rulare, când baza de date nu conține niciun cont.
+public class SetupAdminViewModel
 {
     [Required, MaxLength(100)]
     [Display(Name = "Nume")]
@@ -17,16 +18,6 @@ public class RegisterPacientViewModel
     [Required, EmailAddress, MaxLength(150)]
     public string Email { get; set; } = null!;
 
-    [Required(ErrorMessage = "CNP-ul este obligatoriu.")]
-    [Cnp]
-    public string CNP { get; set; } = null!;
-
-    [Required(ErrorMessage = "Data nașterii este obligatorie.")]
-    [DataType(DataType.Date)]
-    [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-    [Display(Name = "Data nașterii")]
-    public DateTime? DataNastere { get; set; }
-
     [Required, MaxLength(15)]
     [Phone]
     public string Telefon { get; set; } = null!;
@@ -34,19 +25,6 @@ public class RegisterPacientViewModel
     [Required, MaxLength(250)]
     [Display(Name = "Adresă")]
     public string Adresa { get; set; } = null!;
-
-    [Required]
-    [Display(Name = "Grupa sanguină")]
-    public GrupaSanguina GrupaSanguina { get; set; }
-
-    [Required, MaxLength(150)]
-    [Display(Name = "Nume contact urgență")]
-    public string ContactUrgentaNume { get; set; } = null!;
-
-    [Required, MaxLength(15)]
-    [Phone]
-    [Display(Name = "Telefon contact urgență")]
-    public string ContactUrgentaTelefon { get; set; } = null!;
 
     [Required]
     [StrongPassword]

@@ -1,6 +1,8 @@
 @model ClinicaMedicala.Models.ViewModels.CreareStaffViewModel
 @{
     ViewData["Title"] = "Creare cont staff";
+    var specializari = (ViewBag.Specializari as List<string>) ?? new List<string>();
+    var departamente = (ViewBag.Departamente as List<string>) ?? new List<string>();
 }
 
 <h2>Creare cont staff</h2>
@@ -91,7 +93,25 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="Specializare" class="form-label"></label>
-                        <input asp-for="Specializare" class="form-control" />
+                        @if (specializari.Count == 0)
+                        {
+                            <div class="alert alert-warning py-2 small mb-0">
+                                Nu există specializări active în baza de date.
+                                <a asp-controller="Specializari" asp-action="Index">Adaugă specializări</a>
+                                înainte de a crea medici.
+                            </div>
+                        }
+                        else
+                        {
+                            <select asp-for="Specializare" class="form-select searchable-select"
+                                    data-placeholder="Caută specializarea...">
+                                <option value="">— Selectează specializarea —</option>
+                                @foreach (var s in specializari)
+                                {
+                                    <option value="@s">@s</option>
+                                }
+                            </select>
+                        }
                         <span asp-validation-for="Specializare" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 mb-3">
@@ -125,7 +145,26 @@
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label asp-for="Departament" class="form-label"></label>
-                        <input asp-for="Departament" class="form-control" />
+                        @if (departamente.Count == 0)
+                        {
+                            <div class="alert alert-warning py-2 small mb-0">
+                                Nu există departamente disponibile.
+                                <a asp-controller="Specializari" asp-action="Index">Adaugă specializări</a>
+                                — acestea reprezintă și departamentele clinicii.
+                            </div>
+                        }
+                        else
+                        {
+                            <select asp-for="Departament" class="form-select searchable-select"
+                                    data-placeholder="Caută departamentul...">
+                                <option value="">— Selectează departamentul —</option>
+                                @foreach (var d in departamente)
+                                {
+                                    <option value="@d">@d</option>
+                                }
+                            </select>
+                        }
+                        <span asp-validation-for="Departament" class="text-danger"></span>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label asp-for="Tura" class="form-label"></label>

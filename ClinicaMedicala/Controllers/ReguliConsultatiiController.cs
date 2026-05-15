@@ -20,7 +20,9 @@ public class ReguliConsultatiiController : Controller
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        var reguli = await _service.GetAllAsync();
+        // Folosim varianta care creează rânduri default pentru orice TipProgramare
+        // lipsă — altfel adminul vedea tabel gol și nu putea bifa nimic.
+        var reguli = await _service.GetAllAsigurandExistentaAsync();
         var model = new ReguliConsultatieViewModel
         {
             Reguli = reguli.Select(r => new ReguliConsultatieViewModel.ReguliConsultatieRow

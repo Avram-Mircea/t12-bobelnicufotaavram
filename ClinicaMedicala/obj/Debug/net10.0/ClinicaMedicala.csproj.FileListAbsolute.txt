@@ -452,3 +452,6 @@ C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\bin\Debug\net10.
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\compressed\zc4rujuagn-{0}-go4myk39wa-go4myk39wa.gz
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\compressed\ja9kxi8y6z-{0}-36u6o0rx3z-36u6o0rx3z.gz
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\compressed\mmtmw1urgu-{0}-2d63fevw2v-2d63fevw2v.gz
+C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\compressed\gp8pqf9zx7-{0}-zwxv35pz7j-zwxv35pz7j.gz
+C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\compressed\rm9t314dly-{0}-0fd4sty7j2-0fd4sty7j2.gz
+C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

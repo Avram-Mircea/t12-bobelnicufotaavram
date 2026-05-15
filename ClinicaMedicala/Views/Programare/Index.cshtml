@@ -3,8 +3,18 @@
     ViewData["Title"] = "Programări — staff";
 }
 
+@{
+    var doarPropriile = ViewBag.DoarPropriile as bool? ?? false;
+}
+
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Programări</h2>
+    <div>
+        <h2 class="mb-0">Programări</h2>
+        @if (doarPropriile)
+        {
+            <small class="text-muted">Sunt afișate doar programările atribuite ție.</small>
+        }
+    </div>
     <div>
         <a asp-action="Create" class="btn btn-primary">+ Adaugă programare</a>
         <a asp-action="Calendar" class="btn btn-secondary">Calendar</a>

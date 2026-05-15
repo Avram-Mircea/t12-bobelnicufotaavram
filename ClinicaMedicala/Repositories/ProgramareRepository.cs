@@ -50,9 +50,11 @@ public class ProgramareRepository : GenericRepository<Programare>, IProgramareRe
     public Task<List<Programare>> GetProgramariByMedicIdAsync(int medicId) =>
         _dbSet
             .Include(p => p.Pacient)
+            .Include(p => p.Medic)
+            .Include(p => p.Resursa)
             .Include(p => p.Consultatie)
             .Where(p => p.MedicId == medicId)
-            .OrderBy(p => p.DataStart)
+            .OrderByDescending(p => p.DataStart)
             .ToListAsync();
 
     public Task<List<Programare>> GetAllWithRelationsAsync() =>

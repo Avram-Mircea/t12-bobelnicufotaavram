@@ -7,14 +7,34 @@ using ClinicaMedicala.Services.Pacienti;
 using ClinicaMedicala.Services.Programari;
 using ClinicaMedicala.Services.Resurse;
 using ClinicaMedicala.Services.Validare;
+using System.Globalization;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// ── Cultură (ro-RO) ───────────────────────────────────────────────────────────
+// Setăm cultura aplicației pe ro-RO, ca model binder-ul să parseze date
+// în format dd/MM/yyyy (introduse manual de utilizator) indiferent de OS.
+// Suprascriem ShortDatePattern ca să folosim "/" în loc de "." — separatorul
+// e mai vizibil în input-uri și e auto-completat de JS pe măsură ce se tastează.
+var culturaRo = new CultureInfo("ro-RO");
+culturaRo.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
+culturaRo.DateTimeFormat.DateSeparator = "/";
+CultureInfo.DefaultThreadCurrentCulture = culturaRo;
+CultureInfo.DefaultThreadCurrentUICulture = culturaRo;
+
 // ── MVC ───────────────────────────────────────────────────────────────────────
 builder.Services.AddControllersWithViews();
+
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    options.DefaultRequestCulture = new RequestCulture(culturaRo);
+    options.SupportedCultures = new[] { culturaRo };
+    options.SupportedUICultures = new[] { culturaRo };
+});
 
 // ── EF Core ───────────────────────────────────────────────────────────────────
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -99,14 +119,6 @@ if (builder.Environment.IsDevelopment())
 
 var app = builder.Build();
 
-// Seed: garantăm un admin la primul start, altfel nimeni nu se poate autentifica
-using (var scope = app.Services.CreateScope())
-{
-    var ctx = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    var hasher = scope.ServiceProvider.GetRequiredService<IPasswordHasher>();
-    await DbSeeder.EnsureAdminAsync(ctx, hasher);
-}
-
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -114,11 +126,42 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseRequestLocalization();
 app.UseRouting();
 
 // Ordinea contează: Authentication ÎNAINTE de Authorization
 app.UseAuthentication();
 app.UseAuthorization();
+
+// First-run gate: dacă nu există niciun utilizator în baza de date,
+// redirecționăm orice request către /Setup, ca primul cont creat să fie
+// administrator (introdus manual de utilizator, fără credențiale implicite).
+app.Use(async (ctx, next) =>
+{
+    var path = ctx.Request.Path.Value ?? string.Empty;
+
+    // Permitem fișierele statice, endpoint-urile de Setup și asset-urile vendor
+    // să treacă liber, ca pagina să se poată afișa corect.
+    bool eExclus =
+        path.StartsWith("/Setup", StringComparison.OrdinalIgnoreCase) ||
+        path.StartsWith("/lib/", StringComparison.OrdinalIgnoreCase) ||
+        path.StartsWith("/css/", StringComparison.OrdinalIgnoreCase) ||
+        path.StartsWith("/js/", StringComparison.OrdinalIgnoreCase) ||
+        path.StartsWith("/images/", StringComparison.OrdinalIgnoreCase) ||
+        path.StartsWith("/favicon", StringComparison.OrdinalIgnoreCase);
+
+    if (!eExclus)
+    {
+        var db = ctx.RequestServices.GetRequiredService<ApplicationDbContext>();
+        if (!await db.Utilizatori.AnyAsync())
+        {
+            ctx.Response.Redirect("/Setup");
+            return;
+        }
+    }
+
+    await next();
+});
 
 app.MapStaticAssets();
 

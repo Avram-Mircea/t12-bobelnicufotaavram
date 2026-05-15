@@ -12,7 +12,7 @@
                 <form asp-action="Register" method="post" autocomplete="off">
                     @Html.AntiForgeryToken()
 
-                    @* Honeypot fields — păcălesc browserul să nu autocompleteze câmpurile reale *@
+                  
                     <input type="text" name="_fake_user" autocomplete="username"
                            style="display:none" tabindex="-1" aria-hidden="true" />
                     <input type="password" name="_fake_pass" autocomplete="current-password"
@@ -56,12 +56,19 @@
                         <div class="col-md-6 mb-3">
                             <label asp-for="CNP" class="form-label"></label>
                             <input asp-for="CNP" class="form-control" maxlength="13"
+                                   inputmode="numeric"
                                    autocomplete="off" />
                             <span asp-validation-for="CNP" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="DataNastere" class="form-label"></label>
-                            <input asp-for="DataNastere" class="form-control" type="date"
+                            <input asp-for="DataNastere" class="form-control date-auto-format"
+                                   type="text"
+                                   inputmode="numeric"
+                                   maxlength="10"
+                                   placeholder="zz/ll/aaaa"
+                                   pattern="\d{2}/\d{2}/\d{4}"
+                                   title="Format așteptat: zz/ll/aaaa (ex: 25/12/1985)"
                                    autocomplete="off" />
                             <span asp-validation-for="DataNastere" class="text-danger"></span>
                         </div>
@@ -138,4 +145,5 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script src="~/js/password-strength.js" asp-append-version="true"></script>
+    <script src="~/js/register-form.js" asp-append-version="true"></script>
 }
