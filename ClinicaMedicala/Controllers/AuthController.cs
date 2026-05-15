@@ -28,7 +28,7 @@ public class AuthController : Controller
         _logger = logger;
     }
 
-    // ── LOGIN ─────────────────────────────────────────────────────────────────
+  
     [HttpGet]
     [AllowAnonymous]
     public IActionResult Login(string? returnUrl = null)
@@ -57,7 +57,7 @@ public class AuthController : Controller
             return View(model);
         }
 
-        // Construim identitatea cu claims (rol, id, nume)
+      
         var claims = new List<Claim>
         {
             new(ClaimTypes.NameIdentifier, rezultat.Utilizator.Id.ToString()),
@@ -78,14 +78,14 @@ public class AuthController : Controller
                 ExpiresUtc = DateTimeOffset.UtcNow.AddHours(model.TineMaMinte ? 24 * 14 : 8)
             });
 
-        // Redirect către ReturnUrl dacă e local și sigur, altfel Home
+        
         if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
             return Redirect(model.ReturnUrl);
 
         return RedirectToAction("Index", "Home");
     }
 
-    // ── LOGOUT ────────────────────────────────────────────────────────────────
+  
     [HttpPost]
     [Authorize]
     [ValidateAntiForgeryToken]
@@ -95,7 +95,7 @@ public class AuthController : Controller
         return RedirectToAction(nameof(Login));
     }
 
-    // ── REGISTER PACIENT (auto-înregistrare) ──────────────────────────────────
+
     [HttpGet]
     [AllowAnonymous]
     public IActionResult Register()
@@ -142,7 +142,7 @@ public class AuthController : Controller
         }
     }
 
-    // ── FORGOT PASSWORD ───────────────────────────────────────────────────────
+  
     [HttpGet]
     [AllowAnonymous]
     public IActionResult ForgotPassword() => View(new ForgotPasswordViewModel());
@@ -156,10 +156,9 @@ public class AuthController : Controller
 
         var token = await _passwordResetService.SolicitaResetAsync(model.Email);
 
-        // Mesaj generic indiferent dacă email-ul există sau nu (evită user enumeration)
+       
         TempData["Info"] = "Dacă există un cont cu acest email, vei primi instrucțiuni de resetare.";
 
-        // În producție: aici se trimite email cu link-ul; pentru moment îl logăm
         if (token != null)
         {
             var resetUrl = Url.Action(nameof(ResetPassword), "Auth", new { token }, Request.Scheme);
@@ -169,7 +168,7 @@ public class AuthController : Controller
         return RedirectToAction(nameof(Login));
     }
 
-    // ── RESET PASSWORD ────────────────────────────────────────────────────────
+  
     [HttpGet]
     [AllowAnonymous]
     public IActionResult ResetPassword(string? token)
@@ -199,7 +198,6 @@ public class AuthController : Controller
         return RedirectToAction(nameof(Login));
     }
 
-    // ── ACCESS DENIED ─────────────────────────────────────────────────────────
     [AllowAnonymous]
     public IActionResult AccessDenied() => View();
 }

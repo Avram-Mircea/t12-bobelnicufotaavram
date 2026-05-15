@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ClinicaMedicala.Models;
 
-// REQ-09: Denumirea trebuie să fie unică în sistem (alături de NumarInventar)
+
 [Index(nameof(NumarInventar), IsUnique = true)]
 [Index(nameof(Denumire), IsUnique = true)]
 public class Resursa
@@ -22,33 +22,30 @@ public class Resursa
     [Required]
     public StareResursa Stare { get; set; }
 
-    // REQ-11, REQ-12: status administrativ separat de starea tehnică.
-    // Activ=false → resursa nu apare în calendar pentru programări noi.
-    // Distinct de Stare (Funcțional / Defect / Mentenanță) care reflectă condiția tehnică.
+    
     [Required]
     public bool Activ { get; set; } = true;
 
-    // Număr de inventar — obligatoriu în unitățile medicale din România (Ord. 2861/2009)
+ 
     [Required]
     [MaxLength(50)]
     public string NumarInventar { get; set; } = null!;
 
-    // Localizare fizică (ex: "Etaj 2, Camera 204")
+    
     [MaxLength(100)]
     public string? Locatie { get; set; }
 
-    // REQ-13: specializările medicale care pot utiliza această resursă.
-    // Many-to-many — o sală poate fi folosită de Cardiologie + Pediatrie etc.
+ 
     public ICollection<Specializare> Specializari { get; set; } = new List<Specializare>();
 
-    // Dată revizie tehnică — aparatele medicale au revizie periodică obligatorie
+
     [Required]
     public DateTime DataUltimaRevizie { get; set; }
 
     [Required]
     public DateTime DataScadentaRevizie { get; set; }
 
-    // FK Administrator
+
     public int AdministratorId { get; set; }
 
     [ForeignKey(nameof(AdministratorId))]
@@ -56,12 +53,11 @@ public class Resursa
 
     public ICollection<Programare> Programari { get; set; } = new List<Programare>();
 
-    // REQ-14: perioade programate de mentenanță (istoric + viitor)
+
     public ICollection<PerioadaMentenanta> PerioadeMentenanta { get; set; } = new List<PerioadaMentenanta>();
 
-    // REQ-19: resursele de care DEPINDE această resursă (ex: aparatul depinde de sala specifică)
+    
     public ICollection<DependentaResursa> DependenteIesite { get; set; } = new List<DependentaResursa>();
 
-    // REQ-19: alte resurse care depind de aceasta (oglindă, util pentru raportare)
     public ICollection<DependentaResursa> DependenteIntrate { get; set; } = new List<DependentaResursa>();
 }

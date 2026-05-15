@@ -10,7 +10,7 @@ public class ApplicationDbContext : DbContext
     {
     }
 
-    // ── DbSets ────────────────────────────────────────────────────────────────
+   
     public DbSet<Utilizator> Utilizatori { get; set; } = null!;
     public DbSet<Medic> Medici { get; set; } = null!;
     public DbSet<Asistent> Asistenti { get; set; } = null!;
@@ -32,12 +32,9 @@ public class ApplicationDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        // ── TPT: fiecare tip de utilizator are propria tabelă ─────────────────
-        // Utilizatori → date comune
-        // Medici / Pacienti / Asistenti / Administratori → date specifice tipului
+      
         modelBuilder.Entity<Utilizator>().UseTptMappingStrategy();
 
-        // ── MEDIC ─────────────────────────────────────────────────────────────
         modelBuilder.Entity<Medic>()
             .HasIndex(m => m.CodParafa)
             .IsUnique();
@@ -46,14 +43,13 @@ public class ApplicationDbContext : DbContext
             .Property(m => m.CostConsultatie)
             .HasColumnType("decimal(18,2)");
 
-        // ── RESURSA ───────────────────────────────────────────────────────────
         modelBuilder.Entity<Resursa>()
             .HasOne(r => r.Administrator)
             .WithMany(a => a.ResurseAdministrate)
             .HasForeignKey(r => r.AdministratorId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // ── PROGRAMARE ────────────────────────────────────────────────────────
+       
         modelBuilder.Entity<Programare>()
             .HasOne(p => p.Pacient)
             .WithMany(pa => pa.Programari)
@@ -78,14 +74,13 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(p => p.ResursaId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        // ── FISA MEDICALA: one-to-one cu Pacient ──────────────────────────────
+  
         modelBuilder.Entity<FisaMedicala>()
             .HasOne(f => f.Pacient)
             .WithOne(p => p.FisaMedicala)
             .HasForeignKey<FisaMedicala>(f => f.PacientId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // ── CONSULTATIE ───────────────────────────────────────────────────────
         modelBuilder.Entity<Consultatie>()
             .HasOne(c => c.Medic)
             .WithMany(m => m.Consultatii)
@@ -98,14 +93,13 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(c => c.FisaMedicalaId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Legătură opțională one-to-one consultație ↔ programare
+      
         modelBuilder.Entity<Consultatie>()
             .HasOne(c => c.Programare)
             .WithOne(p => p.Consultatie)
             .HasForeignKey<Consultatie>(c => c.ProgramareId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        // ── DOCUMENT MEDICAL ──────────────────────────────────────────────────
         modelBuilder.Entity<DocumentMedical>()
             .HasOne(d => d.Pacient)
             .WithMany(p => p.DocumenteMedicale)
@@ -118,7 +112,7 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(d => d.MedicId)
             .OnDelete(DeleteBehavior.SetNull);
 
-        // ── RATING ────────────────────────────────────────────────────────────
+ 
         modelBuilder.Entity<Rating>()
             .HasOne(r => r.Pacient)
             .WithMany(p => p.Ratinguri)
@@ -131,23 +125,19 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(r => r.MedicId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // Unicitate: pentru aceeași pereche (pacient, medic) poate exista
-        // cel mult un rating per direcție (pacient→medic și medic→pacient).
+     
         modelBuilder.Entity<Rating>()
             .HasIndex(r => new { r.PacientId, r.MedicId, r.AcordatDeMedic })
             .IsUnique();
 
-        // ── AUTENTIFICARE ─────────────────────────────────────────────────────
+      
         modelBuilder.Entity<Autentificare>()
             .HasOne(a => a.Utilizator)
             .WithMany()
             .HasForeignKey(a => a.UtilizatorId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // ── MEDIC ↔ PACIENT: many-to-many ─────────────────────────────────────
-        // Cu TPT, fiecare derived table are propria sa cascadă spre Utilizatori,
-        // deci junction table-urile trebuie să aibă Restrict pe ambele FKs
-        // pentru a evita multiple cascade paths detectate de SQL Server.
+    
         modelBuilder.Entity<Medic>()
             .HasMany(m => m.Pacienti)
             .WithMany(p => p.Medici)
@@ -159,7 +149,7 @@ public class ApplicationDbContext : DbContext
                       .HasForeignKey("MediciId").OnDelete(DeleteBehavior.Restrict)
             );
 
-        // ── MEDIC ↔ ASISTENT: many-to-many ────────────────────────────────────
+      
         modelBuilder.Entity<Medic>()
             .HasMany(m => m.Asistenti)
             .WithMany(a => a.Medici)
@@ -171,22 +161,20 @@ public class ApplicationDbContext : DbContext
                       .HasForeignKey("MediciId").OnDelete(DeleteBehavior.Restrict)
             );
 
-        // ── RESURSA ↔ SPECIALIZARE: many-to-many (REQ-13) ─────────────────────
+   
         modelBuilder.Entity<Resursa>()
             .HasMany(r => r.Specializari)
             .WithMany(s => s.Resurse)
             .UsingEntity(j => j.ToTable("ResursaSpecializare"));
 
-        // ── RESURSA → PERIOADE MENTENANTA (REQ-14) ────────────────────────────
+        
         modelBuilder.Entity<PerioadaMentenanta>()
             .HasOne(p => p.Resursa)
             .WithMany(r => r.PerioadeMentenanta)
             .HasForeignKey(p => p.ResursaId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // ── DEPENDENȚE ÎNTRE RESURSE (REQ-19) ─────────────────────────────────
-        // Two FKs către aceeași tabelă (Resurse) — SQL Server cere Restrict pe
-        // ambele ca să evite multiple cascade paths.
+       
         modelBuilder.Entity<DependentaResursa>()
             .HasOne(d => d.ResursaPrincipala)
             .WithMany(r => r.DependenteIesite)
@@ -199,7 +187,7 @@ public class ApplicationDbContext : DbContext
             .HasForeignKey(d => d.ResursaCerutaId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        // ── Seed reguli per tip de consultație (REQ-16) ───────────────────────
+       
         // O regulă pentru fiecare TipProgramare; adminul ajustează ulterior.
         modelBuilder.Entity<ReguliConsultatie>().HasData(
             new ReguliConsultatie { Id = 1, TipProgramare = TipProgramare.Consult_Initial, NecesitaAsistent = false, Descriere = "Consultație simplă — fără cerințe speciale." },
