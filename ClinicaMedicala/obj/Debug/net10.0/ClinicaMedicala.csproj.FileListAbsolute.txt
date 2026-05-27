@@ -226,3 +226,4 @@ C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\ClinicaMedicala.pdb
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\ClinicaMedicala.genruntimeconfig.cache
 C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\ref\ClinicaMedicala.dll
+C:\Users\MXB\Documents\IS\Implementare_software\ClinicaMedicala\obj\Debug\net10.0\staticwebassets.upToDateCheck.txt

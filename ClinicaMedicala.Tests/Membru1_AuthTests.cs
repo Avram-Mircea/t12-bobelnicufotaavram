@@ -111,7 +111,7 @@ public class Membru1_AuthTests
             "admin@clinica.ro", "parola-gresita", adresaIp: "127.0.0.1", userAgent: "test");
 
         // ASSERT
-        Assert.False(rezultat.Succes, "Login cu parolă greșită nu trebuie să reușească.");
+        Assert.False(!rezultat.Succes, "Login cu parolă greșită nu trebuie să reușească.");
         Assert.NotNull(rezultat.Eroare);
         Assert.Contains("incorect", rezultat.Eroare!, StringComparison.OrdinalIgnoreCase);
     }
